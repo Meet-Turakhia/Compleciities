@@ -1,0 +1,117 @@
+/* full page style */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  padding: 0;
+  margin: 0;
+}
+
+/* map style */
+#map {
+  height: 100vh;
+}
+
+/* leaflet style */
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  overflow: hidden;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+  margin: 0;
+}
+
+.leaflet-popup-content-wrapper h4 {
+  padding: 16px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+}
+
+.leaflet-popup-content-wrapper p {
+  padding: 0 16px;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content .learn-more {
+  padding: 16px;
+  padding-top: 0;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content .learn-more a {
+  color: #000;
+  font-size: 14px;
+}
+
+.leaflet-right .leaflet-control {
+  margin-top: 22px;
+  margin-right: 22px;
+  opacity: 0.8;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgb(0 0 0 / 40%);
+}
+
+.leaflet-touch .leaflet-control-zoom-in,
+.leaflet-touch .leaflet-control-zoom-out {
+  font-size: 18px;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  font: 18px "Lucida Console", Monaco, monospace;
+  text-indent: 1px;
+}
+
+.leaflet-bottom .leaflet-control {
+  margin-bottom: 15%;
+  margin-left: 15%;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgb(0 0 0 / 40%);
+}
+
+@media only screen and (max-width: 600px) {
+  .leaflet-bottom .leaflet-control {
+    margin-bottom: 35%;
+    margin-left: 39%;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgb(0 0 0 / 40%);
+  }
+}
+
+/* marker popup style */
+.marker-popup{
+  text-align: justify; 
+  text-justify: inter-word;
+}
+
+/* btn style */
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}

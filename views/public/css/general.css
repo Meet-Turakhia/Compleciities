@@ -1,0 +1,25 @@
+/* general font style */
+.head-font {
+  font-family: "EB Garamond", serif;
+}
+
+.para-font {
+  font-family: "Dosis", sans-serif;
+}
+
+/* general shadow style */
+.custom-shadow{
+  box-shadow: 0 0 8px rgb(0 0 0 / 40%);
+}
+
+/* general button style */
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgb(0 0 0 / 40%);
+}
+
+/* setting buttons style */
+.setting-buttons{
+  position: relative; 
+  z-index: 1000;
+}

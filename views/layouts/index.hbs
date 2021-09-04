@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <!-- font styles -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- leaflet css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!-- css -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/general.css">
+    <!-- favicon -->
+    <link rel="icon" href="images/complecities_short_logo.png">
+    <!-- page title -->
+    <title>Complecities || Home</title>
+</head>
+
+<body>
+
+    <!-- map -->
+    <main>
+
+        <div id="map">
+
+            <!-- setting buttons -->
+            <div class="setting-buttons">
+                <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
+                    data-bs-toggle="tooltip" data-bs-placement="right" title="Set Location" onclick="setLocation()">
+                    <i class="fa fa-map-pin" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="setting-buttons">
+                <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
+                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Options">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+
+            <div class="setting-buttons">
+                <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
+                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Content">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+
+            <!-- marker options modal -->
+            <div class="modal fade" id="markerOptionsModal" tabindex="-1" aria-labelledby="markerOptionsModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title head-font" id="markerOptionsModalLabel">Marker Options</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <form class="para-font" action="/" method="POST">
+
+                            <div class="modal-body">
+
+                                <div class="row">
+
+                                    <div class="col">
+                                        <label for="latitude" class="form-label fs-6">Lat:</label>
+                                        <input id="latitude" name="latitude" type="number" step="any" class="form-control"
+                                            placeholder="Enter Latitude" readonly="true" autocomplete="off"
+                                            required="true">
+                                    </div>
+                                    <div class="col">
+                                        <label for="longitude" class="form-label fs-6">Lang:</label>
+                                        <input id="longitude" name="longitude" type="number" step="any" class="form-control"
+                                            placeholder="Enter Longitude" readonly="true" autocomplete="off"
+                                            required="true">
+                                    </div>
+                                    <div class="col">
+                                        <label for="zoom" class="form-label fs-6">Zoom:</label>
+                                        <input id="zoom" name="zoom_level" type="number" step="1" min="0" max="6" class="form-control"
+                                            placeholder="Zoom Level" autocomplete="off" required="true">
+                                    </div>
+
+                                </div>
+
+                                <div class="my-3">
+                                    <label for="title" class="form-label fs-6">Title:</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Enter Title"
+                                        autocomplete="off" required="true">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label fs-6">Description:</label>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Enter Description"
+                                        autocomplete="off" required="true"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer para-font">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-dark">Submit</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- leaflet js -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <!-- javascript -->
+    <script type="text/javascript" src="js/marker.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+</body>
+
+</html>
