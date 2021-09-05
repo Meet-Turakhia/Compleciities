@@ -4,8 +4,14 @@ const mongoose = require("mongoose");
 const Marker = mongoose.model("markers");
 
 router.get("/", (req, res) => {
-    res.render("layouts/index", {
-        // For passing some variable
+    Marker.find((err, docs) => {
+        if (!err) {
+            res.render("layouts/index", {
+                markerData: JSON.stringify(docs),
+            });
+        } else {
+            console.log("Error in retrieving Marker Data:" + err);
+        }
     });
 });
 

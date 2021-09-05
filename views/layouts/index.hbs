@@ -59,7 +59,7 @@
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
-                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Content">
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Brief">
                         <i class="fa fa-file-text" aria-hidden="true"></i>
                     </button>
                 </span>
@@ -84,34 +84,35 @@
 
                                     <div class="col">
                                         <label for="latitude" class="form-label fs-6">Lat:</label>
-                                        <input id="latitude" name="latitude" type="number" step="any" class="form-control"
-                                            placeholder="Enter Latitude" readonly="true" autocomplete="off"
-                                            required="true">
+                                        <input id="latitude" name="latitude" type="number" step="any"
+                                            class="form-control" placeholder="Enter Latitude" readonly="true"
+                                            autocomplete="off" required="true">
                                     </div>
                                     <div class="col">
                                         <label for="longitude" class="form-label fs-6">Lang:</label>
-                                        <input id="longitude" name="longitude" type="number" step="any" class="form-control"
-                                            placeholder="Enter Longitude" readonly="true" autocomplete="off"
-                                            required="true">
+                                        <input id="longitude" name="longitude" type="number" step="any"
+                                            class="form-control" placeholder="Enter Longitude" readonly="true"
+                                            autocomplete="off" required="true">
                                     </div>
                                     <div class="col">
                                         <label for="zoom" class="form-label fs-6">Zoom:</label>
-                                        <input id="zoom" name="zoom_level" type="number" step="1" min="0" max="6" class="form-control"
-                                            placeholder="Zoom Level" autocomplete="off" required="true">
+                                        <input id="zoom" name="zoom_level" type="number" step="1" min="0" max="6"
+                                            class="form-control" placeholder="Zoom Level" autocomplete="off"
+                                            required="true">
                                     </div>
 
                                 </div>
 
                                 <div class="my-3">
                                     <label for="title" class="form-label fs-6">Title:</label>
-                                    <input name="title" type="text" class="form-control" id="title" placeholder="Enter Title"
-                                        autocomplete="off" required="true">
+                                    <input name="title" type="text" class="form-control" id="title"
+                                        placeholder="Enter Title" autocomplete="off" required="true">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="description" class="form-label fs-6">Description:</label>
-                                    <textarea class="form-control" id="description" name="description" placeholder="Enter Description"
-                                        autocomplete="off" required="true"></textarea>
+                                    <textarea class="form-control" id="description" name="description"
+                                        placeholder="Enter Description" autocomplete="off" required="true"></textarea>
                                 </div>
 
                             </div>
@@ -130,6 +131,9 @@
         </div>
 
     </main>
+
+    {{!-- using hidden input to pass all markers data to markers.js file --}}
+    <input type="password" class="form-control" id="markerData" value="{{markerData}}" hidden="true">
 
     <!-- leaflet js -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
