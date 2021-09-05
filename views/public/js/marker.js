@@ -10,7 +10,7 @@ markerData.forEach(element => {
         "type": "Feature",
         "geometry": {
             "type": "Point",
-            "coordinates": [element.latitude, element.longitude],
+            "coordinates": [element.longitude, element.latitude],
             "zoom": element.zoom_level,
         },
         "properties": {
