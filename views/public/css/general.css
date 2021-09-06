@@ -23,3 +23,13 @@
   position: relative; 
   z-index: 1000;
 }
+
+/* cursors */
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.cursor-default{
+  cursor: default;
+}
+

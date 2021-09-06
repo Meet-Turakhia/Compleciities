@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- bootstrap -->
@@ -50,7 +50,8 @@
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
-                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Options">
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Options"
+                        onclick="setOptionAdd()">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                     </button>
                 </span>
@@ -66,30 +67,58 @@
             </div>
 
             <!-- marker options modal -->
-            <div class="modal fade" id="markerOptionsModal" tabindex="-1" aria-labelledby="markerOptionsModalLabel"
-                aria-hidden="true">
+            <div class="modal fade cursor-default" id="markerOptionsModal" tabindex="-1"
+                aria-labelledby="markerOptionsModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title head-font" id="markerOptionsModalLabel">Marker Options</h5>
+                            <h5 class="modal-title head-font" id="markerOptionsModalLabel">Add a Marker</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <form class="para-font" action="/" method="POST">
+                        <form id="markerOptionsForm" class="para-font" action="/" method="POST">
+
+                            {{!-- using hidden input to store id of markers for edit and delete --}}
+                            <input type="password" class="form-control" name="markerId" id="marker-id" readonly="true" hidden="true">
 
                             <div class="modal-body">
 
                                 <div class="row">
 
+                                    <div class="col-3 fs-6 mb-3">
+                                        <label class="form-check-label" for="select option">SELECT OPTION:</label>
+                                    </div>
+                                    <div class="col fs-6 mx-3">
+                                        <input class="form-check-input cursor-pointer" type="radio" name="markeroption"
+                                            id="add" value="add" checked="true"
+                                            onclick="toggleMarkerOptionForms(this.value)">
+                                        <label class="form-check-label" for="add">Add</label>
+                                    </div>
+                                    <div class="col fs-6 mx-3">
+                                        <input class="form-check-input cursor-pointer" type="radio" name="markeroption"
+                                            id="edit" value="edit" onclick="toggleMarkerOptionForms(this.value)">
+                                        <label class="form-check-label" for="edit">Edit</label>
+                                    </div>
+                                    <div class="col fs-6 ml-3">
+                                        <input class="form-check-input cursor-pointer" type="radio" name="markeroption"
+                                            id="delete" value="delete" onclick="toggleMarkerOptionForms(this.value)">
+                                        <label class="form-check-label" for="delete">Delete</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
                                     <div class="col">
-                                        <label for="latitude" class="form-label fs-6">Lat:</label>
+                                        <label id="latlabel" for="latitude" class="form-label fs-6">Lat Dflt 0:</label>
                                         <input id="latitude" name="latitude" type="number" step="any"
                                             class="form-control" placeholder="Enter Latitude" readonly="true"
                                             autocomplete="off" required="true">
                                     </div>
                                     <div class="col">
-                                        <label for="longitude" class="form-label fs-6">Lang:</label>
+                                        <label id="langlabel" for="longitude" class="form-label fs-6">Lang Dflt
+                                            0:</label>
                                         <input id="longitude" name="longitude" type="number" step="any"
                                             class="form-control" placeholder="Enter Longitude" readonly="true"
                                             autocomplete="off" required="true">
@@ -104,7 +133,17 @@
                                 </div>
 
                                 <div class="my-3">
-                                    <label for="title" class="form-label fs-6">Title:</label>
+                                    <label id="select-title-label" for="select-title" class="form-label fs-6"
+                                        hidden="true">Select Title:</label>
+                                    <input class="form-control" list="select-title-datalist" id="select-title"
+                                        aria-label="select-title" placeholder="Select Title" hidden="true"
+                                        disabled="true" onchange="setMarkerOptionsFormData();" autocomplete="off"
+                                        required="true" name="selectTitle">
+                                    <datalist id="select-title-datalist"></datalist>
+                                </div>
+
+                                <div class="my-3">
+                                    <label id="title-label" for="title" class="form-label fs-6">Title:</label>
                                     <input name="title" type="text" class="form-control" id="title"
                                         placeholder="Enter Title" autocomplete="off" required="true">
                                 </div>
@@ -133,7 +172,7 @@
     </main>
 
     {{!-- using hidden input to pass all markers data to markers.js file --}}
-    <input type="password" class="form-control" id="markerData" value="{{markerData}}" hidden="true">
+    <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">
 
     <!-- leaflet js -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"

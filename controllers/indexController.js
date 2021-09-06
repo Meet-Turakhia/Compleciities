@@ -36,4 +36,16 @@ function addMarker(req, res) {
     });
 }
 
+router.get("/get-marker-data", (req, res) => {
+    Marker.find((err, docs) => {
+        if (!err) {
+            res.send({
+                markerData: docs,
+            });
+        } else {
+            console.log("Error in retrieving marker data:" + err);
+        }
+    });
+});
+
 module.exports = router;

@@ -1,7 +1,7 @@
 // initialize map
-const map = L.map("map", { 
+const map = L.map("map", {
 
-    attributionControl: false, 
+    attributionControl: false,
 
 }).setView([0, 0], 0);
 const tileUrl = "images/sketch/{z}/{x}/{y}.png";
@@ -50,7 +50,7 @@ function makePopupContent(marker) {
         <h4 class = 'head-font marker-popup'>${marker.properties.title}</h4>
         <p class = 'para-font marker-popup'>${marker.properties.description}</p>
         <div class = "learn-more">
-            <a herf = "${marker.properties.link}">Learn More</a>
+            <a href = "${marker.properties.link}">Learn More</a>
         </div>
 
     </div>
@@ -84,11 +84,11 @@ function flyToMarker() {
     const zoom = this.feature.geometry.zoom
 
     map.flyTo([lat, lng], zoom, {
-        duration: 2,
+        duration: 1.5,
     });
     setTimeout(() => {
         L.popup({ closeButton: false, offset: L.point(0, -8) }).setLatLng([lat, lng]).setContent(makePopupContent(this.feature)).openOn(map);
-    }, 2000);
+    }, 1500);
 }
 
 
@@ -97,14 +97,20 @@ var setLocationOn = false;
 var draggableMarker = L.marker([0, 0], {
     draggable: true,
 })
-
+var setLocationUsed = false;
 
 function setLocation() {
+    var latlabel = document.getElementById("latlabel");
+    var langlabel = document.getElementById("langlabel");
+
     if (setLocationOn == false) {
         setLocationOn = true;
         draggableMarker.addTo(map);
         draggableMarker.on('dragend', function (e) {
             updateLatLng(draggableMarker.getLatLng().lat, draggableMarker.getLatLng().lng);
+            setLocationUsed = true;
+            latlabel.style.color = "green";
+            langlabel.style.color = "green";
         });
 
         function updateLatLng(lat, lng, reverse) {
@@ -130,3 +136,121 @@ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 });
+
+
+// toggle marker option forms
+function toggleMarkerOptionForms(option) {
+    var markerOptionsFormAction = document.getElementById("markerOptionsForm").action;
+    var title = document.getElementById("title");
+    var titleLabel = document.getElementById("title-label");
+    var selectTitle = document.getElementById("select-title");
+    var selectTitleLabel = document.getElementById("select-title-label");
+    var zoom = document.getElementById("zoom");
+    var description = document.getElementById("description");
+    var latlabel = document.getElementById("latlabel");
+    var langlabel = document.getElementById("langlabel");
+    var markerOptionsModalLabel = document.getElementById("markerOptionsModalLabel");
+
+    if (option == "add") {
+        markerOptionsFormAction = "/";
+        markerOptionsModalLabel.innerHTML = "Add a Marker";
+        zoom.value = "";
+        title.value = "";
+        selectTitle.value = "";
+        description.value = "";
+        selectTitleLabel.hidden = true;
+        selectTitle.hidden = true;
+        selectTitle.disabled = true;
+        titleLabel.hidden = false;
+        title.hidden = false;
+        title.disabled = false;
+        zoom.value = null;
+        description.value = null;
+        latlabel.style.color = "black";
+        langlabel.style.color = "black";
+    }
+    if (option == "edit") {
+        markerOptionsFormAction = "/marker-edit";
+        markerOptionsModalLabel.innerHTML = "Edit a Marker";
+        zoom.value = "";
+        title.value = "";
+        selectTitle.value = "";
+        description.value = "";
+        titleLabel.hidden = true;
+        title.hidden = true;
+        title.disabled = true;
+        selectTitleLabel.hidden = false;
+        selectTitle.hidden = false;
+        selectTitle.disabled = false;
+        zoom.value = null;
+        description.value = null;
+        if (setLocationUsed == true) {
+            latlabel.style.color = "green";
+            langlabel.style.color = "green";
+        }
+        setSelectTitleData();
+    }
+    if (option == "delete") {
+        markerOptionsFormAction = "/marker-delete";
+        markerOptionsModalLabel.innerHTML = "Delete a Marker";
+        zoom.value = "";
+        title.value = "";
+        selectTitle.value = "";
+        description.value = "";
+        titleLabel.hidden = true;
+        title.hidden = true;
+        title.disabled = true;
+        selectTitleLabel.hidden = false;
+        selectTitle.hidden = false;
+        selectTitle.disabled = false;
+        zoom.value = null;
+        description.value = null;
+        if (setLocationUsed == true) {
+            latlabel.style.color = "black";
+            langlabel.style.color = "black";
+        }
+        setSelectTitleData();
+    }
+}
+
+
+function setSelectTitleData() {
+    var datalist = document.getElementById("select-title-datalist");
+    datalist.innerHTML = "";
+    var markerData = document.getElementById("markerData").value;
+    markerData = JSON.parse(markerData);
+    markerData.forEach(marker => {
+        var option = document.createElement("option");
+        option.value = marker.title;
+        datalist.appendChild(option);
+    });
+}
+
+
+// set marker options form data
+function setMarkerOptionsFormData() {
+    var markerData = document.getElementById("markerData").value;
+    var selectedTitle = document.getElementById("select-title").value;
+    var zoom = document.getElementById("zoom");
+    var description = document.getElementById("description");
+    var latitude = document.getElementById("latitude");
+    var longitude = document.getElementById("longitude");
+    var markerId = document.getElementById("marker-id");
+    markerData.forEach(marker => {
+        if (marker.title == selectedTitle) {
+            zoom.value = marker.zoom_level;
+            description.value = marker.description;
+            markerId.value = marker.__id;
+            if (setLocationUsed == false) {
+                latitude.value = marker.latitude;
+                longitude.value = marker.longitude;
+            }
+        }
+    });
+}
+
+
+// on click set marker option add
+function setOptionAdd() {
+    document.getElementById("add").click();
+}
