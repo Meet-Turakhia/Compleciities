@@ -140,7 +140,6 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 
 // toggle marker option forms
 function toggleMarkerOptionForms(option) {
-    var markerOptionsFormAction = document.getElementById("markerOptionsForm").action;
     var title = document.getElementById("title");
     var titleLabel = document.getElementById("title-label");
     var selectTitle = document.getElementById("select-title");
@@ -152,7 +151,7 @@ function toggleMarkerOptionForms(option) {
     var markerOptionsModalLabel = document.getElementById("markerOptionsModalLabel");
 
     if (option == "add") {
-        markerOptionsFormAction = "/";
+        document.getElementById("markerOptionsForm").action = "/";
         markerOptionsModalLabel.innerHTML = "Add a Marker";
         zoom.value = "";
         title.value = "";
@@ -170,7 +169,7 @@ function toggleMarkerOptionForms(option) {
         langlabel.style.color = "black";
     }
     if (option == "edit") {
-        markerOptionsFormAction = "/marker-edit";
+        document.getElementById("markerOptionsForm").action = "/edit-marker";
         markerOptionsModalLabel.innerHTML = "Edit a Marker";
         zoom.value = "";
         title.value = "";
@@ -191,7 +190,7 @@ function toggleMarkerOptionForms(option) {
         setSelectTitleData();
     }
     if (option == "delete") {
-        markerOptionsFormAction = "/marker-delete";
+        document.getElementById("markerOptionsForm").action = "/delete-marker";
         markerOptionsModalLabel.innerHTML = "Delete a Marker";
         zoom.value = "";
         title.value = "";
@@ -241,7 +240,7 @@ function setMarkerOptionsFormData() {
         if (marker.title == selectedTitle) {
             zoom.value = marker.zoom_level;
             description.value = marker.description;
-            markerId.value = marker.__id;
+            markerId.value = marker._id;
             if (setLocationUsed == false) {
                 latitude.value = marker.latitude;
                 longitude.value = marker.longitude;

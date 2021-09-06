@@ -80,7 +80,8 @@
                         <form id="markerOptionsForm" class="para-font" action="/" method="POST">
 
                             {{!-- using hidden input to store id of markers for edit and delete --}}
-                            <input type="password" class="form-control" name="markerId" id="marker-id" readonly="true" hidden="true">
+                            <input type="password" class="form-control" name="markerId" id="marker-id" readonly="true"
+                                hidden="true">
 
                             <div class="modal-body">
 
@@ -138,7 +139,7 @@
                                     <input class="form-control" list="select-title-datalist" id="select-title"
                                         aria-label="select-title" placeholder="Select Title" hidden="true"
                                         disabled="true" onchange="setMarkerOptionsFormData();" autocomplete="off"
-                                        required="true" name="selectTitle">
+                                        required="true" name="title">
                                     <datalist id="select-title-datalist"></datalist>
                                 </div>
 

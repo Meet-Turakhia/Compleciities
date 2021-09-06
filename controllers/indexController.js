@@ -10,13 +10,21 @@ router.get("/", (req, res) => {
                 markerData: JSON.stringify(docs),
             });
         } else {
-            console.log("Error in retrieving Marker Data:" + err);
+            console.log("Following error occured while retrieving the marker data:" + err);
         }
     });
 });
 
 router.post("/", (req, res) => {
     addMarker(req, res);
+});
+
+router.post("/edit-marker", (req, res) => {
+    editMarker(req, res);
+});
+
+router.post("/delete-marker", (req, res) => {
+    deleteMarker(req, res);
 });
 
 function addMarker(req, res) {
@@ -36,16 +44,25 @@ function addMarker(req, res) {
     });
 }
 
-router.get("/get-marker-data", (req, res) => {
-    Marker.find((err, docs) => {
+function editMarker(req, res) {
+    Marker.findOneAndUpdate({ _id: req.body.markerId }, req.body, { new: true }, (err, doc) => {
         if (!err) {
-            res.send({
-                markerData: docs,
-            });
+            res.redirect("/");
         } else {
-            console.log("Error in retrieving marker data:" + err);
+            console.log("Following error occured while updating the marker data: " + err);
         }
     });
-});
+}
+
+function deleteMarker(req, res) {
+    Marker.findByIdAndRemove(req.body.markerId, (err, doc) => {
+        if (!err) {
+            res.redirect("/");
+        }
+        else {
+            console.log("Following error occured while deleting the marker data: " + err);
+        }
+    });
+}
 
 module.exports = router;
