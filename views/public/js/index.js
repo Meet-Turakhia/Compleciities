@@ -230,6 +230,7 @@ function setSelectTitleData() {
 // set marker options form data
 function setMarkerOptionsFormData() {
     var markerData = document.getElementById("markerData").value;
+    markerData = JSON.parse(markerData);
     var selectedTitle = document.getElementById("select-title").value;
     var zoom = document.getElementById("zoom");
     var description = document.getElementById("description");
