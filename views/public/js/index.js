@@ -149,6 +149,7 @@ function toggleMarkerOptionForms(option) {
     var latlabel = document.getElementById("latlabel");
     var langlabel = document.getElementById("langlabel");
     var markerOptionsModalLabel = document.getElementById("markerOptionsModalLabel");
+    var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
 
     if (option == "add") {
         document.getElementById("markerOptionsForm").action = "/";
@@ -167,6 +168,7 @@ function toggleMarkerOptionForms(option) {
         description.value = null;
         latlabel.style.color = "black";
         langlabel.style.color = "black";
+        markerOptionsSubmitButton.innerHTML = "Add";
     }
     if (option == "edit") {
         document.getElementById("markerOptionsForm").action = "/edit-marker";
@@ -183,6 +185,7 @@ function toggleMarkerOptionForms(option) {
         selectTitle.disabled = false;
         zoom.value = null;
         description.value = null;
+        markerOptionsSubmitButton.innerHTML = "Edit";
         if (setLocationUsed == true) {
             latlabel.style.color = "green";
             langlabel.style.color = "green";
@@ -204,6 +207,7 @@ function toggleMarkerOptionForms(option) {
         selectTitle.disabled = false;
         zoom.value = null;
         description.value = null;
+        markerOptionsSubmitButton.innerHTML = "Delete";
         if (setLocationUsed == true) {
             latlabel.style.color = "black";
             langlabel.style.color = "black";
