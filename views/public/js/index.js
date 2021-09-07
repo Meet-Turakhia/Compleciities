@@ -169,6 +169,7 @@ function toggleMarkerOptionForms(option) {
         latlabel.style.color = "black";
         langlabel.style.color = "black";
         markerOptionsSubmitButton.innerHTML = "Add";
+        removeConfirmMarkerDelete();
     }
     if (option == "edit") {
         document.getElementById("markerOptionsForm").action = "/edit-marker";
@@ -191,6 +192,7 @@ function toggleMarkerOptionForms(option) {
             langlabel.style.color = "green";
         }
         setSelectTitleData();
+        removeConfirmMarkerDelete();
     }
     if (option == "delete") {
         document.getElementById("markerOptionsForm").action = "/delete-marker";
@@ -213,6 +215,7 @@ function toggleMarkerOptionForms(option) {
             langlabel.style.color = "black";
         }
         setSelectTitleData();
+        addConfirmMarkerDelete();
     }
 }
 
@@ -258,3 +261,27 @@ function setMarkerOptionsFormData() {
 function setOptionAdd() {
     document.getElementById("add").click();
 }
+
+
+// confirm marker delete function
+function confirmMarkerDelete() {
+    var selectedTitle = document.getElementById("select-title").value;
+    if (selectedTitle != ""){
+        return confirm("Are you sure you want to delete '" + selectedTitle + "' marker, deleting this marker will also delete its brief, Do you want to proceed?");
+    }
+}
+
+
+function addConfirmMarkerDelete() {
+    var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
+    markerOptionsSubmitButton.onclick = confirmMarkerDelete;
+}
+
+
+function removeConfirmMarkerDelete() {
+    var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
+    markerOptionsSubmitButton.onclick = null;
+}
+
+
+
