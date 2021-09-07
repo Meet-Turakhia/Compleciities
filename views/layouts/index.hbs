@@ -51,30 +51,33 @@
                 <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Options"
-                        onclick="setOptionAdd()">
+                        onclick="markerOptionsModalOptions()">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                     </button>
                 </span>
             </div>
 
             <div class="setting-buttons">
-                <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
+                <span data-bs-toggle="modal" data-bs-target="#markerBriefModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
-                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Brief">
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Brief"
+                        onclick="markerBriefModalOptions()">
                         <i class="fa fa-file-text" aria-hidden="true"></i>
                     </button>
                 </span>
             </div>
 
             <!-- marker options modal -->
-            <div class="modal fade cursor-default" id="markerOptionsModal" tabindex="-1"
-                aria-labelledby="markerOptionsModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal fade" id="markerOptionsModal" tabindex="-1"
+                aria-labelledby="markerOptionsModalLabel" aria-hidden="true" data-bs-backdrop="static"
+                data-bs-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
                         <div class="modal-header">
                             <h5 class="modal-title head-font" id="markerOptionsModalLabel">Marker Options</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onclick="mapScrollDragEnable();"></button>
                         </div>
 
                         <form id="markerOptionsForm" class="para-font" action="/" method="POST">
@@ -157,9 +160,66 @@
 
                             </div>
 
-                            <div class="modal-footer para-font">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button id="marker-options-submit-button" type="submit" class="btn btn-dark">Submit</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    onclick="mapScrollDragEnable();">Close</button>
+                                <button id="marker-options-submit-button" type="submit"
+                                    class="btn btn-dark">Submit</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            {{!-- marker brief modal --}}
+            <div class="modal fade" id="markerBriefModal" tabindex="-1" aria-labelledby="markerBriefModalLabel"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title head-font" id="markerBriefModalLabel">Marker Brief</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onclick="mapScrollDragEnable();"></button>
+                        </div>
+
+                        <form id="markerBriefForm" class="para-font" action="/" method="POST">
+
+                            <div class="modal-body">
+
+                                <div class="mb-3">
+                                    <label id="select-marker-title-label" for="select-marker-title-label"
+                                        class="form-label fs-6">Select
+                                        Title:</label>
+                                    <select id="select-marker-title" class="form-select"
+                                        aria-label="select-marker-title">
+                                        <option selected>Select Title</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="title-label-brief" class="form-label fs-6">Title:</label>
+                                    <input type="text" class="form-control" id="title-brief"
+                                        aria-describedby="title-brief" placeholder="Enter Title" autocomplete="off"
+                                        required="true">
+                                </div>
+
+                                <div>
+                                    <label for="brief-label" class="form-label fs-6">Brief:</label>
+                                    <div id="ckeditor">Enter Brief</div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    onclick="mapScrollDragEnable();">Close</button>
+                                <button type="submit" class="btn btn-dark">Submit</button>
                             </div>
 
                         </form>
@@ -179,6 +239,8 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
+    {{!-- ckeditor js --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
     <!-- javascript -->
     <script type="text/javascript" src="js/marker.js"></script>
     <script type="text/javascript" src="js/index.js"></script>

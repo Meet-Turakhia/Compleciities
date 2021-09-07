@@ -257,16 +257,22 @@ function setMarkerOptionsFormData() {
 }
 
 
-// on click set marker option add
-function setOptionAdd() {
+// marker options and marker brief desired settings
+function markerOptionsModalOptions() {
     document.getElementById("add").click();
+    mapScrollDragDisable();
+}
+
+
+function markerBriefModalOptions() {
+    mapScrollDragDisable();
 }
 
 
 // confirm marker delete function
 function confirmMarkerDelete() {
     var selectedTitle = document.getElementById("select-title").value;
-    if (selectedTitle != ""){
+    if (selectedTitle != "") {
         return confirm("Are you sure you want to delete '" + selectedTitle + "' marker, deleting this marker will also delete its brief, Do you want to proceed?");
     }
 }
@@ -283,5 +289,28 @@ function removeConfirmMarkerDelete() {
     markerOptionsSubmitButton.onclick = null;
 }
 
+
+// initializing ckeditor
+ClassicEditor
+    .create(document.querySelector('#ckeditor'))
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+
+// map dragging enable disable functions 
+function mapScrollDragEnable() {
+    map.scrollWheelZoom.enable();
+    map.dragging.enable();
+}
+
+
+function mapScrollDragDisable() {
+    map.scrollWheelZoom.disable();
+    map.dragging.disable();
+}
 
 
