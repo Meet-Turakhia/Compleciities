@@ -306,12 +306,14 @@ ClassicEditor
 function mapScrollDragEnable() {
     map.scrollWheelZoom.enable();
     map.dragging.enable();
+    dblClickZoomEnable();
 }
 
 
 function mapScrollDragDisable() {
     map.scrollWheelZoom.disable();
     map.dragging.disable();
+    dblClickZoomDisable();
 }
 
 
