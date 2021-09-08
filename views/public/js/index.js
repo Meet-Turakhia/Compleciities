@@ -13,7 +13,6 @@ const tileLayer = L.tileLayer(tileUrl, {
 });
 L.featureGroup([tileLayer]).addTo(map);
 map.setMaxBounds(map.getBounds());
-map.doubleClickZoom.disable();
 
 
 // logo watermark
@@ -105,6 +104,7 @@ function setLocation() {
 
     if (setLocationOn == false) {
         setLocationOn = true;
+        dblClickZoomDisable();
         draggableMarker.addTo(map);
         draggableMarker.on('dragend', function (e) {
             updateLatLng(draggableMarker.getLatLng().lat, draggableMarker.getLatLng().lng);
@@ -127,6 +127,7 @@ function setLocation() {
     else {
         map.removeLayer(draggableMarker);
         setLocationOn = false;
+        dblClickZoomEnable();
     }
 }
 
@@ -294,7 +295,7 @@ function removeConfirmMarkerDelete() {
 ClassicEditor
     .create(document.querySelector('#ckeditor'))
     .then(editor => {
-        console.log(editor);
+        // console.log(editor);
     })
     .catch(error => {
         console.error(error);
@@ -311,6 +312,17 @@ function mapScrollDragEnable() {
 function mapScrollDragDisable() {
     map.scrollWheelZoom.disable();
     map.dragging.disable();
+}
+
+
+// map double click zoom enable disable functions 
+function dblClickZoomEnable() {
+    map.doubleClickZoom.enable();
+}
+
+
+function dblClickZoomDisable() {
+    map.doubleClickZoom.disable();
 }
 
 

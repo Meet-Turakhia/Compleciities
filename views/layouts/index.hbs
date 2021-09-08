@@ -68,9 +68,8 @@
             </div>
 
             <!-- marker options modal -->
-            <div class="modal fade" id="markerOptionsModal" tabindex="-1"
-                aria-labelledby="markerOptionsModalLabel" aria-hidden="true" data-bs-backdrop="static"
-                data-bs-keyboard="false">
+            <div class="modal fade" id="markerOptionsModal" tabindex="-1" aria-labelledby="markerOptionsModalLabel"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
@@ -190,12 +189,12 @@
                             <div class="modal-body">
 
                                 <div class="mb-3">
-                                    <label id="select-marker-title-label" for="select-marker-title-label"
+                                    <label id="select-marker-label" for="select-marker-label"
                                         class="form-label fs-6">Select
-                                        Title:</label>
+                                        Marker:</label>
                                     <select id="select-marker-title" class="form-select"
                                         aria-label="select-marker-title">
-                                        <option selected>Select Title</option>
+                                        <option selected>Select Marker</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
@@ -209,9 +208,14 @@
                                         required="true">
                                 </div>
 
-                                <div>
+                                <div class="mb-3">
                                     <label for="brief-label" class="form-label fs-6">Brief:</label>
-                                    <div id="ckeditor">Enter Brief</div>
+                                    <div id="ckeditor">Enter Brief for your Marker!</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="media-label" class="form-label fs-6">Upload images and videos:</label>
+                                    <input class="form-control" type="file" id="media" multiple>
                                 </div>
 
                             </div>
@@ -219,7 +223,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                     onclick="mapScrollDragEnable();">Close</button>
-                                <button type="submit" class="btn btn-dark">Submit</button>
+                                <button id="marker-brief-submit-button" type="submit" class="btn btn-dark">Submit</button>
                             </div>
 
                         </form>
