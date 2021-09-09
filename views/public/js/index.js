@@ -328,3 +328,45 @@ function dblClickZoomDisable() {
 }
 
 
+
+// set select marker function
+setSelectMarkerTitle();
+function setSelectMarkerTitle() {
+    var selectMarker = document.getElementById("select-marker-title");
+    var markerData = document.getElementById("markerData").value;
+    markerData = JSON.parse(markerData);
+    markerData.forEach(marker => {
+        var option = document.createElement("option");
+        option.text = marker.title;
+        option.value = marker.title;
+        selectMarker.appendChild(option);
+    });
+}
+
+
+// set selected marker's id  function
+function setSelectMarkerTitleId() {
+    var selectMarkerId = document.getElementById("select-marker-id");
+    var selectMarkerValue = document.getElementById("select-marker-title").value;
+    var markerData = document.getElementById("markerData").value;
+    markerData = JSON.parse(markerData);
+    markerData.forEach(marker => {
+        if (marker.title == selectMarkerValue) {
+            selectMarkerId.value = marker._id;
+        }
+    });
+}
+
+
+// set brief title same as marker title function
+$("#copy-marker-title").change(function () {
+    var selectMarkerValue = document.getElementById("select-marker-title").value;
+    var titleBrief = document.getElementById("title-brief");
+    if (this.checked) {
+        if (selectMarkerValue != "Select Marker") {
+            titleBrief.value = selectMarkerValue;
+        }
+    } else {
+        titleBrief.value = "";
+    }
+});

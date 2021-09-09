@@ -2,6 +2,9 @@ const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const Marker = mongoose.model("markers");
+const Brief = mongoose.model("briefs");
+const multer = require('multer')
+const upload = multer({ dest: './views/public/uploads/' })
 
 router.get("/", (req, res) => {
     Marker.find((err, docs) => {
@@ -25,6 +28,10 @@ router.post("/edit-marker", (req, res) => {
 
 router.post("/delete-marker", (req, res) => {
     deleteMarker(req, res);
+});
+
+router.post("/add-brief",upload.array("media", 10), (req, res, next) => {
+    addBrief(req, res);
 });
 
 function addMarker(req, res) {
@@ -61,6 +68,22 @@ function deleteMarker(req, res) {
         }
         else {
             console.log("Following error occured while deleting the marker data: " + err);
+        }
+    });
+}
+
+function addBrief(req, res) {
+    var brief = new Brief();
+    brief.marker_id = req.body.marker_id;
+    brief.title = req.body.title;
+    brief.brief = req.body.brief; 
+    brief.media = req.files;
+    brief.save((err, doc) => {
+        if (!err) {
+            res.redirect("/");
+        }
+        else {
+            console.log("Following error occured while adding new brief in database: " + err);
         }
     });
 }
