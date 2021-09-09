@@ -3,8 +3,19 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const Marker = mongoose.model("markers");
 const Brief = mongoose.model("briefs");
-const multer = require('multer')
-const upload = multer({ dest: './views/public/uploads/' })
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './views/public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        var today = new Date();
+        var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        var time = today.getHours() + '-' + today.getMinutes() + '-' + today.getSeconds();
+        cb(null, date + "_" + time + "_" + file.originalname);
+    }
+})
+const upload = multer({ storage: storage});
 
 router.get("/", (req, res) => {
     Marker.find((err, docs) => {
