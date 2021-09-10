@@ -1,3 +1,5 @@
+// dependencies and variables
+var globalPercentage;
 const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
@@ -17,6 +19,30 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage});
 
+
+// middlewares
+function progress_middleware(req, res, next) {
+    let count = 0;
+    let progress = 0;
+    const file_size = req.headers["content-length"];
+    // set event listener
+    req.on("data", (chunk) => {
+        progress += chunk.length;
+        globalPercentage = (progress / file_size) * 100;
+    });
+    req.percent = globalPercentage;
+    if (globalPercentage == 100) {
+        count += 1;
+        if (count == 2){
+            globalPercentage = 0;
+        }
+    }
+    // invoke next middleware
+    next();
+}
+
+
+// routes
 router.get("/", (req, res) => {
     Marker.find((err, docs) => {
         if (!err) {
@@ -41,10 +67,18 @@ router.post("/delete-marker", (req, res) => {
     deleteMarker(req, res);
 });
 
-router.post("/add-brief",upload.array("media", 10), (req, res, next) => {
+router.post("/add-brief", progress_middleware, upload.array("media", 10), (req, res, next) => {
     addBrief(req, res);
 });
 
+router.get("/get-upload-progress", progress_middleware, (req, res, next) => {
+    res.send({
+        percentage: req.percent,
+    });
+});
+
+
+// functions
 function addMarker(req, res) {
     var marker = new Marker();
     marker.latitude = req.body.latitude;

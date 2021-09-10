@@ -370,3 +370,25 @@ $("#copy-marker-title").change(function () {
         titleBrief.value = "";
     }
 });
+
+
+// get upload progress and display using progress bar on home page
+function displayUploadProgress() {
+    const markerBriefCloseButton = document.getElementById("marker-brief-close-button");
+    const markerBriefCrossButton = document.getElementById("marker-brief-cross-button");
+    const progressWrapper = document.getElementById("progress-wrapper");
+    const briefProgressBar = document.getElementById("brief-progress-bar");
+    markerBriefCloseButton.disabled = true;
+    markerBriefCrossButton.disabled = true;
+    progressWrapper.hidden = false;
+    setInterval(async function getUploadProgress() {
+        var result = await fetch("/get-upload-progress");
+        result.json().then(result => {
+            briefProgressBar.style.width = Math.round(result.percentage).toString() + "%";
+            briefProgressBar.innerHTML = Math.round(result.percentage).toString() + "%";
+            if (result.percentage == 100) {
+                return
+            }
+        });
+    }, 10);
+}

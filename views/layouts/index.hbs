@@ -180,7 +180,7 @@
 
                         <div class="modal-header">
                             <h5 class="modal-title head-font" id="markerBriefModalLabel">Marker Brief</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            <button id="marker-brief-cross-button" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 onclick="mapScrollDragEnable();"></button>
                         </div>
 
@@ -228,13 +228,18 @@
                                     <input class="form-control" name="media" type="file" id="media" multiple="true">
                                 </div>
 
+                                <div id="progress-wrapper" class="progress" hidden="true">
+                                    <div id="brief-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                                </div>
+
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                <button id="marker-brief-close-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                     onclick="mapScrollDragEnable();">Close</button>
                                 <button id="marker-brief-submit-button" type="submit"
-                                    class="btn btn-dark">Submit</button>
+                                    class="btn btn-dark" onclick="displayUploadProgress()">Submit</button>
                             </div>
 
                         </form>
