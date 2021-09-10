@@ -180,8 +180,8 @@
 
                         <div class="modal-header">
                             <h5 class="modal-title head-font" id="markerBriefModalLabel">Marker Brief</h5>
-                            <button id="marker-brief-cross-button" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                onclick="mapScrollDragEnable();"></button>
+                            <button id="marker-brief-cross-button" type="button" class="btn-close"
+                                data-bs-dismiss="modal" aria-label="Close" onclick="mapScrollDragEnable();"></button>
                         </div>
 
                         <form id="markerBriefForm" class="para-font" action="/add-brief" method="POST"
@@ -193,53 +193,62 @@
 
                             <div class="modal-body">
 
-                                <div class="mb-3">
-                                    <label id="select-marker-label" for="select-marker-label"
-                                        class="form-label fs-6">Select
-                                        Marker:</label>
-                                    <select id="select-marker-title" class="form-select" name="selectMarkerTitle"
-                                        aria-label="select-marker-title" onchange="setSelectMarkerTitleId();"
-                                        autocomplete="off" required="true">
-                                        <option selected hidden="true" disabled="true">Select Marker</option>
-                                    </select>
+                                <div id="hide-while-upload-wrapper">
+
+                                    <div class="mb-3">
+                                        <label id="select-marker-label" for="select-marker-label"
+                                            class="form-label fs-6">Select
+                                            Marker:</label>
+                                        <select id="select-marker-title" class="form-select" name="selectMarkerTitle"
+                                            aria-label="select-marker-title" onchange="setSelectMarkerTitleId();"
+                                            autocomplete="off" required="true">
+                                            <option selected hidden="true" disabled="true">Select Marker</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="title-label-brief" class="form-label fs-6">Title:</label>
+                                        <input type="text" class="form-control" id="title-brief" name="title"
+                                            aria-describedby="title-brief" placeholder="Enter Title" autocomplete="off"
+                                            required="true">
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="copy-marker-title">
+                                        <label class="form-check-label" style="font-size: 13px;"
+                                            for="copy-marker-title">Title same as marker title</label>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="brief-label" class="form-label fs-6">Brief:</label>
+                                        <textarea id="ckeditor" name="brief" autocomplete="off"
+                                            required="true">Enter Brief for your Marker!</textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="media-label" class="form-label fs-6">Upload images and
+                                            videos:</label>
+                                        <input class="form-control" name="media" type="file" id="media" multiple="true">
+                                    </div>
+
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="title-label-brief" class="form-label fs-6">Title:</label>
-                                    <input type="text" class="form-control" id="title-brief" name="title"
-                                        aria-describedby="title-brief" placeholder="Enter Title" autocomplete="off"
-                                        required="true">
-                                </div>
-
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="copy-marker-title">
-                                    <label class="form-check-label" style="font-size: 13px;"
-                                        for="copy-marker-title">Title same as marker title</label>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="brief-label" class="form-label fs-6">Brief:</label>
-                                    <textarea id="ckeditor" name="brief" autocomplete="off"
-                                        required="true">Enter Brief for your Marker!</textarea>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="media-label" class="form-label fs-6">Upload images and videos:</label>
-                                    <input class="form-control" name="media" type="file" id="media" multiple="true">
-                                </div>
-
+                                <label id="upload-message" for="upload-message" class="form-label fs-6" hidden="true">
+                                    This may take a while have a coffee break ☕!
+                                </label>
                                 <div id="progress-wrapper" class="progress" hidden="true">
-                                    <div id="brief-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                                    <div id="brief-progress-bar" class="progress-bar" role="progressbar"
+                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%
+                                    </div>
                                 </div>
 
                             </div>
 
-                            <div class="modal-footer">
-                                <button id="marker-brief-close-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    onclick="mapScrollDragEnable();">Close</button>
-                                <button id="marker-brief-submit-button" type="submit"
-                                    class="btn btn-dark" onclick="displayUploadProgress()">Submit</button>
+                            <div id="modal-footer-wrapper" class="modal-footer">
+                                <button id="marker-brief-close-button" type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal" onclick="mapScrollDragEnable();">Close</button>
+                                <button id="marker-brief-submit-button" type="submit" class="btn btn-dark"
+                                    onclick="displayUploadProgress()">Submit</button>
                             </div>
 
                         </form>
