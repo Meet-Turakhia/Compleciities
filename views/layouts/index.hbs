@@ -42,7 +42,7 @@
             <!-- setting buttons -->
             <div class="setting-buttons">
                 <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
-                    data-bs-toggle="tooltip" data-bs-placement="right" title="Set Location" onclick="setLocation()">
+                    data-bs-toggle="tooltip" data-bs-placement="right" title="Set Location" onclick="setLocation();">
                     <i class="fa fa-map-pin" aria-hidden="true"></i>
                 </button>
             </div>
@@ -51,7 +51,7 @@
                 <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Options"
-                        onclick="markerOptionsModalOptions()">
+                        onclick="markerOptionsModalOptions();">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                     </button>
                 </span>
@@ -61,7 +61,7 @@
                 <span data-bs-toggle="modal" data-bs-target="#markerBriefModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Brief"
-                        onclick="markerBriefModalOptions()">
+                        onclick="markerBriefModalOptions();">
                         <i class="fa fa-file-text" aria-hidden="true"></i>
                     </button>
                 </span>
@@ -175,7 +175,7 @@
             {{!-- marker brief modal --}}
             <div class="modal fade" id="markerBriefModal" tabindex="-1" aria-labelledby="markerBriefModalLabel"
                 aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                     <div class="modal-content">
 
                         <div class="modal-header">
@@ -184,16 +184,47 @@
                                 data-bs-dismiss="modal" aria-label="Close" onclick="mapScrollDragEnable();"></button>
                         </div>
 
-                        <form id="markerBriefForm" class="para-font" action="/add-brief" method="POST"
-                            enctype="multipart/form-data">
+                        <div class="modal-body">
 
-                            {{!-- using hidden input to store id of selected marker --}}
-                            <input type="password" class="form-control" name="marker_id" id="select-marker-id"
-                                readonly="true" hidden="true">
+                            <form id="markerBriefForm" class="para-font" action="/add-brief" method="POST"
+                                enctype="multipart/form-data" onsubmit="displayUploadProgress();">
 
-                            <div class="modal-body">
+                                {{!-- using hidden input to store id of selected marker --}}
+                                <input type="password" class="form-control" name="marker_id" id="selected-marker-id"
+                                    readonly="true" hidden="true">
+                                <input type="password" class="form-control" name="brief_id" id="brief-id"
+                                    readonly="true" hidden="true">
+                                <input type="password" class="form-control" name="current_media" id="current-media"
+                                    readonly="true" hidden="true">
 
                                 <div id="hide-while-upload-wrapper">
+
+                                    <div class="row">
+
+                                        <div class="col-3 fs-6 mb-3">
+                                            <label class="form-check-label" for="select brief option">SELECT
+                                                OPTION:</label>
+                                        </div>
+                                        <div class="col fs-6 mx-3">
+                                            <input class="form-check-input cursor-pointer" type="radio"
+                                                name="briefoption" id="brief-add" value="add" checked="true"
+                                                onclick="toggleMarkerBriefForms(this.value)">
+                                            <label class="form-check-label" for="brief-add">Add</label>
+                                        </div>
+                                        <div class="col fs-6 mx-3">
+                                            <input class="form-check-input cursor-pointer" type="radio"
+                                                name="briefoption" id="brief-edit" value="edit"
+                                                onclick="toggleMarkerBriefForms(this.value)">
+                                            <label class="form-check-label" for="brief-edit">Edit</label>
+                                        </div>
+                                        <div class="col fs-6 ml-3">
+                                            <input class="form-check-input cursor-pointer" type="radio"
+                                                name="briefoption" id="brief-delete" value="delete"
+                                                onclick="toggleMarkerBriefForms(this.value)">
+                                            <label class="form-check-label" for="brief-delete">Delete</label>
+                                        </div>
+
+                                    </div>
 
                                     <div class="mb-3">
                                         <label id="select-marker-label" for="select-marker-label"
@@ -202,7 +233,7 @@
                                         <select id="select-marker-title" class="form-select" name="selectMarkerTitle"
                                             aria-label="select-marker-title" onchange="setSelectMarkerTitleId();"
                                             autocomplete="off" required="true">
-                                            <option selected hidden="true" disabled="true">Select Marker</option>
+                                            <option selected>Select Marker</option>
                                         </select>
                                     </div>
 
@@ -214,7 +245,8 @@
                                     </div>
 
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="copy-marker-title">
+                                        <input class="form-check-input cursor-pointer" type="checkbox"
+                                            id="copy-marker-title">
                                         <label class="form-check-label" style="font-size: 13px;"
                                             for="copy-marker-title">Title same as marker title</label>
                                     </div>
@@ -231,10 +263,17 @@
                                         <input class="form-control" name="media" type="file" id="media" multiple="true">
                                     </div>
 
+                                    <div id="upload-new-media-wrapper" class="form-check form-switch" hidden="true">
+                                        <input class="form-check-input cursor-pointer" type="checkbox"
+                                            id="upload-new-media">
+                                        <label class="form-check-label" style="font-size: 13px;"
+                                            for="upload-new-media">Upload new media</label>
+                                    </div>
+
                                 </div>
 
                                 <label id="upload-message" for="upload-message" class="form-label fs-6" hidden="true">
-                                    This may take a while have a coffee break ☕!
+                                    This may take a while, have a coffee break ☕!
                                 </label>
                                 <div id="progress-wrapper" class="progress" hidden="true">
                                     <div id="brief-progress-bar" class="progress-bar" role="progressbar"
@@ -242,16 +281,15 @@
                                     </div>
                                 </div>
 
-                            </div>
+                                <div id="modal-footer-wrapper" class="modal-footer mt-4">
+                                    <button id="marker-brief-close-button" type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal" onclick="mapScrollDragEnable();">Close</button>
+                                    <button id="marker-brief-submit-button" type="submit" class="btn btn-dark">Submit</button>
+                                </div>
 
-                            <div id="modal-footer-wrapper" class="modal-footer">
-                                <button id="marker-brief-close-button" type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal" onclick="mapScrollDragEnable();">Close</button>
-                                <button id="marker-brief-submit-button" type="submit" class="btn btn-dark"
-                                    onclick="displayUploadProgress()">Submit</button>
-                            </div>
+                            </form>
 
-                        </form>
+                        </div>
 
                     </div>
                 </div>
@@ -261,8 +299,9 @@
 
     </main>
 
-    {{!-- using hidden input to pass all markers data to markers.js file --}}
+    {{!-- using hidden input to pass all markers data and brief data to markers.js file and index.js file --}}
     <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">
+    <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
 
     <!-- leaflet js -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"

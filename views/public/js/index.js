@@ -266,6 +266,7 @@ function markerOptionsModalOptions() {
 
 
 function markerBriefModalOptions() {
+    document.getElementById("brief-add").click();
     mapScrollDragDisable();
 }
 
@@ -292,10 +293,13 @@ function removeConfirmMarkerDelete() {
 
 
 // initializing ckeditor
+let ckeditor;
 ClassicEditor
     .create(document.querySelector('#ckeditor'))
     .then(editor => {
         // console.log(editor);
+        window.editor = editor;
+        ckeditor = editor;
     })
     .catch(error => {
         console.error(error);
@@ -330,31 +334,49 @@ function dblClickZoomDisable() {
 
 
 // set select marker function
-setSelectMarkerTitle();
-function setSelectMarkerTitle() {
+function setSelectMarkerTitle(briefFormOption) {
     var selectMarker = document.getElementById("select-marker-title");
     var markerData = document.getElementById("markerData").value;
+    var briefData = document.getElementById("briefData").value;
+    var length = selectMarker.options.length;
+    for (i = length - 1; i > 0; i--) {
+        selectMarker.options[i] = null;
+    }
     markerData = JSON.parse(markerData);
+    briefData = JSON.parse(briefData);
+    var briefDataMarkerIds = briefData.map(b => b.marker_id);
     markerData.forEach(marker => {
-        var option = document.createElement("option");
-        option.text = marker.title;
-        option.value = marker.title;
-        selectMarker.appendChild(option);
+        if (briefFormOption == "add") {
+            if (!briefDataMarkerIds.includes(marker._id)) {
+                var option = document.createElement("option");
+                option.text = marker.title;
+                option.value = marker.title;
+                selectMarker.appendChild(option);
+            }
+        } else {
+            if (briefDataMarkerIds.includes(marker._id)) {
+                var option = document.createElement("option");
+                option.text = marker.title;
+                option.value = marker.title;
+                selectMarker.appendChild(option);
+            }
+        }
     });
 }
 
 
 // set selected marker's id  function
 function setSelectMarkerTitleId() {
-    var selectMarkerId = document.getElementById("select-marker-id");
+    var selectedMarkerId = document.getElementById("selected-marker-id");
     var selectMarkerValue = document.getElementById("select-marker-title").value;
     var markerData = document.getElementById("markerData").value;
     markerData = JSON.parse(markerData);
     markerData.forEach(marker => {
         if (marker.title == selectMarkerValue) {
-            selectMarkerId.value = marker._id;
+            selectedMarkerId.value = marker._id;
         }
     });
+    setMarkerBriefFormData(selectedMarkerId);
 }
 
 
@@ -374,11 +396,13 @@ $("#copy-marker-title").change(function () {
 
 // get upload progress and display using progress bar on home page
 function displayUploadProgress() {
+    const markerBriefCrossButton = document.getElementById("marker-brief-cross-button");
     const hideWhileUploadWrapper = document.getElementById("hide-while-upload-wrapper");
     const uploadMessage = document.getElementById("upload-message");
     const progressWrapper = document.getElementById("progress-wrapper");
     const briefProgressBar = document.getElementById("brief-progress-bar");
     const modalfooterWrapper = document.getElementById("modal-footer-wrapper");
+    markerBriefCrossButton.hidden = true;
     hideWhileUploadWrapper.hidden = true;
     modalfooterWrapper.hidden = true;
     uploadMessage.hidden = false;
@@ -394,3 +418,83 @@ function displayUploadProgress() {
         });
     }, 10);
 }
+
+
+// toggle marker brief forms
+function toggleMarkerBriefForms(option) {
+    const markerBriefModalLabel = document.getElementById("markerBriefModalLabel");
+    const markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
+    const titleBrief = document.getElementById("title-brief");
+    const uploadNewMediaWrapper = document.getElementById("upload-new-media-wrapper");
+
+    if (option == "add") {
+        document.getElementById("markerBriefForm").action = "/add-brief";
+        markerBriefModalLabel.innerHTML = "Add Marker Brief";
+        markerBriefSubmitButton.innerHTML = "Add";
+        titleBrief.value = "";
+        $("#copy-marker-title").prop('checked', false);
+        ckeditor.setData("Enter Brief for your Marker!");
+        $('#media').val('');
+        $("#upload-new-media").prop('checked', false);
+        uploadNewMediaWrapper.hidden = true;
+        setSelectMarkerTitle(option);
+    }
+
+    if (option == "edit") {
+        document.getElementById("markerBriefForm").action = "/edit-brief/off";
+        markerBriefModalLabel.innerHTML = "Edit Marker Brief";
+        markerBriefSubmitButton.innerHTML = "Edit";
+        titleBrief.value = "";
+        $("#copy-marker-title").prop('checked', false);
+        ckeditor.setData("Enter Brief for your Marker!");
+        $('#media').val('');
+        $("#upload-new-media").prop('checked', false);
+        uploadNewMediaWrapper.hidden = false;
+        setSelectMarkerTitle(option);
+    }
+
+    if (option == "delete") {
+        document.getElementById("markerBriefForm").action = "/delete-brief";
+        markerBriefModalLabel.innerHTML = "Delete Marker Brief";
+        markerBriefSubmitButton.innerHTML = "Delete";
+        titleBrief.value = "";
+        $("#copy-marker-title").prop('checked', false);
+        ckeditor.setData("Enter Brief for your Marker!");
+        $('#media').val('');
+        $("#upload-new-media").prop('checked', false);
+        uploadNewMediaWrapper.hidden = true;
+        setSelectMarkerTitle(option);
+    }
+
+}
+
+
+// set marker brief form data
+function setMarkerBriefFormData(selectedMarkerId) {
+    const titleBrief = document.getElementById("title-brief");
+    var markerData = document.getElementById("markerData").value;
+    var briefData = document.getElementById("briefData").value;
+    var briefId = document.getElementById("brief-id");
+    var currentMedia = document.getElementById("current-media");
+    markerData = JSON.parse(markerData);
+    briefData = JSON.parse(briefData);
+    briefData.forEach(brief => {
+        if (brief.marker_id == selectedMarkerId.value){
+            titleBrief.value = brief.title;
+            ckeditor.setData(brief.brief);
+            briefId.value = brief._id;
+            allfilepath = brief.media.map(b => b.path);
+            currentMedia.value = allfilepath;
+        }
+    });
+}
+
+
+// function for new media toggle to send information through action
+$("#upload-new-media").change(function () {
+    if (this.checked) {
+        document.getElementById("markerBriefForm").action = "/edit-brief/on";
+    } else {
+        document.getElementById("markerBriefForm").action = "/edit-brief/off";
+    }
+});

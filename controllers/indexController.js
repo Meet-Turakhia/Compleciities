@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Marker = mongoose.model("markers");
 const Brief = mongoose.model("briefs");
 const multer = require('multer');
+var fs = require('fs');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './views/public/uploads/');
@@ -44,13 +45,20 @@ function progress_middleware(req, res, next) {
 
 // routes
 router.get("/", (req, res) => {
-    Marker.find((err, docs) => {
-        if (!err) {
-            res.render("layouts/index", {
-                markerData: JSON.stringify(docs),
+    Marker.find((markerErr, markerDocs) => {
+        if (!markerErr) {
+            Brief.find((briefErr, briefDocs) => {
+                if (!briefErr){
+                    res.render("layouts/index", {
+                        markerData: JSON.stringify(markerDocs),
+                        briefData: JSON.stringify(briefDocs),
+                    });
+                }else{
+                    console.log("Following error occured while retrieving the marker brief data:" + briefErr);
+                }
             });
         } else {
-            console.log("Following error occured while retrieving the marker data:" + err);
+            console.log("Following error occured while retrieving the marker data:" + markerErr);
         }
     });
 });
@@ -69,6 +77,14 @@ router.post("/delete-marker", (req, res) => {
 
 router.post("/add-brief", progress_middleware, upload.array("media", 10), (req, res, next) => {
     addBrief(req, res);
+});
+
+router.post("/edit-brief/:newMedia", progress_middleware, upload.array("media", 10), (req, res, next) => {
+    editBrief(req.params.newMedia, req, res);
+});
+
+router.post("/delete-brief", progress_middleware, upload.array("media", 10), (req, res, next) => {
+    deleteBrief(req, res);
 });
 
 router.get("/get-upload-progress", progress_middleware, (req, res, next) => {
@@ -129,6 +145,38 @@ function addBrief(req, res) {
         }
         else {
             console.log("Following error occured while adding new brief in database: " + err);
+        }
+    });
+}
+
+function editBrief(newMedia, req, res) {
+    if (newMedia == "on"){
+        var pathArray = req.body.current_media.split(",");
+        pathArray.forEach(path => {
+            fs.unlinkSync(path);
+        });
+        req.body.media = req.files;
+    }
+    Brief.findOneAndUpdate({ _id: req.body.brief_id }, req.body, { new: true }, (err, doc) => {
+        if (!err) {
+            res.redirect("/");
+        } else {
+            console.log("Following error occured while updating the brief data: " + err);
+        }
+    });
+}
+
+function deleteBrief(req, res) {
+    var pathArray = req.body.current_media.split(",");
+    pathArray.forEach(path => {
+        fs.unlinkSync(path);
+    });
+    Brief.findByIdAndRemove(req.body.brief_id, (err, doc) => {
+        if (!err) {
+            res.redirect("/");
+        }
+        else {
+            console.log("Following error occured while deleting the brief data: " + err);
         }
     });
 }
