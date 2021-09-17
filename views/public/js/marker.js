@@ -1,5 +1,5 @@
 // fetching all markers data from index.hbs
-var markerData =document.getElementById("markerData").value;
+var markerData = document.getElementById("markerData").value;
 markerData = JSON.parse(markerData);
 
 

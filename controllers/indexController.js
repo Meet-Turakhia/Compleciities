@@ -1,4 +1,5 @@
 // dependencies and variables
+
 var globalPercentage;
 const express = require("express");
 var router = express.Router();
@@ -22,6 +23,7 @@ const upload = multer({ storage: storage});
 
 
 // middlewares
+
 function progress_middleware(req, res, next) {
     let count = 0;
     let progress = 0;
@@ -44,6 +46,7 @@ function progress_middleware(req, res, next) {
 
 
 // routes
+
 router.get("/", (req, res) => {
     Marker.find((markerErr, markerDocs) => {
         if (!markerErr) {
@@ -63,29 +66,36 @@ router.get("/", (req, res) => {
     });
 });
 
+
 router.post("/", (req, res) => {
     addMarker(req, res);
 });
+
 
 router.post("/edit-marker", (req, res) => {
     editMarker(req, res);
 });
 
+
 router.post("/delete-marker", (req, res) => {
     deleteMarker(req, res);
 });
+
 
 router.post("/add-brief", progress_middleware, upload.array("media", 10), (req, res, next) => {
     addBrief(req, res);
 });
 
+
 router.post("/edit-brief/:newMedia", progress_middleware, upload.array("media", 10), (req, res, next) => {
     editBrief(req.params.newMedia, req, res);
 });
 
+
 router.post("/delete-brief", progress_middleware, upload.array("media", 10), (req, res, next) => {
     deleteBrief(req, res);
 });
+
 
 router.get("/get-upload-progress", progress_middleware, (req, res, next) => {
     res.send({
@@ -95,6 +105,7 @@ router.get("/get-upload-progress", progress_middleware, (req, res, next) => {
 
 
 // functions
+
 function addMarker(req, res) {
     var marker = new Marker();
     marker.latitude = req.body.latitude;
@@ -112,6 +123,7 @@ function addMarker(req, res) {
     });
 }
 
+
 function editMarker(req, res) {
     Marker.findOneAndUpdate({ _id: req.body.markerId }, req.body, { new: true }, (err, doc) => {
         if (!err) {
@@ -121,6 +133,7 @@ function editMarker(req, res) {
         }
     });
 }
+
 
 function deleteMarker(req, res) {
     Marker.findByIdAndRemove(req.body.markerId, (err, doc) => {
@@ -132,6 +145,7 @@ function deleteMarker(req, res) {
         }
     });
 }
+
 
 function addBrief(req, res) {
     var brief = new Brief();
@@ -148,6 +162,7 @@ function addBrief(req, res) {
         }
     });
 }
+
 
 function editBrief(newMedia, req, res) {
     if (newMedia == "on"){
@@ -166,6 +181,7 @@ function editBrief(newMedia, req, res) {
     });
 }
 
+
 function deleteBrief(req, res) {
     var pathArray = req.body.current_media.split(",");
     pathArray.forEach(path => {
@@ -180,5 +196,6 @@ function deleteBrief(req, res) {
         }
     });
 }
+
 
 module.exports = router;
