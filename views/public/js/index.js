@@ -165,12 +165,15 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = false;
         title.hidden = false;
         title.disabled = false;
+        zoom.readOnly = false;
+        description.readOnly = false;
         zoom.value = null;
         description.value = null;
         latlabel.style.color = "black";
         langlabel.style.color = "black";
         markerOptionsSubmitButton.innerHTML = "Add";
-        removeConfirmMarkerDelete();
+        removeConfirmValidateMarkerDelete();
+        removeValidateMarkerEdit();
     }
     if (option == "edit") {
         document.getElementById("markerOptionsForm").action = "/edit-marker";
@@ -185,6 +188,8 @@ function toggleMarkerOptionForms(option) {
         selectTitleLabel.hidden = false;
         selectTitle.hidden = false;
         selectTitle.disabled = false;
+        zoom.readOnly = false;
+        description.readOnly = false;
         zoom.value = null;
         description.value = null;
         markerOptionsSubmitButton.innerHTML = "Edit";
@@ -193,7 +198,8 @@ function toggleMarkerOptionForms(option) {
             langlabel.style.color = "green";
         }
         setSelectTitleData();
-        removeConfirmMarkerDelete();
+        removeConfirmValidateMarkerDelete();
+        addValidateMarkerEdit();
     }
     if (option == "delete") {
         document.getElementById("markerOptionsForm").action = "/delete-marker";
@@ -208,6 +214,8 @@ function toggleMarkerOptionForms(option) {
         selectTitleLabel.hidden = false;
         selectTitle.hidden = false;
         selectTitle.disabled = false;
+        zoom.readOnly = true;
+        description.readOnly = true;
         zoom.value = null;
         description.value = null;
         markerOptionsSubmitButton.innerHTML = "Delete";
@@ -216,7 +224,8 @@ function toggleMarkerOptionForms(option) {
             langlabel.style.color = "black";
         }
         setSelectTitleData();
-        addConfirmMarkerDelete();
+        removeValidateMarkerEdit();
+        addConfirmValidateMarkerDelete();
     }
 }
 
@@ -271,22 +280,52 @@ function markerBriefModalOptions() {
 }
 
 
-// confirm marker delete function
-function confirmMarkerDelete() {
-    var selectedTitle = document.getElementById("select-title").value;
-    if (selectedTitle != "") {
-        return confirm("Are you sure you want to delete '" + selectedTitle + "' marker, deleting this marker will also delete its brief, Do you want to proceed?");
+// confirm and validate marker delete function
+function confirmValidateMarkerDelete() {
+    var markerId = document.getElementById("marker-id");
+    if (markerId.value == "") {
+        alert("Select a valid marker to delete (choose a marker title from the suggested list rather than entering the marker title manually!)");
+        return false;
+    }else{
+        var selectedTitle = document.getElementById("select-title").value;
+        if (selectedTitle != "") {
+            return confirm("Are you sure you want to delete '" + selectedTitle + "' marker, deleting this marker will also delete its brief, Do you want to proceed?");
+        }else{
+            return confirm("Are you sure you want to delete this marker, deleting this marker will also delete its brief, Do you want to proceed?");   
+        }
     }
 }
 
 
-function addConfirmMarkerDelete() {
+function addConfirmValidateMarkerDelete() {
     var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
-    markerOptionsSubmitButton.onclick = confirmMarkerDelete;
+    markerOptionsSubmitButton.onclick = confirmValidateMarkerDelete;
 }
 
 
-function removeConfirmMarkerDelete() {
+function removeConfirmValidateMarkerDelete() {
+    var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
+    markerOptionsSubmitButton.onclick = null;
+}
+
+
+// validate marker edit function
+function validateMarkerEdit() {
+    var markerId = document.getElementById("marker-id");
+    if (markerId.value == "") {
+        alert("Select a valid marker to edit (choose a marker title from the suggested list rather than entering the marker title manually!)");
+        return false;
+    }
+}
+
+
+function addValidateMarkerEdit() {
+    var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
+    markerOptionsSubmitButton.onclick = validateMarkerEdit;
+}
+
+
+function removeValidateMarkerEdit() {
     var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
     markerOptionsSubmitButton.onclick = null;
 }
