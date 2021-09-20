@@ -545,8 +545,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.isReadOnly = false;
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
-        removeConfirmBriefDelete();
-        addValidateMarkerSelectBrief();
+        addValidateMarkerSelectBriefDelete();
     }
 
     if (option == "edit") {
@@ -567,8 +566,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.isReadOnly = false;
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
-        removeConfirmBriefDelete();
-        addValidateMarkerSelectBrief();
+        addValidateMarkerSelectBriefDelete();
     }
 
     if (option == "delete") {
@@ -589,8 +587,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.isReadOnly = true;
         $('#media').css('pointer-events', 'none');
         setSelectMarkerTitle(option);
-        removeValidateMarkerSelectBrief();
-        addConfirmBriefDelete();
+        addValidateMarkerSelectBriefDelete();
     }
 
 }
@@ -621,7 +618,7 @@ function setMarkerBriefFormData(selectedMarkerId) {
 $("#media").change(function () {
     const mediaLabel = document.getElementById("media-label");
 
-    if(media.value == ""){
+    if (media.value == "") {
         $("#upload-new-media").prop('checked', false);
         mediaLabel.style.color = "black";
     }
@@ -649,49 +646,45 @@ $("#upload-new-media").change(function () {
 });
 
 
-// confirm brief delete
-function confirmBriefDelete() {
+// validate marker select and confirm brief delete function for brief form
+function validateMarkerSelectBriefDelete() {
+    const markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
     var selectMarkerValue = document.getElementById("select-marker-title").value;
     const titleBrief = document.getElementById("title-brief");
 
-    if (selectMarkerValue != "Select Marker") {
-        return confirm("Are you sure you want to delete '" + titleBrief.value + "' brief of '" + selectMarkerValue + "' marker?");
-    }else{
-        alert("Select a valid brief to delete!");
-        return false;
+    if (markerBriefSubmitButton.innerHTML == "Delete") {
+        if (selectMarkerValue != "Select Marker") {
+            if (ckeditor.getData() == "") {
+                alert("Please write brief for your marker, the brief field is empty!");
+                return false;
+            } else {
+                return confirm("Are you sure you want to delete '" + titleBrief.value + "' brief of '" + selectMarkerValue + "' marker?");
+            }
+        } else {
+            alert("Select a valid brief to delete!");
+            return false;
+        }
+    } else {
+        if (selectMarkerValue == "Select Marker") {
+            alert("Please select a valid marker to proceed!");
+            return false;
+        } else {
+            if (ckeditor.getData() == "") {
+                alert("Please write brief for your marker, the brief field is empty!");
+                return false;
+            }
+        }
     }
 }
 
 
-function addConfirmBriefDelete() {
+function addValidateMarkerSelectBriefDelete() {
     var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
-    markerBriefSubmitButton.onclick = confirmBriefDelete;
+    markerBriefSubmitButton.onclick = validateMarkerSelectBriefDelete;
 }
 
 
-function removeConfirmBriefDelete() {
-    var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
-    markerBriefSubmitButton.onclick = null;
-}
-
-
-// validate marker select function for brief
-function validateMarkerSelectBrief() {
-    var selectMarkerValue = document.getElementById("select-marker-title").value;
-    if(selectMarkerValue == "Select Marker"){
-        alert("Please select a valid marker to proceed!");
-        return false;
-    }
-}
-
-
-function addValidateMarkerSelectBrief() {
-    var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
-    markerBriefSubmitButton.onclick = validateMarkerSelectBrief;
-}
-
-
-function removeValidateMarkerSelectBrief() {
+function removeValidateMarkerSelectBriefDelete() {
     var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
     markerBriefSubmitButton.onclick = null;
 }
