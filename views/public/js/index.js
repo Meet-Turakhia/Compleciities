@@ -523,11 +523,13 @@ function toggleMarkerBriefForms(option) {
     const titleBrief = document.getElementById("title-brief");
     var titleLabelBrief = document.getElementById("title-label-brief");
     const uploadNewMediaWrapper = document.getElementById("upload-new-media-wrapper");
+    const copyMarkerTitleWrapper = document.getElementById("copy-marker-title-wrapper");
 
     if (option == "add") {
         document.getElementById("markerBriefForm").action = "/add-brief";
         markerBriefModalLabel.innerHTML = "Add Marker Brief";
         markerBriefSubmitButton.innerHTML = "Add";
+        copyMarkerTitleWrapper.hidden = false;
         titleBrief.value = "";
         titleLabelBrief.style.color = "black";
         $("#copy-marker-title").prop('checked', false);
@@ -542,6 +544,7 @@ function toggleMarkerBriefForms(option) {
         document.getElementById("markerBriefForm").action = "/edit-brief/off";
         markerBriefModalLabel.innerHTML = "Edit Marker Brief";
         markerBriefSubmitButton.innerHTML = "Edit";
+        copyMarkerTitleWrapper.hidden = false;
         titleBrief.value = "";
         titleLabelBrief.style.color = "black";
         $("#copy-marker-title").prop('checked', false);
@@ -556,6 +559,7 @@ function toggleMarkerBriefForms(option) {
         document.getElementById("markerBriefForm").action = "/delete-brief";
         markerBriefModalLabel.innerHTML = "Delete Marker Brief";
         markerBriefSubmitButton.innerHTML = "Delete";
+        copyMarkerTitleWrapper.hidden = true;
         titleBrief.value = "";
         titleLabelBrief.style.color = "black";
         $("#copy-marker-title").prop('checked', false);
