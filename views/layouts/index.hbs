@@ -135,7 +135,12 @@
 
                                 </div>
 
-                                <div class="my-3">
+                                <div class="form-check form-switch my-2" id="paste-set-location-wrapper">
+                                    <input class="form-check-input cursor-pointer" type="checkbox" id="paste-set-location">
+                                    <label class="form-check-label" style="font-size: 13px;" for="paste-set-location">Paste Set Location</label>
+                                </div>
+
+                                <div class="my-2">
                                     <label id="select-title-label" for="select-title" class="form-label fs-6"
                                         hidden="true">Select Title:</label>
                                     <input class="form-control" list="select-title-datalist" id="select-title"
@@ -145,7 +150,7 @@
                                     <datalist id="select-title-datalist"></datalist>
                                 </div>
 
-                                <div class="my-3">
+                                <div class="my-2">
                                     <label id="title-label" for="title" class="form-label fs-6">Title:</label>
                                     <input name="title" type="text" class="form-control" id="title"
                                         placeholder="Enter Title" autocomplete="off" required="true">

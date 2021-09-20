@@ -96,11 +96,10 @@ var setLocationOn = false;
 var draggableMarker = L.marker([0, 0], {
     draggable: true,
 })
-var setLocationUsed = false;
+var globalLatitude;
+var globalLongitude;
 
 function setLocation() {
-    var latlabel = document.getElementById("latlabel");
-    var langlabel = document.getElementById("langlabel");
 
     if (setLocationOn == false) {
         setLocationOn = true;
@@ -108,9 +107,6 @@ function setLocation() {
         draggableMarker.addTo(map);
         draggableMarker.on('dragend', function (e) {
             updateLatLng(draggableMarker.getLatLng().lat, draggableMarker.getLatLng().lng);
-            setLocationUsed = true;
-            latlabel.style.color = "green";
-            langlabel.style.color = "green";
         });
 
         function updateLatLng(lat, lng, reverse) {
@@ -119,8 +115,8 @@ function setLocation() {
                 map.panTo([lat, lng]);
             } else {
                 map.panTo([lat, lng]);
-                document.getElementById('latitude').value = draggableMarker.getLatLng().lat;
-                document.getElementById('longitude').value = draggableMarker.getLatLng().lng;
+                globalLatitude = draggableMarker.getLatLng().lat;
+                globalLongitude = draggableMarker.getLatLng().lng;
             }
         }
     }
@@ -145,12 +141,15 @@ function toggleMarkerOptionForms(option) {
     var titleLabel = document.getElementById("title-label");
     var selectTitle = document.getElementById("select-title");
     var selectTitleLabel = document.getElementById("select-title-label");
-    var zoom = document.getElementById("zoom");
-    var description = document.getElementById("description");
     var latlabel = document.getElementById("latlabel");
     var langlabel = document.getElementById("langlabel");
+    var latitude = document.getElementById("latitude");
+    var longitude = document.getElementById("longitude");
+    var zoom = document.getElementById("zoom");
+    var description = document.getElementById("description");
     var markerOptionsModalLabel = document.getElementById("markerOptionsModalLabel");
     var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
+    var togglePasteSetLocationWrapper = document.getElementById("paste-set-location-wrapper");
 
     if (option == "add") {
         document.getElementById("markerOptionsForm").action = "/";
@@ -166,11 +165,15 @@ function toggleMarkerOptionForms(option) {
         title.hidden = false;
         title.disabled = false;
         zoom.readOnly = false;
+        togglePasteSetLocationWrapper.hidden = false;
         description.readOnly = false;
+        latitude.value = null;
+        longitude.value = null;
         zoom.value = null;
-        description.value = null;
+        $("#paste-set-location").prop('checked', false);
         latlabel.style.color = "black";
         langlabel.style.color = "black";
+        description.value = null;
         markerOptionsSubmitButton.innerHTML = "Add";
         removeConfirmValidateMarkerDelete();
         removeValidateMarkerEdit();
@@ -189,14 +192,16 @@ function toggleMarkerOptionForms(option) {
         selectTitle.hidden = false;
         selectTitle.disabled = false;
         zoom.readOnly = false;
+        togglePasteSetLocationWrapper.hidden = false;
         description.readOnly = false;
+        latitude.value = null;
+        longitude.value = null;
         zoom.value = null;
+        $("#paste-set-location").prop('checked', false);
+        latlabel.style.color = "black";
+        langlabel.style.color = "black";
         description.value = null;
         markerOptionsSubmitButton.innerHTML = "Edit";
-        if (setLocationUsed == true) {
-            latlabel.style.color = "green";
-            langlabel.style.color = "green";
-        }
         setSelectTitleData();
         removeConfirmValidateMarkerDelete();
         addValidateMarkerEdit();
@@ -215,14 +220,16 @@ function toggleMarkerOptionForms(option) {
         selectTitle.hidden = false;
         selectTitle.disabled = false;
         zoom.readOnly = true;
+        togglePasteSetLocationWrapper.hidden = true;
         description.readOnly = true;
+        latitude.value = null;
+        longitude.value = null;
         zoom.value = null;
+        $("#paste-set-location").prop('checked', false);
+        latlabel.style.color = "black";
+        langlabel.style.color = "black";
         description.value = null;
         markerOptionsSubmitButton.innerHTML = "Delete";
-        if (setLocationUsed == true) {
-            latlabel.style.color = "black";
-            langlabel.style.color = "black";
-        }
         setSelectTitleData();
         removeValidateMarkerEdit();
         addConfirmValidateMarkerDelete();
@@ -253,18 +260,47 @@ function setMarkerOptionsFormData() {
     var latitude = document.getElementById("latitude");
     var longitude = document.getElementById("longitude");
     var markerId = document.getElementById("marker-id");
+    var latlabel = document.getElementById("latlabel");
+    var langlabel = document.getElementById("langlabel");
+
+    $("#paste-set-location").prop('checked', false);
+    latlabel.style.color = "black";
+    langlabel.style.color = "black";
+
     markerData.forEach(marker => {
         if (marker.title == selectedTitle) {
             zoom.value = marker.zoom_level;
             description.value = marker.description;
             markerId.value = marker._id;
-            if (setLocationUsed == false) {
-                latitude.value = marker.latitude;
-                longitude.value = marker.longitude;
-            }
+            latitude.value = marker.latitude;
+            longitude.value = marker.longitude;
         }
     });
 }
+
+
+// paste set location function
+var previousLatitude;
+var previousLongitude;
+
+$("#paste-set-location").change(function () {
+    var latlabel = document.getElementById("latlabel");
+    var langlabel = document.getElementById("langlabel");
+
+    if (this.checked) {
+        previousLatitude = document.getElementById('latitude').value;
+        previousLongitude = document.getElementById('longitude').value;
+        document.getElementById('latitude').value = globalLatitude;
+        document.getElementById('longitude').value = globalLongitude;
+        latlabel.style.color = "green";
+        langlabel.style.color = "green";
+    } else {
+        document.getElementById('latitude').value = previousLatitude;
+        document.getElementById('longitude').value = previousLongitude;
+        latlabel.style.color = "black";
+        langlabel.style.color = "black";
+    }
+});
 
 
 // marker options and marker brief desired settings
