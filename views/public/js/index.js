@@ -524,6 +524,7 @@ function toggleMarkerBriefForms(option) {
     var titleLabelBrief = document.getElementById("title-label-brief");
     const uploadNewMediaWrapper = document.getElementById("upload-new-media-wrapper");
     const copyMarkerTitleWrapper = document.getElementById("copy-marker-title-wrapper");
+    const mediaLabel = document.getElementById("media-label");
 
     if (option == "add") {
         document.getElementById("markerBriefForm").action = "/add-brief";
@@ -536,6 +537,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
         $("#upload-new-media").prop('checked', false);
+        mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
         setSelectMarkerTitle(option);
     }
@@ -551,6 +553,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
         $("#upload-new-media").prop('checked', false);
+        mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = false;
         setSelectMarkerTitle(option);
     }
@@ -566,6 +569,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
         $("#upload-new-media").prop('checked', false);
+        mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
         setSelectMarkerTitle(option);
     }
@@ -596,9 +600,20 @@ function setMarkerBriefFormData(selectedMarkerId) {
 
 // function for new media toggle to send information through action
 $("#upload-new-media").change(function () {
+    const media = document.getElementById("media");
+    const mediaLabel = document.getElementById("media-label");
+
     if (this.checked) {
-        document.getElementById("markerBriefForm").action = "/edit-brief/on";
+        if (media.value == "") {
+            alert("Please select images/videos to upload, media field empty!");
+            $("#upload-new-media").prop('checked', false);
+            mediaLabel.style.color = "black";
+        } else {
+            document.getElementById("markerBriefForm").action = "/edit-brief/on";
+            mediaLabel.style.color = "green";
+        }
     } else {
         document.getElementById("markerBriefForm").action = "/edit-brief/off";
+        mediaLabel.style.color = "black";
     }
 });
