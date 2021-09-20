@@ -543,6 +543,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.isReadOnly = false;
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
+        removeConfirmBriefDelete();
     }
 
     if (option == "edit") {
@@ -562,6 +563,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.isReadOnly = false;
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
+        removeConfirmBriefDelete();
     }
 
     if (option == "delete") {
@@ -581,6 +583,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.isReadOnly = true;
         $('#media').css('pointer-events', 'none');
         setSelectMarkerTitle(option);
+        addConfirmBriefDelete();
     }
 
 }
@@ -626,3 +629,29 @@ $("#upload-new-media").change(function () {
         mediaLabel.style.color = "black";
     }
 });
+
+
+// confirm brief delete
+function confirmBriefDelete() {
+    var selectMarkerValue = document.getElementById("select-marker-title").value;
+    const titleBrief = document.getElementById("title-brief");
+
+    if (selectMarkerValue != "Select Marker") {
+        return confirm("Are you sure you want to delete '" + titleBrief.value + "' brief of '" + selectMarkerValue + "' marker?");
+    }else{
+        alert("Select a valid brief to delete!");
+        return false;
+    }
+}
+
+
+function addConfirmBriefDelete() {
+    var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
+    markerBriefSubmitButton.onclick = confirmBriefDelete;
+}
+
+
+function removeConfirmBriefDelete() {
+    var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
+    markerBriefSubmitButton.onclick = null;
+}
