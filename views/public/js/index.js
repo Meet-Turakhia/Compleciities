@@ -95,7 +95,8 @@ function flyToMarker() {
 var setLocationOn = false;
 var draggableMarker = L.marker([0, 0], {
     draggable: true,
-})
+});
+var setLocationUsed = false;
 var globalLatitude;
 var globalLongitude;
 
@@ -107,6 +108,7 @@ function setLocation() {
         draggableMarker.addTo(map);
         draggableMarker.on('dragend', function (e) {
             updateLatLng(draggableMarker.getLatLng().lat, draggableMarker.getLatLng().lng);
+            setLocationUsed = true;
         });
 
         function updateLatLng(lat, lng, reverse) {
@@ -292,8 +294,10 @@ $("#paste-set-location").change(function () {
         previousLongitude = document.getElementById('longitude').value;
         document.getElementById('latitude').value = globalLatitude;
         document.getElementById('longitude').value = globalLongitude;
-        latlabel.style.color = "green";
-        langlabel.style.color = "green";
+        if (setLocationUsed == true) {
+            latlabel.style.color = "green";
+            langlabel.style.color = "green";
+        }
     } else {
         document.getElementById('latitude').value = previousLatitude;
         document.getElementById('longitude').value = previousLongitude;
@@ -322,12 +326,12 @@ function confirmValidateMarkerDelete() {
     if (markerId.value == "") {
         alert("Select a valid marker to delete (choose a marker title from the suggested list rather than entering the marker title manually!)");
         return false;
-    }else{
+    } else {
         var selectedTitle = document.getElementById("select-title").value;
         if (selectedTitle != "") {
             return confirm("Are you sure you want to delete '" + selectedTitle + "' marker, deleting this marker will also delete its brief, Do you want to proceed?");
-        }else{
-            return confirm("Are you sure you want to delete this marker, deleting this marker will also delete its brief, Do you want to proceed?");   
+        } else {
+            return confirm("Are you sure you want to delete this marker, deleting this marker will also delete its brief, Do you want to proceed?");
         }
     }
 }
@@ -444,8 +448,15 @@ function setSelectMarkerTitle(briefFormOption) {
 function setSelectMarkerTitleId() {
     var selectedMarkerId = document.getElementById("selected-marker-id");
     var selectMarkerValue = document.getElementById("select-marker-title").value;
+    var titleBrief = document.getElementById("title-brief");
+    var titleLabelBrief = document.getElementById("title-label-brief");
     var markerData = document.getElementById("markerData").value;
     markerData = JSON.parse(markerData);
+
+    $("#copy-marker-title").prop('checked', false);
+    titleBrief.value = null;
+    titleLabelBrief.style.color = "black";
+
     markerData.forEach(marker => {
         if (marker.title == selectMarkerValue) {
             selectedMarkerId.value = marker._id;
@@ -456,15 +467,25 @@ function setSelectMarkerTitleId() {
 
 
 // set brief title same as marker title function
+var previousTitleBrief;
+
 $("#copy-marker-title").change(function () {
     var selectMarkerValue = document.getElementById("select-marker-title").value;
     var titleBrief = document.getElementById("title-brief");
+    var titleLabelBrief = document.getElementById("title-label-brief");
+
     if (this.checked) {
         if (selectMarkerValue != "Select Marker") {
+            previousTitleBrief = titleBrief.value;
             titleBrief.value = selectMarkerValue;
+            titleLabelBrief.style.color = "green";
         }
     } else {
-        titleBrief.value = "";
+        if (previousTitleBrief == undefined) {
+            previousTitleBrief = "";
+        }
+        titleBrief.value = previousTitleBrief;
+        titleLabelBrief.style.color = "black";
     }
 });
 
@@ -500,6 +521,7 @@ function toggleMarkerBriefForms(option) {
     const markerBriefModalLabel = document.getElementById("markerBriefModalLabel");
     const markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
     const titleBrief = document.getElementById("title-brief");
+    var titleLabelBrief = document.getElementById("title-label-brief");
     const uploadNewMediaWrapper = document.getElementById("upload-new-media-wrapper");
 
     if (option == "add") {
@@ -507,6 +529,7 @@ function toggleMarkerBriefForms(option) {
         markerBriefModalLabel.innerHTML = "Add Marker Brief";
         markerBriefSubmitButton.innerHTML = "Add";
         titleBrief.value = "";
+        titleLabelBrief.style.color = "black";
         $("#copy-marker-title").prop('checked', false);
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
@@ -520,6 +543,7 @@ function toggleMarkerBriefForms(option) {
         markerBriefModalLabel.innerHTML = "Edit Marker Brief";
         markerBriefSubmitButton.innerHTML = "Edit";
         titleBrief.value = "";
+        titleLabelBrief.style.color = "black";
         $("#copy-marker-title").prop('checked', false);
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
@@ -533,6 +557,7 @@ function toggleMarkerBriefForms(option) {
         markerBriefModalLabel.innerHTML = "Delete Marker Brief";
         markerBriefSubmitButton.innerHTML = "Delete";
         titleBrief.value = "";
+        titleLabelBrief.style.color = "black";
         $("#copy-marker-title").prop('checked', false);
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
@@ -554,7 +579,7 @@ function setMarkerBriefFormData(selectedMarkerId) {
     markerData = JSON.parse(markerData);
     briefData = JSON.parse(briefData);
     briefData.forEach(brief => {
-        if (brief.marker_id == selectedMarkerId.value){
+        if (brief.marker_id == selectedMarkerId.value) {
             titleBrief.value = brief.title;
             ckeditor.setData(brief.brief);
             briefId.value = brief._id;
