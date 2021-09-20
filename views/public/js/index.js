@@ -492,27 +492,29 @@ $("#copy-marker-title").change(function () {
 
 // get upload progress and display using progress bar on home page
 function displayUploadProgress() {
-    const markerBriefCrossButton = document.getElementById("marker-brief-cross-button");
-    const hideWhileUploadWrapper = document.getElementById("hide-while-upload-wrapper");
-    const uploadMessage = document.getElementById("upload-message");
-    const progressWrapper = document.getElementById("progress-wrapper");
-    const briefProgressBar = document.getElementById("brief-progress-bar");
-    const modalfooterWrapper = document.getElementById("modal-footer-wrapper");
-    markerBriefCrossButton.hidden = true;
-    hideWhileUploadWrapper.hidden = true;
-    modalfooterWrapper.hidden = true;
-    uploadMessage.hidden = false;
-    progressWrapper.hidden = false;
-    setInterval(async function getUploadProgress() {
-        var result = await fetch("/get-upload-progress");
-        result.json().then(result => {
-            briefProgressBar.style.width = Math.round(result.percentage).toString() + "%";
-            briefProgressBar.innerHTML = Math.round(result.percentage).toString() + "%";
-            if (result.percentage == 100) {
-                return
-            }
-        });
-    }, 10);
+    if (document.getElementById("markerBriefForm").action.split("/")[3] == "add-brief" || (document.getElementById("markerBriefForm").action.split("/")[3] == "edit-brief" && document.getElementById("markerBriefForm").action.split("/")[4] == "on")){
+        const markerBriefCrossButton = document.getElementById("marker-brief-cross-button");
+        const hideWhileUploadWrapper = document.getElementById("hide-while-upload-wrapper");
+        const uploadMessage = document.getElementById("upload-message");
+        const progressWrapper = document.getElementById("progress-wrapper");
+        const briefProgressBar = document.getElementById("brief-progress-bar");
+        const modalfooterWrapper = document.getElementById("modal-footer-wrapper");
+        markerBriefCrossButton.hidden = true;
+        hideWhileUploadWrapper.hidden = true;
+        modalfooterWrapper.hidden = true;
+        uploadMessage.hidden = false;
+        progressWrapper.hidden = false;
+        setInterval(async function getUploadProgress() {
+            var result = await fetch("/get-upload-progress");
+            result.json().then(result => {
+                briefProgressBar.style.width = Math.round(result.percentage).toString() + "%";
+                briefProgressBar.innerHTML = Math.round(result.percentage).toString() + "%";
+                if (result.percentage == 100) {
+                    return
+                }
+            });
+        }, 10);
+    }
 }
 
 
