@@ -610,6 +610,17 @@ function setMarkerBriefFormData(selectedMarkerId) {
 }
 
 
+// media change function
+$("#media").change(function () {
+    const mediaLabel = document.getElementById("media-label");
+
+    if(media.value == ""){
+        $("#upload-new-media").prop('checked', false);
+        mediaLabel.style.color = "black";
+    }
+});
+
+
 // function for new media toggle to send information through action
 $("#upload-new-media").change(function () {
     const media = document.getElementById("media");
