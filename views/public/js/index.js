@@ -524,6 +524,7 @@ function toggleMarkerBriefForms(option) {
     var titleLabelBrief = document.getElementById("title-label-brief");
     const uploadNewMediaWrapper = document.getElementById("upload-new-media-wrapper");
     const copyMarkerTitleWrapper = document.getElementById("copy-marker-title-wrapper");
+    const media = document.getElementById("media");
     const mediaLabel = document.getElementById("media-label");
 
     if (option == "add") {
@@ -536,6 +537,7 @@ function toggleMarkerBriefForms(option) {
         $("#copy-marker-title").prop('checked', false);
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
+        media.required = true;
         $("#upload-new-media").prop('checked', false);
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
@@ -556,6 +558,7 @@ function toggleMarkerBriefForms(option) {
         $("#copy-marker-title").prop('checked', false);
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
+        media.required = false;
         $("#upload-new-media").prop('checked', false);
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = false;
@@ -576,6 +579,7 @@ function toggleMarkerBriefForms(option) {
         $("#copy-marker-title").prop('checked', false);
         ckeditor.setData("Enter Brief for your Marker!");
         $('#media').val('');
+        media.required = false;
         $("#upload-new-media").prop('checked', false);
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
