@@ -539,6 +539,9 @@ function toggleMarkerBriefForms(option) {
         $("#upload-new-media").prop('checked', false);
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
+        titleBrief.readOnly = false;
+        ckeditor.isReadOnly = false;
+        $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
     }
 
@@ -555,6 +558,9 @@ function toggleMarkerBriefForms(option) {
         $("#upload-new-media").prop('checked', false);
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = false;
+        titleBrief.readOnly = false;
+        ckeditor.isReadOnly = false;
+        $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
     }
 
@@ -571,6 +577,9 @@ function toggleMarkerBriefForms(option) {
         $("#upload-new-media").prop('checked', false);
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
+        titleBrief.readOnly = true;
+        ckeditor.isReadOnly = true;
+        $('#media').css('pointer-events', 'none');
         setSelectMarkerTitle(option);
     }
 
