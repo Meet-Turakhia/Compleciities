@@ -546,6 +546,7 @@ function toggleMarkerBriefForms(option) {
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
         removeConfirmBriefDelete();
+        addValidateMarkerSelectBrief();
     }
 
     if (option == "edit") {
@@ -567,6 +568,7 @@ function toggleMarkerBriefForms(option) {
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
         removeConfirmBriefDelete();
+        addValidateMarkerSelectBrief();
     }
 
     if (option == "delete") {
@@ -587,6 +589,7 @@ function toggleMarkerBriefForms(option) {
         ckeditor.isReadOnly = true;
         $('#media').css('pointer-events', 'none');
         setSelectMarkerTitle(option);
+        removeValidateMarkerSelectBrief();
         addConfirmBriefDelete();
     }
 
@@ -667,6 +670,28 @@ function addConfirmBriefDelete() {
 
 
 function removeConfirmBriefDelete() {
+    var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
+    markerBriefSubmitButton.onclick = null;
+}
+
+
+// validate marker select function for brief
+function validateMarkerSelectBrief() {
+    var selectMarkerValue = document.getElementById("select-marker-title").value;
+    if(selectMarkerValue == "Select Marker"){
+        alert("Please select a valid marker to proceed!");
+        return false;
+    }
+}
+
+
+function addValidateMarkerSelectBrief() {
+    var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
+    markerBriefSubmitButton.onclick = validateMarkerSelectBrief;
+}
+
+
+function removeValidateMarkerSelectBrief() {
     var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
     markerBriefSubmitButton.onclick = null;
 }
