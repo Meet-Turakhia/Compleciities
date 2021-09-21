@@ -1,3 +1,9 @@
+/* prevent horizontal or vertical scrollbars */
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
 /* general font style */
 .head-font {
   font-family: "EB Garamond", serif;
