@@ -373,16 +373,7 @@ function removeValidateMarkerEdit() {
 
 // initializing ckeditor
 let ckeditor;
-ClassicEditor
-    .create(document.querySelector('#ckeditor'))
-    .then(editor => {
-        // console.log(editor);
-        window.editor = editor;
-        ckeditor = editor;
-    })
-    .catch(error => {
-        console.error(error);
-    });
+ckeditor = CKEDITOR.replace('ckeditor');
 
 
 // map dragging enable disable functions 
@@ -544,7 +535,7 @@ function toggleMarkerBriefForms(option) {
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
         titleBrief.readOnly = false;
-        ckeditor.isReadOnly = false;
+        ckeditor.setReadOnly(false);
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
         addValidateMarkerSelectBriefDelete();
@@ -565,7 +556,7 @@ function toggleMarkerBriefForms(option) {
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = false;
         titleBrief.readOnly = false;
-        ckeditor.isReadOnly = false;
+        ckeditor.setReadOnly(false);
         $('#media').css('pointer-events', '');
         setSelectMarkerTitle(option);
         addValidateMarkerSelectBriefDelete();
@@ -586,7 +577,7 @@ function toggleMarkerBriefForms(option) {
         mediaLabel.style.color = "black";
         uploadNewMediaWrapper.hidden = true;
         titleBrief.readOnly = true;
-        ckeditor.isReadOnly = true;
+        ckeditor.setReadOnly(true);
         $('#media').css('pointer-events', 'none');
         setSelectMarkerTitle(option);
         addValidateMarkerSelectBriefDelete();
