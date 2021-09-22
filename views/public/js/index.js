@@ -342,6 +342,10 @@ $("#paste-set-location").change(function () {
     if (this.checked) {
         previousLatitude = document.getElementById('latitude').value;
         previousLongitude = document.getElementById('longitude').value;
+        if(globalLatitude == ""){
+            globalLatitude = "";
+            globalLongitude = "";
+        }
         document.getElementById('latitude').value = globalLatitude;
         document.getElementById('longitude').value = globalLongitude;
         if (setLocationUsed == true) {
