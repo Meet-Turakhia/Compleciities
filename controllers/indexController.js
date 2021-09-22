@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
         cb(null, date + "_" + time + "_" + file.originalname);
     }
 })
-const upload = multer({ storage: storage});
+const upload = multer({ storage: storage });
 
 
 // middlewares
@@ -36,7 +36,7 @@ function progress_middleware(req, res, next) {
     req.percent = globalPercentage;
     if (globalPercentage == 100) {
         count += 1;
-        if (count == 2){
+        if (count == 2) {
             globalPercentage = 0;
         }
     }
@@ -51,12 +51,12 @@ router.get("/", (req, res) => {
     Marker.find((markerErr, markerDocs) => {
         if (!markerErr) {
             Brief.find((briefErr, briefDocs) => {
-                if (!briefErr){
+                if (!briefErr) {
                     res.render("layouts/index", {
                         markerData: JSON.stringify(markerDocs),
                         briefData: JSON.stringify(briefDocs),
                     });
-                }else{
+                } else {
                     console.log("Following error occured while retrieving the marker brief data:" + briefErr);
                 }
             });
@@ -136,12 +136,18 @@ function editMarker(req, res) {
 
 
 function deleteMarker(req, res) {
-    Marker.findByIdAndRemove(req.body.markerId, (err, doc) => {
-        if (!err) {
-            res.redirect("/");
+    Marker.findByIdAndRemove(req.body.markerId, (markerErr, markerDoc) => {
+        if (!markerErr) {
+            Brief.findOneAndRemove({ marker_id: req.body.markerId }, (briefErr, briefDoc) => {
+                if (!briefErr) {
+                    res.redirect("/");
+                } else {
+                    console.log("Following error occured while deleting the brief data of this respective marker: " + briefErr);
+                }
+            });
         }
         else {
-            console.log("Following error occured while deleting the marker data: " + err);
+            console.log("Following error occured while deleting the marker data: " + markerErr);
         }
     });
 }
@@ -151,7 +157,7 @@ function addBrief(req, res) {
     var brief = new Brief();
     brief.marker_id = req.body.marker_id;
     brief.title = req.body.title;
-    brief.brief = req.body.brief; 
+    brief.brief = req.body.brief;
     brief.media = req.files;
     brief.save((err, doc) => {
         if (!err) {
@@ -165,7 +171,7 @@ function addBrief(req, res) {
 
 
 function editBrief(newMedia, req, res) {
-    if (newMedia == "on"){
+    if (newMedia == "on") {
         var pathArray = req.body.current_media.split(",");
         pathArray.forEach(path => {
             fs.unlinkSync(path);
