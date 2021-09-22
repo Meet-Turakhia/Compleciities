@@ -373,7 +373,9 @@ function removeValidateMarkerEdit() {
 
 // initializing ckeditor
 let ckeditor;
-ckeditor = CKEDITOR.replace('ckeditor');
+ckeditor = CKEDITOR.replace('ckeditor', {
+    removePlugins: 'about, a11yhelp, dialogadvtab, elementspath, flash, save, sourcearea',
+});
 
 
 // map dragging enable disable functions 
@@ -483,7 +485,7 @@ $("#copy-marker-title").change(function () {
 
 // get upload progress and display using progress bar on home page
 function displayUploadProgress() {
-    if (document.getElementById("markerBriefForm").action.split("/")[3] == "add-brief" || (document.getElementById("markerBriefForm").action.split("/")[3] == "edit-brief" && document.getElementById("markerBriefForm").action.split("/")[4] == "on")){
+    if (document.getElementById("markerBriefForm").action.split("/")[3] == "add-brief" || (document.getElementById("markerBriefForm").action.split("/")[3] == "edit-brief" && document.getElementById("markerBriefForm").action.split("/")[4] == "on")) {
         const markerBriefCrossButton = document.getElementById("marker-brief-cross-button");
         const hideWhileUploadWrapper = document.getElementById("hide-while-upload-wrapper");
         const uploadMessage = document.getElementById("upload-message");
