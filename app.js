@@ -9,6 +9,7 @@ const Handlebars = require('handlebars');
 const path = require("path");
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const indexController = require("./controllers/indexController");
+const briefController = require("./controllers/briefController");
 const { dirname } = require("path");
 
 // building base
@@ -28,3 +29,4 @@ app.listen(3000, () => {
 });
 
 app.use("/", indexController);
+app.use("/brief", briefController);
