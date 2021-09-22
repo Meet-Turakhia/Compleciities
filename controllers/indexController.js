@@ -138,6 +138,16 @@ function editMarker(req, res) {
 function deleteMarker(req, res) {
     Marker.findByIdAndRemove(req.body.markerId, (markerErr, markerDoc) => {
         if (!markerErr) {
+            Brief.findOne({ marker_id: req.body.markerId }, (briefErr, briefDoc) => {
+                if (!briefErr) {
+                    var allMedia = briefDoc.media;
+                    for (let [key, value] of Object.entries(allMedia)) {
+                        fs.unlinkSync(value.path);
+                    }
+                } else {
+                    console.log("Following error occured while deleting the brief media of this respective marker: " + briefErr);
+                }
+            });
             Brief.findOneAndRemove({ marker_id: req.body.markerId }, (briefErr, briefDoc) => {
                 if (!briefErr) {
                     res.redirect("/");
