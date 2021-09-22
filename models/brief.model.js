@@ -22,6 +22,11 @@ var briefSchema = new mongoose.Schema({
         type: [Object],
         required: "This field is required"
     },
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
 });
 
 mongoose.model("briefs", briefSchema);
