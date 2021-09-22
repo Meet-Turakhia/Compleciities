@@ -137,6 +137,40 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 });
 
 
+// marker title used validation function
+var globalMarkerTitleUsed;
+
+function markerTitleUsed(){
+    globalMarkerTitleUsed = false;
+    const markerTitleUsedLabel = document.getElementById("marker-title-used");
+    var titleValue = document.getElementById("title").value;
+    var markerData = document.getElementById("markerData").value;
+    markerData = JSON.parse(markerData);
+
+    markerData.forEach(marker => {
+        if(titleValue == marker.title){
+            globalMarkerTitleUsed = true;
+        }
+    });
+
+    if(titleValue != ""){
+        if (globalMarkerTitleUsed == true) {
+            markerTitleUsedLabel.innerHTML = "Title already in use, try something else!";
+            markerTitleUsedLabel.style.color = "red";
+            markerTitleUsedLabel.hidden = false;
+        } else {
+            markerTitleUsedLabel.innerHTML = "Title not in use, accepted!";
+            markerTitleUsedLabel.style.color = "green";
+            markerTitleUsedLabel.hidden = false;
+        }
+    }else{
+        markerTitleUsedLabel.innerHTML = "";
+        markerTitleUsedLabel.style.color = "black";
+        markerTitleUsedLabel.hidden = true;
+    }
+}
+
+
 // toggle marker option forms
 function toggleMarkerOptionForms(option) {
     var title = document.getElementById("title");
@@ -152,6 +186,7 @@ function toggleMarkerOptionForms(option) {
     var markerOptionsModalLabel = document.getElementById("markerOptionsModalLabel");
     var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
     var togglePasteSetLocationWrapper = document.getElementById("paste-set-location-wrapper");
+    const markerTitleUsedLabel = document.getElementById("marker-title-used");
 
     if (option == "add") {
         document.getElementById("markerOptionsForm").action = "/";
@@ -166,6 +201,10 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = false;
         title.hidden = false;
         title.disabled = false;
+        markerTitleUsedLabel.innerHTML = "";
+        markerTitleUsedLabel.style.color = "black";
+        markerTitleUsedLabel.hidden = true;
+        globalMarkerTitleUsed = false;
         zoom.readOnly = false;
         togglePasteSetLocationWrapper.hidden = false;
         description.readOnly = false;
@@ -179,6 +218,7 @@ function toggleMarkerOptionForms(option) {
         markerOptionsSubmitButton.innerHTML = "Add";
         removeConfirmValidateMarkerDelete();
         removeValidateMarkerEdit();
+        addValidateMarkerAdd();
     }
     if (option == "edit") {
         document.getElementById("markerOptionsForm").action = "/edit-marker";
@@ -190,6 +230,10 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = true;
         title.hidden = true;
         title.disabled = true;
+        markerTitleUsedLabel.innerHTML = "";
+        markerTitleUsedLabel.style.color = "black";
+        markerTitleUsedLabel.hidden = true;
+        globalMarkerTitleUsed = false;
         selectTitleLabel.hidden = false;
         selectTitle.hidden = false;
         selectTitle.disabled = false;
@@ -205,6 +249,7 @@ function toggleMarkerOptionForms(option) {
         description.value = null;
         markerOptionsSubmitButton.innerHTML = "Edit";
         setSelectTitleData();
+        removeValidateMarkerAdd();
         removeConfirmValidateMarkerDelete();
         addValidateMarkerEdit();
     }
@@ -218,6 +263,10 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = true;
         title.hidden = true;
         title.disabled = true;
+        markerTitleUsedLabel.innerHTML = "";
+        markerTitleUsedLabel.style.color = "black";
+        markerTitleUsedLabel.hidden = true;
+        globalMarkerTitleUsed = false;
         selectTitleLabel.hidden = false;
         selectTitle.hidden = false;
         selectTitle.disabled = false;
@@ -233,6 +282,7 @@ function toggleMarkerOptionForms(option) {
         description.value = null;
         markerOptionsSubmitButton.innerHTML = "Delete";
         setSelectTitleData();
+        removeValidateMarkerAdd();
         removeValidateMarkerEdit();
         addConfirmValidateMarkerDelete();
     }
@@ -317,6 +367,29 @@ function markerOptionsModalOptions() {
 function markerBriefModalOptions() {
     document.getElementById("brief-add").click();
     mapScrollDragDisable();
+}
+
+
+// validate marker add function
+function validateMarkerAdd() {
+    var titleValue = document.getElementById("title").value;
+
+    if(globalMarkerTitleUsed == true){
+        alert("The marker title '" + titleValue + "' is already in use, please try something else!");
+        return false;
+    }
+}
+
+
+function addValidateMarkerAdd() {
+    var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
+    markerOptionsSubmitButton.onclick = validateMarkerAdd;
+}
+
+
+function removeValidateMarkerAdd() {
+    var markerOptionsSubmitButton = document.getElementById("marker-options-submit-button");
+    markerOptionsSubmitButton.onclick = null;
 }
 
 

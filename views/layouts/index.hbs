@@ -155,7 +155,9 @@
                                 <div class="my-2">
                                     <label id="title-label" for="title" class="form-label fs-6">Title:</label>
                                     <input name="title" type="text" class="form-control" id="title"
-                                        placeholder="Enter Title" autocomplete="off" required="true">
+                                        placeholder="Enter Title (unique)" autocomplete="off" required="true" onchange="markerTitleUsed();">
+                                    <label id="marker-title-used" class="form-check-label" style="font-size: 13px;"
+                                        for="marker-title-used" hidden="true">Title already in use, try something else!</label>
                                 </div>
 
                                 <div class="mb-3">
@@ -180,8 +182,9 @@
             </div>
 
             {{!-- marker brief modal --}}
-            <div class="modal fade" id="markerBriefModal" data-bs-focus="false" tabindex="-1" aria-labelledby="markerBriefModalLabel"
-                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal fade" id="markerBriefModal" data-bs-focus="false" tabindex="-1"
+                aria-labelledby="markerBriefModalLabel" aria-hidden="true" data-bs-backdrop="static"
+                data-bs-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                     <div class="modal-content">
 
