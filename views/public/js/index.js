@@ -43,7 +43,7 @@ map.zoomControl.setPosition('topright');
 
 // page on load map animation
 map.flyTo([0, 0], 1, {
-    duration: 1,
+    duration: 1.5,
 });
 
 
