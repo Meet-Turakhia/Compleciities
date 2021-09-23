@@ -30,6 +30,24 @@
 
 <body>
 
+    {{!-- navbar --}}
+    <nav class="navbar navbar-white bg-white py-2" id="navbar-container">
+        <div class="container justify-content-center">
+
+            <a class="navbar-brand" href="/brief">
+                <img src="images/complecities_logo.png" id="complecities-logo" alt="complecities logo">
+            </a>
+
+        </div>
+    </nav>
+
+    {{!-- brief data --}}
+    <main class="container" id="brief-container">
+
+        <p class="head-font" id="brief-title">A Beginner’s Guide to study of Architecture</p>
+
+    </main>
+
 
     {{!-- using hidden input to pass all markers data and brief data to markers.js file and index.js file --}}
     <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">

@@ -35,3 +35,7 @@ body {
   cursor: pointer;
 }
 
+/* placing styles */
+.justify-content-center{
+  justify-content: center;
+}

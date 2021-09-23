@@ -1,0 +1,67 @@
+/* full page style */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  padding: 0;
+  margin: 0;
+}
+
+/* body style */
+body{
+  background-color: #f2f2f2;
+}
+
+/* navbar css */
+#navbar-container{
+  width: 100%;
+  min-width: 280px;
+}
+
+.navbar-brand{
+  margin: 0 !important;
+}
+
+#complecities-logo{
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+}
+
+@media only screen and (max-width: 600px) {
+  #complecities-logo{
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  }
+}
+
+/* brief stylings */
+#brief-container{
+  background-color: aqua;
+  width: 60%;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  #brief-container{
+  background-color: aqua;
+  width: 100%;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+  }
+}
+
+#brief-title{
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  padding: 0vw 5vw 0vw 5vw;
+}
+
+@media only screen and (max-width: 600px) {
+  #brief-title{
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  padding: 0vw 5vw 0vw 5vw;
+  }
+}
