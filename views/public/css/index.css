@@ -6,6 +6,12 @@
   margin: 0;
 }
 
+/* prevent horizontal or vertical scrollbars */
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
 /* map style */
 #map {
   height: 100vh;

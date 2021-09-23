@@ -8,13 +8,14 @@
 
 /* body style */
 body{
-  background-color: #f2f2f2;
+  background-color: white;
 }
 
 /* navbar css */
 #navbar-container{
   width: 100%;
   min-width: 280px;
+  border-bottom: 1px solid gray;
 }
 
 .navbar-brand{
@@ -37,31 +38,27 @@ body{
 
 /* brief stylings */
 #brief-container{
-  background-color: aqua;
   width: 60%;
   min-width: 280px;
-  display: flex;
-  justify-content: center;
 }
 
 @media only screen and (max-width: 600px) {
   #brief-container{
-  background-color: aqua;
   width: 100%;
   min-width: 280px;
-  display: flex;
-  justify-content: center;
   }
+}
+
+.brief-content-container{
+  display: flex;
 }
 
 #brief-title{
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-size: clamp(2rem, 2.5vw, 2.5rem);
   padding: 0vw 5vw 0vw 5vw;
 }
 
-@media only screen and (max-width: 600px) {
-  #brief-title{
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+#brief-date{
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   padding: 0vw 5vw 0vw 5vw;
-  }
 }
