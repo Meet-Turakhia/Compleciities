@@ -53,13 +53,47 @@ body{
   display: flex;
 }
 
+/* brief title */
 #brief-title{
   font-size: clamp(2rem, 2.5vw, 2.5rem);
   padding: 0vw 5vw 0vw 5vw;
   margin-bottom: 10px !important;
 }
 
+/* brief date */
 #brief-date{
   font-size: clamp(1rem, 2.5vw, 1.2rem);
+  padding: 0vw 5vw 2vw 5vw;
+}
+
+/* flexslider */
+#brief-flexslider{
   padding: 0vw 5vw 0vw 5vw;
+}
+
+.flex-direction-nav a:before{
+  line-height: 1;
+}
+
+@media only screen and (max-width: 600px) {
+.flex-direction-nav a:before{
+  visibility: hidden;
+}
+}
+
+.flexslider-video{
+  width: 99%;
+}
+
+.flex-caption {
+  width: 99%;
+  padding: 2%;
+  left: 0;
+  bottom: 0;
+  background: #000;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
 }

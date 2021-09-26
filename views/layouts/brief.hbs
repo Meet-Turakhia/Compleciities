@@ -13,6 +13,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
         crossorigin="anonymous"></script>
+    {{!-- flexslider css and js --}}
+    <link rel="stylesheet" href="flexslider/css/flexslider.css">
+    <script type="text/javascript" src="flexslider/jquery/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="flexslider/jquery/jquery.fitvid.js"></script>
     <!-- font styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
@@ -44,12 +48,42 @@
     {{!-- brief data --}}
     <main class="container my-5" id="brief-container">
 
+        {{!-- brief title --}}
         <div class="brief-content-container">
             <p class="head-font" id="brief-title">A Beginner’s Guide to study of Architecture</p>
         </div>
 
+        {{!-- brief date --}}
         <div class="brief-content-container">
             <p class="head-font" id="brief-date">19 Sept 2021</p>
+        </div>
+
+        {{!-- brief flexslider --}}
+        <div id="brief-flexslider">
+            <div class="flexslider">
+                <ul class="slides">
+
+                    <li class="flexslider-item">
+                        <img src="images/sketch.png" />
+                        <p class="flex-caption">Adventurer Cheesecake Brownie</p>
+                    </li>
+                    <li class="flexslider-item">
+                        <img src="images/sketch.png" />
+                        <p class="flex-caption">Adventurer Cheesecake Brownie</p>
+                    </li>
+                    <li class="flexslider-item">
+                        <video controls class="flexslider-video">
+                            <source src="uploads/24-9-2021_2-49-8_Tenet (2020) 1080pWEB-DLFull.mp4">
+                        </video>
+                        <p class="flex-caption">Adventurer Cheesecake Brownie</p>
+                    </li>
+                    <li class="flexslider-item">
+                        <img src="images/Capture.png" />
+                        <p class="flex-caption">Adventurer Cheesecake Brownie</p>
+                    </li>
+
+                </ul>
+            </div>
         </div>
 
     </main>
