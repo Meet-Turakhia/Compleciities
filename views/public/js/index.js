@@ -856,6 +856,7 @@ $("#upload-new-user-image").change(function () {
             $("#upload-new-user-image").prop('checked', false);
             userImage.value = "";
             userImageLabel.style.color = "black";
+            alert("Please select an image to upload, user image field empty!");
         }
     } else {
         userOptionsForm.action = "/edit-user-data/off";
@@ -877,7 +878,9 @@ function userOptionsFormValidation() {
 
         if (!uploadNewUserImage.checked) {
             if (userImage.value != "") {
+                var imageName = userImage.value;
                 userImage.value = "";
+                return confirm("You have selected '" + imageName + "' image but havent checked the upload new user image field, hence the image wont be uploaded, do you want to proceed?");
             }
         }
 
