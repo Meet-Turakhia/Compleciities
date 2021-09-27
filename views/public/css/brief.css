@@ -97,3 +97,62 @@ body{
   line-height: 18px;
   text-align: center;
 }
+
+/* brief para */
+#brief-para{
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  padding: 0vw 5vw 2vw 5vw;
+  text-align: justify;
+}
+
+/* section end hr */
+#section-end-hr{
+  padding: 0vw 5vw 0vw 5vw;
+}
+
+/* share brief */
+#share-brief{
+  padding: 0vw 5vw 0vw 5vw;
+}
+
+/* share icons */
+.share-icons{
+  font-size: 25px;
+}
+
+.share-icons-li{
+  margin-left: 3%;
+}
+
+#icon-linkedin :hover{
+  color: #0077b5;
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#icon-twitter :hover{
+  color: #1DA1F2;
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#icon-facebook :hover{
+  color: #4267B2;
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#icon-copy-link :hover{
+  color: #8a3ab9;
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#icon-mindmap :hover{
+  color: #f2aeb1;
+}
+
+.icons-link{
+  color: #000;
+  text-decoration: none !important;
+}
