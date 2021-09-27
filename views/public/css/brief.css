@@ -226,3 +226,9 @@ body{
   font-size: 30px;
   transition: 0.3s;
 }
+
+#footer-icon-mail :hover{
+  color: #EA4335;
+  font-size: 30px;
+  transition: 0.3s;
+}
