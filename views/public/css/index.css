@@ -122,3 +122,12 @@ body {
   line-height: 1.33;
   border-radius: 35px;
 }
+
+/* text area styling */
+#description{
+  height: 100px;
+}
+
+#footer-description{
+  height: 100px;
+}
