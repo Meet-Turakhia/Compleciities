@@ -156,3 +156,73 @@ body{
   color: #000;
   text-decoration: none !important;
 }
+
+/* footer */
+.footer-container{
+  background-color: #000;
+  margin-top: 10%;
+}
+
+.footer-main-links{
+  color: #fff;
+  text-decoration: none !important;
+}
+
+#footer-mindmap-link :hover{
+  color: #f2aeb1;
+  font-size: 25px;
+  transition: 0.3s;
+}
+
+#footer-hr-style{
+  margin: 0% 15%;
+}
+
+#footer-description-style{
+  line-height: 1.7rem; 
+  text-align: justify;
+}
+
+#footer-hr2-style{
+  margin: 10% 15% 5%;
+}
+
+/* footer icons */
+.social-icons{
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.footer-icons-margin{
+  margin-left: 3%;
+}
+
+#footer-icon-linkedin :hover{
+  color: #0077b5;
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#footer-icon-facebook :hover{
+  color: #4267B2;
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#footer-icon-twitter :hover{
+  color: #1DA1F2;
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#footer-icon-instagram :hover{
+  color: rgba(193,53,132);
+  font-size: 30px;
+  transition: 0.3s;
+}
+
+#footer-icon-pinterest :hover{
+  color: #E60023;
+  font-size: 30px;
+  transition: 0.3s;
+}
