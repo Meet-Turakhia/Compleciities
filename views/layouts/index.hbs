@@ -67,6 +67,16 @@
                 </span>
             </div>
 
+            <div class="setting-buttons">
+                <span data-bs-toggle="modal" data-bs-target="#markerBriefUserModal">
+                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="User Options"
+                        onclick="markerBriefUserOptions();">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+
             <!-- marker options modal -->
             <div class="modal fade" id="markerOptionsModal" tabindex="-1" aria-labelledby="markerOptionsModalLabel"
                 aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -155,9 +165,11 @@
                                 <div class="my-2">
                                     <label id="title-label" for="title" class="form-label fs-6">Title:</label>
                                     <input name="title" type="text" class="form-control" id="title"
-                                        placeholder="Enter Title (unique)" autocomplete="off" required="true" onchange="markerTitleUsed();">
+                                        placeholder="Enter Title (unique)" autocomplete="off" required="true"
+                                        onchange="markerTitleUsed();">
                                     <label id="marker-title-used" class="form-check-label" style="font-size: 13px;"
-                                        for="marker-title-used" hidden="true">Title already in use, try something else!</label>
+                                        for="marker-title-used" hidden="true">Title already in use, try something
+                                        else!</label>
                                 </div>
 
                                 <div class="mb-3">
@@ -309,13 +321,120 @@
                 </div>
             </div>
 
+            {{!-- Brief User Options Modal --}}
+            <div class="modal fade" id="markerBriefUserModal" tabindex="-1" aria-labelledby="markerBriefUserLabel"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title head-font" id="markerBriefUserLabel">User Options</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onclick="mapScrollDragEnable();"></button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <form id="userOptionsForm" class="para-font" action="/add-user-data"
+                                enctype="multipart/form-data" method="POST">
+
+                                {{!-- using hidden input to store id of users for edit --}}
+                                <input type="password" class="form-control" name="user_id" id="user-id" readonly="true"
+                                    hidden="true">
+                                <input type="password" class="form-control" name="current_user_image"
+                                    id="current-user-image" readonly="true" hidden="true">
+
+                                <div class="mb-3">
+                                    <label for="user-image-label" id="user-image-label" class="form-label fs-6">User
+                                        Image:</label>
+                                    <input class="form-control" name="userImage" type="file" id="user-image"
+                                        accept="image/*" required="true">
+                                </div>
+
+                                <div class="form-check form-switch my-2" id="upload-new-user-image-wrapper"
+                                    hidden="true">
+                                    <input class="form-check-input cursor-pointer" type="checkbox"
+                                        id="upload-new-user-image">
+                                    <label class="form-check-label" style="font-size: 13px;"
+                                        for="upload-new-user-image">upload new user image</label>
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="name-label" for="name" class="form-label fs-6">Name:</label>
+                                    <input name="name" type="text" class="form-control" id="name"
+                                        placeholder="Enter Your Name" autocomplete="off" required="true">
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="linkedin-label" for="linkedin" class="form-label fs-6">Linkedin:</label>
+                                    <input name="linkedin" type="text" class="form-control" id="linkedin"
+                                        placeholder="Enter Your Linkedin" autocomplete="off" required="true">
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="twitter-label" for="twitter" class="form-label fs-6">Twitter:</label>
+                                    <input name="twitter" type="text" class="form-control" id="twitter"
+                                        placeholder="Enter Your Twitter" autocomplete="off" required="true">
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="facebook-label" for="facebook" class="form-label fs-6">Facebook:</label>
+                                    <input name="facebook" type="text" class="form-control" id="facebook"
+                                        placeholder="Enter Your Facebook" autocomplete="off" required="true">
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="instagram-label" for="instagram"
+                                        class="form-label fs-6">Instagram:</label>
+                                    <input name="instagram" type="text" class="form-control" id="instagram"
+                                        placeholder="Enter Your Instagram" autocomplete="off" required="true">
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="pinterest-label" for="pinterest"
+                                        class="form-label fs-6">Pinterest:</label>
+                                    <input name="pinterest" type="text" class="form-control" id="pinterest"
+                                        placeholder="Enter Your Pinterest" autocomplete="off" required="true">
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="gmail-label" for="gmail" class="form-label fs-6">Gmail:</label>
+                                    <input name="gmail" type="email" class="form-control" id="gmail"
+                                        placeholder="Enter Your Gmail Id" autocomplete="off" required="true">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label id="footer-description-label" for="footer-description"
+                                        class="form-label fs-6">Footer Description:</label>
+                                    <textarea class="form-control" id="footer-description" name="footer_description"
+                                        placeholder="Enter Footer Description" autocomplete="off"
+                                        required="true"></textarea>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        onclick="mapScrollDragEnable();">Close</button>
+                                    <button id="user-options-submit-button" type="submit" class="btn btn-dark"
+                                        onclick="return userOptionsFormValidation();">Submit</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </main>
 
-    {{!-- using hidden input to pass all markers data and brief data to markers.js file and index.js file --}}
+    {{!-- using hidden input to pass all markers data and brief data to markers.js file and index.js file and user data
+    for the same --}}
     <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">
     <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
+    <input type="password" class="form-control" id="userData" value="{{userData}}" readonly="true" hidden="true">
 
     <!-- leaflet js -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"

@@ -146,7 +146,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 // marker title used validation function
 var globalMarkerTitleUsed;
 
-function markerTitleUsed(){
+function markerTitleUsed() {
     globalMarkerTitleUsed = false;
     const markerTitleUsedLabel = document.getElementById("marker-title-used");
     var titleValue = document.getElementById("title").value;
@@ -154,12 +154,12 @@ function markerTitleUsed(){
     markerData = JSON.parse(markerData);
 
     markerData.forEach(marker => {
-        if(titleValue == marker.title){
+        if (titleValue == marker.title) {
             globalMarkerTitleUsed = true;
         }
     });
 
-    if(titleValue != ""){
+    if (titleValue != "") {
         if (globalMarkerTitleUsed == true) {
             markerTitleUsedLabel.innerHTML = "Title already in use, try something else!";
             markerTitleUsedLabel.style.color = "red";
@@ -169,7 +169,7 @@ function markerTitleUsed(){
             markerTitleUsedLabel.style.color = "green";
             markerTitleUsedLabel.hidden = false;
         }
-    }else{
+    } else {
         markerTitleUsedLabel.innerHTML = "";
         markerTitleUsedLabel.style.color = "black";
         markerTitleUsedLabel.hidden = true;
@@ -348,7 +348,7 @@ $("#paste-set-location").change(function () {
     if (this.checked) {
         previousLatitude = document.getElementById('latitude').value;
         previousLongitude = document.getElementById('longitude').value;
-        if(globalLatitude == ""){
+        if (globalLatitude == "") {
             globalLatitude = "";
             globalLongitude = "";
         }
@@ -380,11 +380,32 @@ function markerBriefModalOptions() {
 }
 
 
+function markerBriefUserOptions() {
+    // fill user options form if document present
+    const userImage = document.getElementById("user-image");
+    const userImageLabel = document.getElementById("user-image-label");
+    var userData = document.getElementById("userData").value;
+
+    $("#upload-new-user-image").prop('checked', false);
+    userImage.value = "";
+    userImageLabel.style.color = "black";
+
+    userData = JSON.parse(userData);
+    if (userData.length != 0) {
+        fillUserOptionsForm(userData);
+    } else {
+        noUserFormSet();
+    }
+
+    mapScrollDragDisable();
+}
+
+
 // validate marker add function
 function validateMarkerAdd() {
     var titleValue = document.getElementById("title").value;
 
-    if(globalMarkerTitleUsed == true){
+    if (globalMarkerTitleUsed == true) {
         alert("The marker title '" + titleValue + "' is already in use, please try something else!");
         return false;
     }
@@ -766,3 +787,112 @@ function removeValidateMarkerSelectBriefDelete() {
     var markerBriefSubmitButton = document.getElementById("marker-brief-submit-button");
     markerBriefSubmitButton.onclick = null;
 }
+
+
+// fill user options form function
+function fillUserOptionsForm(userData) {
+    const name = document.getElementById("name");
+    const linkedin = document.getElementById("linkedin");
+    const twitter = document.getElementById("twitter");
+    const facebook = document.getElementById("facebook");
+    const instagram = document.getElementById("instagram");
+    const pinterest = document.getElementById("pinterest");
+    const gmail = document.getElementById("gmail");
+    const footerDescription = document.getElementById("footer-description");
+    const userImage = document.getElementById("user-image");
+    const uploadNewUserImageWrapper = document.getElementById("upload-new-user-image-wrapper");
+    const userOptionsForm = document.getElementById("userOptionsForm");
+    const userId = document.getElementById("user-id");
+    const currentUserImage = document.getElementById("current-user-image");
+    const userOptionsSubmitButton = document.getElementById("user-options-submit-button");
+
+    userData.forEach(user => {
+        userId.value = user._id;
+        currentUserImage.value = user.image.map(i => i.path);
+        name.value = user.name;
+        linkedin.value = user.linkedin;
+        twitter.value = user.twitter;
+        facebook.value = user.facebook;
+        instagram.value = user.instagram;
+        pinterest.value = user.pinterest;
+        gmail.value = user.gmail;
+        footerDescription.value = user.footer_description;
+    });
+
+    userImage.required = false;
+    uploadNewUserImageWrapper.hidden = false;
+    userOptionsForm.action = "/edit-user-data/off";
+    userOptionsSubmitButton.innerHTML = "Edit";
+
+}
+
+
+// form setting if no user data present
+function noUserFormSet() {
+    const userImage = document.getElementById("user-image");
+    const uploadNewUserImageWrapper = document.getElementById("upload-new-user-image-wrapper");
+    const userOptionsForm = document.getElementById("userOptionsForm");
+    const userOptionsSubmitButton = document.getElementById("user-options-submit-button");
+
+    userImage.required = true;
+    uploadNewUserImageWrapper.hidden = true;
+    userOptionsForm.action = "/add-user-data";
+    userOptionsSubmitButton.innerHTML = "Add";
+}
+
+
+// upload new user image toggle
+$("#upload-new-user-image").change(function () {
+    const userOptionsForm = document.getElementById("userOptionsForm");
+    const userImage = document.getElementById("user-image");
+    const userImageLabel = document.getElementById("user-image-label");
+
+    if (this.checked) {
+        userOptionsForm.action = "/edit-user-data/on";
+        userImage.required = true;
+        if (userImage.value != "") {
+            userImageLabel.style.color = "green";
+        }
+    } else {
+        userOptionsForm.action = "/edit-user-data/off";
+        userImage.required = false;
+        userImageLabel.style.color = "black";
+    }
+
+});
+
+
+// user options form validation
+function userOptionsFormValidation() {
+    const uploadNewUserImage = document.getElementById("upload-new-user-image");
+    const userImage = document.getElementById("user-image");
+    const userOptionsSubmitButton = document.getElementById("user-options-submit-button");
+
+    if (userOptionsSubmitButton.innerHTML != "Add") {
+
+        if (!uploadNewUserImage.checked) {
+            if (userImage.value != "") {
+                userImage.value = "";
+            }
+        }
+
+    }
+}
+
+
+// new user image on change function
+$("#user-image").change(function () {
+    const uploadNewUserImage = document.getElementById("upload-new-user-image");
+    const userImage = document.getElementById("user-image");
+    const userImageLabel = document.getElementById("user-image-label");
+
+    if (uploadNewUserImage.checked) {
+        if (userImage.value != "") {
+            userImageLabel.style.color = "green";
+        } else {
+            userImageLabel.style.color = "black";
+        }
+    } else {
+        userImageLabel.style.color = "black";
+    }
+});

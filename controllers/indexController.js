@@ -6,6 +6,7 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const Marker = mongoose.model("markers");
 const Brief = mongoose.model("briefs");
+const User = mongoose.model("user");
 const multer = require('multer');
 var fs = require('fs');
 const storage = multer.diskStorage({
@@ -52,10 +53,17 @@ router.get("/", (req, res) => {
         if (!markerErr) {
             Brief.find((briefErr, briefDocs) => {
                 if (!briefErr) {
-                    res.render("layouts/index", {
-                        markerData: JSON.stringify(markerDocs),
-                        briefData: JSON.stringify(briefDocs),
-                    });
+                    User.find((userErr, userDocs) => {
+                        if (!userErr) {
+                            res.render("layouts/index", {
+                                markerData: JSON.stringify(markerDocs),
+                                briefData: JSON.stringify(briefDocs),
+                                userData: JSON.stringify(userDocs),
+                            });
+                        } else {
+                            console.log("Following error occured while retrieving the user data:" + userErr);
+                        }
+                    })
                 } else {
                     console.log("Following error occured while retrieving the marker brief data:" + briefErr);
                 }
@@ -103,6 +111,13 @@ router.get("/get-upload-progress", progress_middleware, (req, res, next) => {
     });
 });
 
+router.post("/add-user-data", progress_middleware, upload.single("userImage"), (req, res, next) => {
+    addUserData(req, res);
+});
+
+router.post("/edit-user-data/:newUserImage", progress_middleware, upload.single("userImage"), (req, res, next) => {
+    editUserData(req.params.newUserImage, req, res);
+});
 
 // functions
 
@@ -213,5 +228,40 @@ function deleteBrief(req, res) {
     });
 }
 
+function addUserData(req, res) {
+    var user = new User();
+    user.image = req.file;
+    user.name = req.body.name;
+    user.linkedin = req.body.linkedin;
+    user.twitter = req.body.twitter;
+    user.facebook = req.body.facebook;
+    user.instagram = req.body.instagram;
+    user.pinterest = req.body.pinterest;
+    user.gmail = req.body.gmail;
+    user.footer_description = req.body.footer_description;
+    user.save((err, doc) => {
+        if (!err) {
+            res.redirect("/");
+        } else {
+            console.log("Following error occured while inserting the user data: " + err)
+        }
+    });
+}
+
+
+function editUserData(newUserImage, req, res) {
+    if (newUserImage == "on") {
+        var path = req.body.current_user_image;
+        fs.unlinkSync(path);
+        req.body.image = req.file;
+    }
+    User.findOneAndUpdate({ _id: req.body.user_id }, req.body, { new: true }, (err, doc) => {
+        if (!err) {
+            res.redirect("/");
+        } else {
+            console.log("Following error occured while updating the user data: " + err);
+        }
+    });
+}
 
 module.exports = router;
