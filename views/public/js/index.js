@@ -852,10 +852,15 @@ $("#upload-new-user-image").change(function () {
         userImage.required = true;
         if (userImage.value != "") {
             userImageLabel.style.color = "green";
+        } else {
+            $("#upload-new-user-image").prop('checked', false);
+            userImage.value = "";
+            userImageLabel.style.color = "black";
         }
     } else {
         userOptionsForm.action = "/edit-user-data/off";
         userImage.required = false;
+        userImage.value = "";
         userImageLabel.style.color = "black";
     }
 
@@ -878,21 +883,3 @@ function userOptionsFormValidation() {
 
     }
 }
-
-
-// new user image on change function
-$("#user-image").change(function () {
-    const uploadNewUserImage = document.getElementById("upload-new-user-image");
-    const userImage = document.getElementById("user-image");
-    const userImageLabel = document.getElementById("user-image-label");
-
-    if (uploadNewUserImage.checked) {
-        if (userImage.value != "") {
-            userImageLabel.style.color = "green";
-        } else {
-            userImageLabel.style.color = "black";
-        }
-    } else {
-        userImageLabel.style.color = "black";
-    }
-});
