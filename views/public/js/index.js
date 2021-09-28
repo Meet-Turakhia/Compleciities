@@ -849,10 +849,11 @@ $("#upload-new-user-image").change(function () {
 
     if (this.checked) {
         userOptionsForm.action = "/edit-user-data/on";
-        userImage.required = true;
         if (userImage.value != "") {
+            userImage.required = true;
             userImageLabel.style.color = "green";
         } else {
+            userImage.required = false;
             $("#upload-new-user-image").prop('checked', false);
             userImage.value = "";
             userImageLabel.style.color = "black";
