@@ -20,7 +20,7 @@ app.use(bodyparser.urlencoded({
 }));
 app.use(bodyparser.json());
 app.set("views", path.join(__dirname, "/views/"));
-app.use(express.static(__dirname + '/views/public/'));
+app.use(express.static(__dirname + '/views/public'));
 app.engine("hbs", exphbs({ extname: "hbs", defaultLayout: false, layoutsDir: __dirname + "/views/layouts/", handlebars: allowInsecurePrototypeAccess(Handlebars) }));
 app.set("view engine", "hbs");
 

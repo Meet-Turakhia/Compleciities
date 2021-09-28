@@ -4,7 +4,7 @@ const map = L.map("map", {
     attributionControl: false,
 
 }).setView([0, 0], 0);
-const tileUrl = "images/sketch/{z}/{x}/{y}.png";
+const tileUrl = "/images/sketch/{z}/{x}/{y}.png";
 const tileLayer = L.tileLayer(tileUrl, {
     minZoom: 0,
     maxZoom: 6,
@@ -19,7 +19,7 @@ map.setMaxBounds(map.getBounds());
 L.Control.Watermark = L.Control.extend({
     onAdd: function (map) {
         var img = L.DomUtil.create("img");
-        img.src = "images/complecities_logo.png";
+        img.src = "/images/complecities_logo.png";
         img.style.width = "200px";
         img.classList.add("complecities-logo");
         img.alt = "Complecities Logo";
@@ -69,7 +69,7 @@ function onEachFeature(feature, layer) {
 
 
 var myIcon = L.icon({
-    iconUrl: "images/marker.png",
+    iconUrl: "/images/marker.png",
     iconSize: [30, 35],
 });
 
