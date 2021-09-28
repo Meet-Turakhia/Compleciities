@@ -548,6 +548,7 @@ function setSelectMarkerTitleId() {
     var titleBrief = document.getElementById("title-brief");
     var titleLabelBrief = document.getElementById("title-label-brief");
     var markerData = document.getElementById("markerData").value;
+    var selectedMarkerTitle = document.getElementById("selected-marker-title");
     markerData = JSON.parse(markerData);
 
     $("#copy-marker-title").prop('checked', false);
@@ -557,6 +558,7 @@ function setSelectMarkerTitleId() {
     markerData.forEach(marker => {
         if (marker.title == selectMarkerValue) {
             selectedMarkerId.value = marker._id;
+            selectedMarkerTitle.value = marker.title;
         }
     });
     setMarkerBriefFormData(selectedMarkerId);

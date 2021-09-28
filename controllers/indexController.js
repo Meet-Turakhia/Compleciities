@@ -181,6 +181,7 @@ function deleteMarker(req, res) {
 function addBrief(req, res) {
     var brief = new Brief();
     brief.marker_id = req.body.marker_id;
+    brief.marker_title = req.body.marker_title;
     brief.title = req.body.title;
     brief.brief = req.body.brief;
     brief.media = req.files;

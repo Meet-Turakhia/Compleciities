@@ -10,6 +10,10 @@ var briefSchema = new mongoose.Schema({
         type: ObjectId,
         required: "This field is required"
     },
+    marker_title: {
+        type: String,
+        required: "This field is required"
+    },
     title: {
         type: String,
         required: "This field is required"
