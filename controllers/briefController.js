@@ -16,10 +16,17 @@ router.get("/:markerTitle", (req, res) => {
         if (!briefErr) {
             User.find((userErr, userDocs) => {
                 if (briefDocs != null) {
+                    tempDate = briefDocs.created_at.toString().split(" ");
+                    day = tempDate[2];
+                    month = tempDate[1];
+                    year = tempDate[3];
+                    date = day + " " + month + " " + year;
+                    userDocs = userDocs[0]
                     if (!userErr) {
                         res.render("layouts/brief", {
                             briefData: briefDocs,
-                            userData: userDocs
+                            userData: userDocs,
+                            briefDate: date
                         });
                     } else {
                         console.log("Following error occured while retrieving the user data: " + userErr);
