@@ -11,9 +11,27 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 const indexController = require("./controllers/indexController");
 const briefController = require("./controllers/briefController");
 const { dirname } = require("path");
+const { options } = require("./controllers/indexController");
 
 // building base
 var app = express();
+
+const hbs = exphbs.create({
+    extname: "hbs",
+    defaultLayout: false,
+    layoutsDir: __dirname + "/views/layouts/",
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers: {
+        isVideo: function (mimetype, options) {
+            mediaType = mimetype.split("/")[0];
+            if (mediaType == "video") {
+                return options.fn({ isVideoReturn: true });
+            } else {
+                return options.fn({ isVideoReturn: false });
+            }
+        }
+    }
+});
 
 app.use(bodyparser.urlencoded({
     extended: true,
@@ -21,7 +39,7 @@ app.use(bodyparser.urlencoded({
 app.use(bodyparser.json());
 app.set("views", path.join(__dirname, "/views/"));
 app.use(express.static(__dirname + '/views/public'));
-app.engine("hbs", exphbs({ extname: "hbs", defaultLayout: false, layoutsDir: __dirname + "/views/layouts/", handlebars: allowInsecurePrototypeAccess(Handlebars) }));
+app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 
 app.listen(3000, () => {

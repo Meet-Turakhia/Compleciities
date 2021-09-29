@@ -63,24 +63,30 @@
             <div class="flexslider">
                 <ul class="slides">
 
-                    <li class="flexslider-item">
-                        <img src="/images/sketch.png" />
-                        <p class="flex-caption head-font">Adventurer Cheesecake Brownie</p>
-                    </li>
-                    <li class="flexslider-item">
-                        <img src="/images/sketch.png" />
-                        <p class="flex-caption head-font">Adventurer Cheesecake Brownie</p>
-                    </li>
+                    {{#each briefData.media}}
+
+                    {{#isVideo this.mimetype}}
+                    {{/isVideo}}
+
+                    {{#if isVideoReturn}}
+
                     <li class="flexslider-item">
                         <video controls class="flexslider-video">
-                            <source src="/uploads/24-9-2021_2-49-8_Tenet (2020) 1080pWEB-DLFull.mp4">
+                            <source src="/uploads/{{this.filename}}">
                         </video>
                         <p class="flex-caption head-font">Adventurer Cheesecake Brownie</p>
                     </li>
+
+                    {{else}}
+
                     <li class="flexslider-item">
-                        <img src="/images/Capture.png" />
+                        <img src="/uploads/{{this.filename}}" />
                         <p class="flex-caption head-font">Adventurer Cheesecake Brownie</p>
                     </li>
+
+                    {{/if}}
+
+                    {{/each}}
 
                 </ul>
             </div>
@@ -176,7 +182,8 @@
                 <div class="col-md-12">
                     <div class="mb-3 flex-center text-center text-light">
 
-                        <a id="footer-icon-linkedin" href="{{userData.linkedin}}" class="text-decoration-none social-icons">
+                        <a id="footer-icon-linkedin" href="{{userData.linkedin}}"
+                            class="text-decoration-none social-icons">
                             <i class="fab fa-linkedin-in fa-lg" title="connect on linkedin!"> </i>
                         </a>
                         <a id="footer-icon-twitter" href="{{userData.twitter}}"
@@ -195,7 +202,8 @@
                             class="text-decoration-none social-icons footer-icons-margin">
                             <i class="fab fa-pinterest fa-lg" title="connect on pinterest!"> </i>
                         </a>
-                        <a id="footer-icon-mail" href="{{userData.gmail}}" class="text-decoration-none social-icons footer-icons-margin">
+                        <a id="footer-icon-mail" href="{{userData.gmail}}"
+                            class="text-decoration-none social-icons footer-icons-margin">
                             <i class="fas fa-envelope fa-lg" title="write a mail to me(gmail)!"> </i>
                         </a>
 
