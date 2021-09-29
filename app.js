@@ -29,6 +29,10 @@ const hbs = exphbs.create({
             } else {
                 return options.fn({ isVideoReturn: false });
             }
+        },
+        getFilename: function(filename, options){
+            justName = path.parse(filename).name;
+            return options.fn({ justName: justName });
         }
     }
 });

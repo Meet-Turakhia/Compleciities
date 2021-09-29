@@ -74,14 +74,18 @@
                         <video controls class="flexslider-video">
                             <source src="/uploads/{{this.filename}}">
                         </video>
-                        <p class="flex-caption head-font">Adventurer Cheesecake Brownie</p>
+                        {{#getFilename this.filename}}
+                        <p class="flex-caption head-font"> {{justName}} </p>
+                        {{/getFilename}}
                     </li>
 
                     {{else}}
 
                     <li class="flexslider-item">
-                        <img src="/uploads/{{this.filename}}" class="flexslider-image"/>
-                        <p class="flex-caption head-font">Adventurer Cheesecake Brownie</p>
+                        <img src="/uploads/{{this.filename}}" class="flexslider-image" />
+                        {{#getFilename this.filename}}
+                        <p class="flex-caption head-font"> {{justName}} </p>
+                        {{/getFilename}}
                     </li>
 
                     {{/if}}
