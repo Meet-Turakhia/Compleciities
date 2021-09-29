@@ -72,7 +72,8 @@
 
                     <li class="flexslider-item">
                         <video controls class="flexslider-video">
-                            <source src="/uploads/{{this.filename}}">
+                            <source src="/uploads/{{this.filename}}" type="{{this.mimetype}}">
+                            Your browser does not support this video.
                         </video>
                         {{#getFilename this.filename}}
                         <p class="flex-caption head-font"> {{justName}} </p>
@@ -82,7 +83,7 @@
                     {{else}}
 
                     <li class="flexslider-item">
-                        <img src="/uploads/{{this.filename}}" class="flexslider-image" />
+                        <img src="/uploads/{{this.filename}}" class="flexslider-image" alt="{{this.filename}}"/>
                         {{#getFilename this.filename}}
                         <p class="flex-caption head-font"> {{justName}} </p>
                         {{/getFilename}}
