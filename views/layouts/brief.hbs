@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    {{!-- meta for seo and sharing --}}
+    <meta property="og:url" content="{{pageUrl}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{briefData.title}}" />
+    <meta property="og:description" content="{{userData.footer_description}}" />
+    <link rel="image_src" type="image/png" src="/images/complecities_logo.png" />
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- bootstrap -->
@@ -128,19 +134,19 @@
             <ul class="list-inline">
 
                 <li class="list-inline-item" id="icon-linkedin">
-                    <a class="icons-link" href="">
+                    <a class="icons-link" href="https://www.linkedin.com/sharing/share-offsite/?url={{pageUrl}}" target="_blank">
                         <i class="mr-5 fab fa-linkedin share-icons cursor-pointer" title="Share on Linkedin"></i>
                     </a>
                 </li>
 
                 <li class="list-inline-item share-icons-li" id="icon-twitter">
-                    <a class="icons-link" href="">
+                    <a class="icons-link" href="https://twitter.com/intent/tweet?url={{pageUrl}}&text={{briefData.title}}&via=&hashtags=Complecities" target="_blank">
                         <i class="fab fa-twitter share-icons cursor-pointer" title="Share on Twitter"></i>
                     </a>
                 </li>
 
                 <li class="list-inline-item share-icons-li" id="icon-facebook">
-                    <a class="icons-link" href="https://www.facebook.com/sharer/sharer.php?u=example.org"
+                    <a class="icons-link" href="https://www.facebook.com/sharer.php?u={{pageUrl}}"
                         target="_blank">
                         <i class="fab fa-facebook share-icons cursor-pointer" title="Share on Facebook"></i>
                     </a>
@@ -221,7 +227,8 @@
                             class="text-decoration-none social-icons footer-icons-margin" target="_blank">
                             <i class="fab fa-pinterest fa-lg" title="connect on pinterest!"> </i>
                         </a>
-                        <a id="footer-icon-mail" href="https://mail.google.com/mail/?view=cm&to={{{userData.gmail}}}&su=&body=&bcc=&cc="
+                        <a id="footer-icon-mail"
+                            href="https://mail.google.com/mail/?view=cm&to={{{userData.gmail}}}&su=&body=&bcc=&cc="
                             class="text-decoration-none social-icons footer-icons-margin" target="_blank">
                             <i class="fas fa-envelope fa-lg" title="write a mail to me(gmail)!"> </i>
                         </a>

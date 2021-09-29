@@ -21,12 +21,14 @@ router.get("/:markerTitle", (req, res) => {
                     month = tempDate[1];
                     year = tempDate[3];
                     date = day + " " + month + " " + year;
-                    userDocs = userDocs[0]
+                    userDocs = userDocs[0];
+                    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
                     if (!userErr) {
                         res.render("layouts/brief", {
                             briefData: briefDocs,
                             userData: userDocs,
-                            briefDate: date
+                            briefDate: date,
+                            pageUrl: fullUrl
                         });
                     } else {
                         console.log("Following error occured while retrieving the user data: " + userErr);
