@@ -85,6 +85,10 @@ body{
   width: 99%;
 }
 
+.flexslider-image{
+  width: 99% !important;
+}
+
 .flex-caption {
   width: 99%;
   padding: 2%;
