@@ -66,9 +66,6 @@
                     {{#each briefData.media}}
 
                     {{#isVideo this.mimetype}}
-                    {{/isVideo}}
-
-                    {{#if isVideoReturn}}
 
                     <li class="flexslider-item">
                         <video controls class="flexslider-video">
@@ -83,13 +80,13 @@
                     {{else}}
 
                     <li class="flexslider-item">
-                        <img src="/uploads/{{this.filename}}" class="flexslider-image" alt="{{this.filename}}"/>
+                        <img src="/uploads/{{this.filename}}" class="flexslider-image" alt="{{this.filename}}" />
                         {{#getFilename this.filename}}
                         <p class="flex-caption head-font"> {{justName}} </p>
                         {{/getFilename}}
                     </li>
 
-                    {{/if}}
+                    {{/isVideo}}
 
                     {{/each}}
 

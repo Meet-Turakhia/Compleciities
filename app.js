@@ -25,9 +25,9 @@ const hbs = exphbs.create({
         isVideo: function (mimetype, options) {
             mediaType = mimetype.split("/")[0];
             if (mediaType == "video") {
-                return options.fn({ isVideoReturn: true });
+                return options.fn(this);
             } else {
-                return options.fn({ isVideoReturn: false });
+                return options.inverse(this);
             }
         },
         getFilename: function(filename, options){
