@@ -53,9 +53,26 @@
             <p class="head-font" id="brief-title"> {{briefData.title}} </p>
         </div>
 
-        {{!-- brief date --}}
+        {{!-- user image, name and brief date --}}
         <div class="brief-content-container">
-            <p class="head-font" id="brief-date"> {{briefDate}} </p>
+
+            <div id="user-image-wrapper">
+                {{#each userData.image}}
+                <img id="user-image" src="/uploads/{{this.filename}}" alt="{{this.filename}}">
+                {{/each}}
+            </div>
+
+            <span>
+                <p class="head-font" id="user-name">
+                    {{userData.name}}
+                    <i class="fas fa-chess-queen" id="queen-icon"></i>
+                </p>
+            </span>
+
+            <span>
+                <p class="head-font" id="brief-date"> {{briefDate}} </p>
+            </span>
+
         </div>
 
         {{!-- brief flexslider --}}

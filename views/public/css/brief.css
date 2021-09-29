@@ -63,7 +63,27 @@ body{
 /* brief date */
 #brief-date{
   font-size: clamp(1rem, 2.5vw, 1.2rem);
-  padding: 0vw 5vw 2vw 5vw;
+  padding: 0vw 5vw 2vw 1vw;
+}
+
+/* user name and image */
+#user-name{
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  padding: 0vw 0vw 2vw 1vw;
+}
+
+#queen-icon{
+  font-size: 15px;
+}
+
+#user-image-wrapper{
+  padding: 0vw 0vw 2vw 5vw;
+}
+
+#user-image{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }
 
 /* flexslider */
