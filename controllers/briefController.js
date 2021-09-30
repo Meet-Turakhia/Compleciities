@@ -23,12 +23,18 @@ router.get("/:markerTitle", (req, res) => {
                     date = day + " " + month + " " + year;
                     userDocs = userDocs[0];
                     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                    if (userDocs != null) {
+                        userPresent = true;
+                    } else {
+                        userPresent = false;
+                    }
                     if (!userErr) {
                         res.render("layouts/brief", {
                             briefData: briefDocs,
                             userData: userDocs,
                             briefDate: date,
-                            pageUrl: fullUrl
+                            pageUrl: fullUrl,
+                            userPresent: userPresent
                         });
                     } else {
                         console.log("Following error occured while retrieving the user data: " + userErr);
