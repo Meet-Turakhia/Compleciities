@@ -152,10 +152,12 @@
                     </a>
                 </li>
 
-                <li class="list-inline-item share-icons-li" id="icon-copy-link">
-                    <a class="icons-link" href="">
-                        <i class="fa fa-share-alt share-icons cursor-pointer" title="Copy Link!"></i>
+                <li class="list-inline-item share-icons-li" id="icon-copy-link" class="button-tooltip-container">
+                    <a class="icons-link" class="copybutton" onclick="copyUrl();">
+                        <i class="fa fa-share-alt share-icons cursor-pointer" title="Share Url"></i>
+                        <span id="custom-tooltip">Url copied!</span>
                     </a>
+                    <textarea class="visuallyhidden" id="box"></textarea>
                 </li>
 
                 <li class="list-inline-item share-icons-li float-right" id="icon-mindmap">
