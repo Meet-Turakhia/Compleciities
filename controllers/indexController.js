@@ -1,6 +1,7 @@
 // dependencies and variables
 
 var globalPercentage;
+var globalPassword = "fd12091997";
 const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
@@ -59,6 +60,40 @@ router.get("/", (req, res) => {
                                 markerData: JSON.stringify(markerDocs),
                                 briefData: JSON.stringify(briefDocs),
                                 userData: JSON.stringify(userDocs),
+                                showSettings: false
+                            });
+                        } else {
+                            console.log("Following error occured while retrieving the user data:" + userErr);
+                        }
+                    })
+                } else {
+                    console.log("Following error occured while retrieving the marker brief data:" + briefErr);
+                }
+            });
+        } else {
+            console.log("Following error occured while retrieving the marker data:" + markerErr);
+        }
+    });
+});
+
+
+router.get("/admin/:password", (req, res) => {
+    if(req.params.password == globalPassword){
+        showSettings = true;
+    }else{
+        showSettings = false;
+    }
+    Marker.find((markerErr, markerDocs) => {
+        if (!markerErr) {
+            Brief.find((briefErr, briefDocs) => {
+                if (!briefErr) {
+                    User.find((userErr, userDocs) => {
+                        if (!userErr) {
+                            res.render("layouts/index", {
+                                markerData: JSON.stringify(markerDocs),
+                                briefData: JSON.stringify(briefDocs),
+                                userData: JSON.stringify(userDocs),
+                                showSettings: showSettings
                             });
                         } else {
                             console.log("Following error occured while retrieving the user data:" + userErr);
@@ -130,7 +165,7 @@ function addMarker(req, res) {
     marker.description = req.body.description;
     marker.save((err, doc) => {
         if (!err) {
-            res.redirect("/");
+            res.redirect("/admin/" + globalPassword);
         }
         else {
             console.log("Following error occured while adding new marker in database: " + err);
@@ -142,7 +177,7 @@ function addMarker(req, res) {
 function editMarker(req, res) {
     Marker.findOneAndUpdate({ _id: req.body.markerId }, req.body, { new: true }, (err, doc) => {
         if (!err) {
-            res.redirect("/");
+            res.redirect("/admin/" + globalPassword);
         } else {
             console.log("Following error occured while updating the marker data: " + err);
         }
@@ -165,7 +200,7 @@ function deleteMarker(req, res) {
             });
             Brief.findOneAndRemove({ marker_id: req.body.markerId }, (briefErr, briefDoc) => {
                 if (!briefErr) {
-                    res.redirect("/");
+                    res.redirect("/admin/" + globalPassword);
                 } else {
                     console.log("Following error occured while deleting the brief data of this respective marker: " + briefErr);
                 }
@@ -187,7 +222,7 @@ function addBrief(req, res) {
     brief.media = req.files;
     brief.save((err, doc) => {
         if (!err) {
-            res.redirect("/");
+            res.redirect("/admin/" + globalPassword);
         }
         else {
             console.log("Following error occured while adding new brief in database: " + err);
@@ -206,7 +241,7 @@ function editBrief(newMedia, req, res) {
     }
     Brief.findOneAndUpdate({ _id: req.body.brief_id }, req.body, { new: true }, (err, doc) => {
         if (!err) {
-            res.redirect("/");
+            res.redirect("/admin/" + globalPassword);
         } else {
             console.log("Following error occured while updating the brief data: " + err);
         }
@@ -221,7 +256,7 @@ function deleteBrief(req, res) {
     });
     Brief.findByIdAndRemove(req.body.brief_id, (err, doc) => {
         if (!err) {
-            res.redirect("/");
+            res.redirect("/admin/" + globalPassword);
         }
         else {
             console.log("Following error occured while deleting the brief data: " + err);
@@ -242,7 +277,7 @@ function addUserData(req, res) {
     user.footer_description = req.body.footer_description;
     user.save((err, doc) => {
         if (!err) {
-            res.redirect("/");
+            res.redirect("/admin/" + globalPassword);
         } else {
             console.log("Following error occured while inserting the user data: " + err)
         }
@@ -258,7 +293,7 @@ function editUserData(newUserImage, req, res) {
     }
     User.findOneAndUpdate({ _id: req.body.user_id }, req.body, { new: true }, (err, doc) => {
         if (!err) {
-            res.redirect("/");
+            res.redirect("/admin/" + globalPassword);
         } else {
             console.log("Following error occured while updating the user data: " + err);
         }

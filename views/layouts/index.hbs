@@ -39,6 +39,8 @@
 
         <div id="map">
 
+            {{#if showSettings}}
+            
             <!-- setting buttons -->
             <div class="setting-buttons">
                 <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
@@ -76,6 +78,8 @@
                     </button>
                 </span>
             </div>
+
+            {{/if}}
 
             <!-- marker options modal -->
             <div class="modal fade" id="markerOptionsModal" tabindex="-1" aria-labelledby="markerOptionsModalLabel"
