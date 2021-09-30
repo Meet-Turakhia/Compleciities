@@ -56,11 +56,13 @@ router.get("/", (req, res) => {
                 if (!briefErr) {
                     User.find((userErr, userDocs) => {
                         if (!userErr) {
+                            var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
                             res.render("layouts/index", {
                                 markerData: JSON.stringify(markerDocs),
                                 briefData: JSON.stringify(briefDocs),
                                 userData: JSON.stringify(userDocs),
-                                showSettings: false
+                                showSettings: false,
+                                pageUrl: fullUrl
                             });
                         } else {
                             console.log("Following error occured while retrieving the user data:" + userErr);
@@ -89,11 +91,13 @@ router.get("/admin/:password", (req, res) => {
                 if (!briefErr) {
                     User.find((userErr, userDocs) => {
                         if (!userErr) {
+                            var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
                             res.render("layouts/index", {
                                 markerData: JSON.stringify(markerDocs),
                                 briefData: JSON.stringify(briefDocs),
                                 userData: JSON.stringify(userDocs),
-                                showSettings: showSettings
+                                showSettings: showSettings,
+                                pageUrl: fullUrl
                             });
                         } else {
                             console.log("Following error occured while retrieving the user data:" + userErr);

@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    {{!-- meta for seo and sharing --}}
+    <meta property="og:url" content="{{pageUrl}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Complecities" />
+    <meta property="og:description" content="{{userData.footer_description}}" />
+    <link rel="image_src" type="image/png" src="/images/complecities_logo.png" />
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- bootstrap -->
@@ -40,7 +46,7 @@
         <div id="map">
 
             {{#if showSettings}}
-            
+
             <!-- setting buttons -->
             <div class="setting-buttons">
                 <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
@@ -218,8 +224,8 @@
                                 {{!-- using hidden input to store id of selected marker --}}
                                 <input type="password" class="form-control" name="marker_id" id="selected-marker-id"
                                     readonly="true" hidden="true">
-                                <input type="password" class="form-control" name="marker_title" id="selected-marker-title"
-                                    readonly="true" hidden="true">
+                                <input type="password" class="form-control" name="marker_title"
+                                    id="selected-marker-title" readonly="true" hidden="true">
                                 <input type="password" class="form-control" name="brief_id" id="brief-id"
                                     readonly="true" hidden="true">
                                 <input type="password" class="form-control" name="current_media" id="current-media"
