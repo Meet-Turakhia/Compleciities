@@ -15,7 +15,7 @@ body {
 /* map style */
 #map {
   height: 100vh;
-  background-color: #e6e6e6;
+  background-color: #fff;
 }
 
 /* leaflet style */
