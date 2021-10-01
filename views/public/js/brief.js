@@ -18,7 +18,10 @@ function pauseAllVideos() {
     let allVids = $("#brief-flexslider").find('.flexslider-item');
     allVids.each(function (index, el) {
         if (index !== 0) {
-            $(allVids).find('video')[0].pause();
+            vid = $(allVids).find('video')[0];
+            if(vid != undefined){
+                vid.pause();
+            }
         }
     });
 }
