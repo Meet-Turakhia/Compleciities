@@ -10,7 +10,7 @@ const User = mongoose.model("user");
 // routes
 
 router.get("/:markerTitle", (req, res) => {
-    markerTitle = req.params.markerTitle.replace("-", " ");
+    markerTitle = req.params.markerTitle.split("-").join(" ");
 
     Brief.findOne({ marker_title: markerTitle }, (briefErr, briefDocs) => {
         if (!briefErr) {
