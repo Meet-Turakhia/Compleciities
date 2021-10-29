@@ -16,7 +16,7 @@ markerData.forEach(element => {
         "properties": {
             "title": element.title,
             "description": element.description,
-            "link": "/brief/" + element.title.replace(" ", "-"),
+            "link": "/brief/" + element.title.replace(/\s/g, "-"),
         }
     });
 });

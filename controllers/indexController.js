@@ -186,6 +186,14 @@ function editMarker(req, res) {
             console.log("Following error occured while updating the marker data: " + err);
         }
     });
+    Brief.findOne({ marker_id: req.body.markerId }, (err, doc) => {
+        if (!err) {
+            doc.marker_title = req.body.title;
+            doc.save();
+        } else {
+            console.log("Following error occured while updating the marker data in Brief Collection: " + err);
+        }
+    });
 }
 
 
