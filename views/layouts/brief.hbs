@@ -110,7 +110,7 @@
                             <source src="/uploads/{{this.filename}}" type="{{this.mimetype}}">
                             Your browser does not support this video.
                         </video>
-                        {{#getFilename this.filename}}
+                        {{#getFilename this.originalname}}
                         <p class="flex-caption head-font"> {{justName}} </p>
                         {{/getFilename}}
                     </li>
@@ -119,7 +119,7 @@
 
                     <li class="flexslider-item">
                         <img src="/uploads/{{this.filename}}" class="flexslider-image" alt="{{this.filename}}" />
-                        {{#getFilename this.filename}}
+                        {{#getFilename this.originalname}}
                         <p class="flex-caption head-font"> {{justName}} </p>
                         {{/getFilename}}
                     </li>
