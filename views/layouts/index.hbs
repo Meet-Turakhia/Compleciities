@@ -66,6 +66,16 @@
             </div>
 
             <div class="setting-buttons">
+                <span data-bs-toggle="modal" data-bs-target="#categoryOptionsModal">
+                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Category Options"
+                        onclick="categoryOptionsModalOptions();">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+
+            <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerBriefModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Brief"
@@ -194,6 +204,82 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                     onclick="mapScrollDragEnable();">Close</button>
                                 <button id="marker-options-submit-button" type="submit"
+                                    class="btn btn-dark">Submit</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- category options modal -->
+            <div class="modal fade" id="categoryOptionsModal" tabindex="-1" aria-labelledby="categoryOptionsModalLabel"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title head-font" id="categoryOptionsModalLabel">Category Options</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onclick="mapScrollDragEnable();"></button>
+                        </div>
+
+                        <form id="categoryOptionsForm" class="para-font" action="/" method="POST">
+
+                            {{!-- using hidden input to store id of markers for edit and delete --}}
+                            <input type="password" class="form-control" name="categoryId" id="category-id"
+                                readonly="true" hidden="true">
+
+                            <div class="modal-body">
+
+                                <div class="row">
+
+                                    <div class="col-3 fs-6 mb-3">
+                                        <label class="form-check-label" for="select option">SELECT OPTION:</label>
+                                    </div>
+                                    <div class="col fs-6 mx-3">
+                                        <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
+                                            id="addCategory" value="add" checked="true"
+                                            onclick="toggleCategoryOptionForms(this.value);">
+                                        <label class="form-check-label" for="addCategory">Add</label>
+                                    </div>
+                                    <div class="col fs-6 ml-3">
+                                        <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
+                                            id="deleteCategory" value="delete"
+                                            onclick="toggleCategoryOptionForms(this.value);">
+                                        <label class="form-check-label" for="deleteCategory">Delete</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="select-category-label" for="select-category" class="form-label fs-6"
+                                        hidden="true">Select
+                                        Category:</label>
+                                    <select id="select-category" class="form-select" name="selectCategory"
+                                        aria-label="select-category" onchange="setSelectCategoryId();"
+                                        autocomplete="off" required="true" hidden="true">
+                                        <option selected>Select Category</option>
+                                    </select>
+                                </div>
+
+                                <div class="my-2">
+                                    <label id="category-label" for="category" class="form-label fs-6">Category Name:</label>
+                                    <input name="category" type="text" class="form-control" id="category"
+                                        placeholder="Enter Category (unique)" autocomplete="off" required="true"
+                                        onchange="categoryUsed();">
+                                    <label id="category-used" class="form-check-label" style="font-size: 13px;"
+                                        for="category-used" hidden="true">Category already in use, try something
+                                        else!</label>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    onclick="mapScrollDragEnable();">Close</button>
+                                <button id="category-options-submit-button" type="submit"
                                     class="btn btn-dark">Submit</button>
                             </div>
 
@@ -442,10 +528,12 @@
 
     </main>
 
-    {{!-- using hidden input to pass all markers data, category data and brief data to markers.js file and index.js file and user data
+    {{!-- using hidden input to pass all markers data, category data and brief data to markers.js file and index.js file
+    and user data
     for the same --}}
     <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">
-    <input type="password" class="form-control" id="categoryData" value="{{categoryData}}" readonly="true" hidden="true">
+    <input type="password" class="form-control" id="categoryData" value="{{categoryData}}" readonly="true"
+        hidden="true">
     <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
     <input type="password" class="form-control" id="userData" value="{{userData}}" readonly="true" hidden="true">
 

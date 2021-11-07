@@ -367,9 +367,14 @@ $("#paste-set-location").change(function () {
 });
 
 
-// marker options and marker brief desired settings
+// marker options, category options and marker brief desired settings
 function markerOptionsModalOptions() {
     document.getElementById("add").click();
+    mapScrollDragDisable();
+}
+
+function categoryOptionsModalOptions() {
+    document.getElementById("addCategory").click();
     mapScrollDragDisable();
 }
 
@@ -888,4 +893,34 @@ function userOptionsFormValidation() {
         }
 
     }
+}
+
+
+// toggle category options form
+function toggleCategoryOptionForms(option) {
+    const categoryOptionsModalLabel = document.getElementById("categoryOptionsModalLabel");
+    const selectCategoryLabel = document.getElementById("select-category-label");
+    const selectCategory = document.getElementById("select-category");
+    const categoryLabel = document.getElementById("category-label");
+    const category = document.getElementById("category");
+    const categoryOptionsSubmitButton = document.getElementById("category-options-submit-button");
+
+    if (option == "add") {
+        categoryOptionsModalLabel.innerHTML = "Add Category";
+        categoryOptionsSubmitButton.innerHTML = "Add";
+        selectCategoryLabel.hidden = true;
+        selectCategory.hidden = true;
+        categoryLabel.hidden = false;
+        category.hidden = false;
+    }
+
+    if (option == "delete") {
+        categoryOptionsModalLabel.innerHTML = "Delete Category";
+        categoryOptionsSubmitButton.innerHTML = "Delete";
+        selectCategoryLabel.hidden = false;
+        selectCategory.hidden = false;
+        categoryLabel.hidden = true;
+        category.hidden = true;
+    }
+
 }
