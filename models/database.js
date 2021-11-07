@@ -7,5 +7,6 @@ mongoose.connect("mongodb://localhost:27017/Complecities", { useNewUrlParser: tr
 });
 
 require("./marker.model");
+require("./category.model");
 require("./brief.model");
 require("./user.model");

@@ -6,6 +6,7 @@ const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const Marker = mongoose.model("markers");
+const Category = mongoose.model("categories");
 const Brief = mongoose.model("briefs");
 const User = mongoose.model("user");
 const multer = require('multer');
@@ -52,26 +53,33 @@ function progress_middleware(req, res, next) {
 router.get("/", (req, res) => {
     Marker.find((markerErr, markerDocs) => {
         if (!markerErr) {
-            Brief.find((briefErr, briefDocs) => {
-                if (!briefErr) {
-                    User.find((userErr, userDocs) => {
-                        if (!userErr) {
-                            var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                            res.render("layouts/index", {
-                                markerData: JSON.stringify(markerDocs),
-                                briefData: JSON.stringify(briefDocs),
-                                userData: JSON.stringify(userDocs),
-                                showSettings: false,
-                                pageUrl: fullUrl
-                            });
+            Category.find((categoryErr, categoryDocs) => {
+                if (!categoryErr) {
+                    Brief.find((briefErr, briefDocs) => {
+                        if (!briefErr) {
+                            User.find((userErr, userDocs) => {
+                                if (!userErr) {
+                                    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                                    res.render("layouts/index", {
+                                        markerData: JSON.stringify(markerDocs),
+                                        categoryData: JSON.stringify(categoryDocs),
+                                        briefData: JSON.stringify(briefDocs),
+                                        userData: JSON.stringify(userDocs),
+                                        showSettings: false,
+                                        pageUrl: fullUrl
+                                    });
+                                } else {
+                                    console.log("Following error occured while retrieving the user data:" + userErr);
+                                }
+                            })
                         } else {
-                            console.log("Following error occured while retrieving the user data:" + userErr);
+                            console.log("Following error occured while retrieving the marker brief data:" + briefErr);
                         }
-                    })
+                    });
                 } else {
-                    console.log("Following error occured while retrieving the marker brief data:" + briefErr);
+                    console.log("Following error occured while retrieving the category data:" + categoryErr);
                 }
-            });
+            })
         } else {
             console.log("Following error occured while retrieving the marker data:" + markerErr);
         }
