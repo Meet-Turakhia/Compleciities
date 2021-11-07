@@ -984,15 +984,36 @@ function setSelectCategoryValues() {
 
 
 // set select category id
-function setSelectCategoryId(){
+function setSelectCategoryId() {
     var selectCategoryValue = document.getElementById("select-category").value;
     var categoryId = document.getElementById("category-id");
     var categoryData = document.getElementById("categoryData").value;
     categoryData = JSON.parse(categoryData);
 
     categoryData.forEach(category => {
-        if(selectCategoryValue == category.category){
+        if (selectCategoryValue == category.category) {
             categoryId.value = category._id;
         }
     });
+}
+
+
+// category options submit button verification
+function categoryOptionsSubmitVerification() {
+    const categoryOptionsSubmitButton = document.getElementById("category-options-submit-button");
+    var selectCategoryValue = document.getElementById("select-category").value;
+    var category = document.getElementById("category");
+    if (categoryOptionsSubmitButton.innerHTML == "Add") {
+        if (globalCategoryUsed == true) {
+            alert("The category '" + category.value + "' is already in use, try something else!");
+            return false;
+        }
+    } else {
+        if (selectCategoryValue == "Select Category") {
+            alert("Select a valid category to delete!");
+            return false;
+        }else{
+            return confirm("Are you sure you want to permanently delete '" + selectCategoryValue + "' category?");
+        }
+    }
 }
