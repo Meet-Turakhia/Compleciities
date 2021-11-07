@@ -95,26 +95,33 @@ router.get("/admin/:password", (req, res) => {
     }
     Marker.find((markerErr, markerDocs) => {
         if (!markerErr) {
-            Brief.find((briefErr, briefDocs) => {
-                if (!briefErr) {
-                    User.find((userErr, userDocs) => {
-                        if (!userErr) {
-                            var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                            res.render("layouts/index", {
-                                markerData: JSON.stringify(markerDocs),
-                                briefData: JSON.stringify(briefDocs),
-                                userData: JSON.stringify(userDocs),
-                                showSettings: showSettings,
-                                pageUrl: fullUrl
-                            });
+            Category.find((categoryErr, categoryDocs) => {
+                if (!categoryErr) {
+                    Brief.find((briefErr, briefDocs) => {
+                        if (!briefErr) {
+                            User.find((userErr, userDocs) => {
+                                if (!userErr) {
+                                    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                                    res.render("layouts/index", {
+                                        markerData: JSON.stringify(markerDocs),
+                                        categoryData: JSON.stringify(categoryDocs),
+                                        briefData: JSON.stringify(briefDocs),
+                                        userData: JSON.stringify(userDocs),
+                                        showSettings: showSettings,
+                                        pageUrl: fullUrl
+                                    });
+                                } else {
+                                    console.log("Following error occured while retrieving the user data:" + userErr);
+                                }
+                            })
                         } else {
-                            console.log("Following error occured while retrieving the user data:" + userErr);
+                            console.log("Following error occured while retrieving the marker brief data:" + briefErr);
                         }
-                    })
+                    });
                 } else {
-                    console.log("Following error occured while retrieving the marker brief data:" + briefErr);
+                    console.log("Following error occured while retrieving the category data:" + categoryErr);
                 }
-            });
+            })
         } else {
             console.log("Following error occured while retrieving the marker data:" + markerErr);
         }

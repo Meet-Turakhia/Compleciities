@@ -926,3 +926,34 @@ function toggleCategoryOptionForms(option) {
     }
 
 }
+
+
+// check if category is already present
+var globalCategoryUsed;
+function categoryUsed() {
+    globalCategoryUsed = false;
+    var categoryValue = document.getElementById("category").value;
+    var categoryData = document.getElementById("categoryData").value;
+    var categoryUsedLabel = document.getElementById("category-used-label");
+    categoryData = JSON.parse(categoryData);
+    if (categoryValue == "") {
+        categoryUsedLabel.hidden = true;
+        return;
+    }
+
+    categoryData.forEach(category => {
+        if (categoryValue.toLowerCase() == category.category.toLowerCase()) {
+            globalCategoryUsed = true;
+        }
+    });
+
+    if (globalCategoryUsed == true) {
+        categoryUsedLabel.innerHTML = "Category already in use, try something else!";
+        categoryUsedLabel.style.color = "red";
+        categoryUsedLabel.hidden = false;
+    } else {
+        categoryUsedLabel.innerHTML = "Category not in use, accepted!";
+        categoryUsedLabel.style.color = "green";
+        categoryUsedLabel.hidden = false;
+    }
+}
