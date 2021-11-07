@@ -166,6 +166,14 @@ router.post("/edit-user-data/:newUserImage", progress_middleware, upload.single(
     editUserData(req.params.newUserImage, req, res);
 });
 
+router.post("/add-category", (req, res) => {
+    addCategory(req, res);
+});
+
+router.post("/delete-category", (req, res) => {
+    deleteCategory(req, res);
+});
+
 // functions
 
 function addMarker(req, res) {
@@ -318,6 +326,28 @@ function editUserData(newUserImage, req, res) {
             res.redirect("/admin/" + globalPassword);
         } else {
             console.log("Following error occured while updating the user data: " + err);
+        }
+    });
+}
+
+function addCategory(req, res) {
+    var category = new Category();
+    category.category = req.body.category;
+    category.save((err, doc) => {
+        if (!err) {
+            res.redirect("/admin/" + globalPassword);
+        } else {
+            console.log("Following error occured while adding a new category: " + err);
+        }
+    });
+}
+
+function deleteCategory(req, res) {
+    Category.findByIdAndRemove(req.body.categoryId, (err, doc) => {
+        if (!err) {
+            res.redirect("/admin/" + globalPassword);
+        } else {
+            console.log("Following error occured while deleting the category: " + err);
         }
     });
 }

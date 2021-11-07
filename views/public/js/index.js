@@ -906,6 +906,7 @@ function toggleCategoryOptionForms(option) {
     const categoryOptionsSubmitButton = document.getElementById("category-options-submit-button");
 
     if (option == "add") {
+        document.getElementById("categoryOptionsForm").action = "/add-category";
         categoryOptionsModalLabel.innerHTML = "Add Category";
         categoryOptionsSubmitButton.innerHTML = "Add";
         selectCategoryLabel.hidden = true;
@@ -915,6 +916,7 @@ function toggleCategoryOptionForms(option) {
     }
 
     if (option == "delete") {
+        document.getElementById("categoryOptionsForm").action = "/delete-category";
         categoryOptionsModalLabel.innerHTML = "Delete Category";
         categoryOptionsSubmitButton.innerHTML = "Delete";
         selectCategoryLabel.hidden = false;
