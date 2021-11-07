@@ -911,8 +911,10 @@ function toggleCategoryOptionForms(option) {
         categoryOptionsSubmitButton.innerHTML = "Add";
         selectCategoryLabel.hidden = true;
         selectCategory.hidden = true;
+        selectCategory.disabled = true;
         categoryLabel.hidden = false;
         category.hidden = false;
+        category.disabled = false;
     }
 
     if (option == "delete") {
@@ -921,8 +923,11 @@ function toggleCategoryOptionForms(option) {
         categoryOptionsSubmitButton.innerHTML = "Delete";
         selectCategoryLabel.hidden = false;
         selectCategory.hidden = false;
+        selectCategory.disabled = false;
         categoryLabel.hidden = true;
         category.hidden = true;
+        category.disabled = true;
+        setSelectCategoryValues();
     }
 
 }
@@ -956,4 +961,38 @@ function categoryUsed() {
         categoryUsedLabel.style.color = "green";
         categoryUsedLabel.hidden = false;
     }
+}
+
+
+// set category values for select category in category delete
+function setSelectCategoryValues() {
+    var categoryData = document.getElementById("categoryData").value;
+    var selectCategory = document.getElementById("select-category");
+    categoryData = JSON.parse(categoryData);
+    var length = selectCategory.options.length;
+    for (i = length - 1; i > 0; i--) {
+        selectCategory.options[i] = null;
+    }
+
+    categoryData.forEach(category => {
+        var option = document.createElement("option");
+        option.text = category.category;
+        option.value = category.category;
+        selectCategory.appendChild(option);
+    });
+}
+
+
+// set select category id
+function setSelectCategoryId(){
+    var selectCategoryValue = document.getElementById("select-category").value;
+    var categoryId = document.getElementById("category-id");
+    var categoryData = document.getElementById("categoryData").value;
+    categoryData = JSON.parse(categoryData);
+
+    categoryData.forEach(category => {
+        if(selectCategoryValue == category.category){
+            categoryId.value = category._id;
+        }
+    });
 }
