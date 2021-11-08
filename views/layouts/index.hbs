@@ -173,6 +173,14 @@
                                 </div>
 
                                 <div class="my-2">
+                                    <label id="category-dropdown-label" for="category-dropdown"
+                                        class="form-label fs-6">Select Category(s):</label>
+                                    <select id="category-dropdown" name="categoryDropdown" class="form-select" multiple
+                                        aria-label="category dropdown" autocomplete="off" required="true">
+                                    </select>
+                                </div>
+
+                                <div class="my-2">
                                     <label id="select-title-label" for="select-title" class="form-label fs-6"
                                         hidden="true">Select Title:</label>
                                     <input class="form-control" list="select-title-datalist" id="select-title"
@@ -239,14 +247,14 @@
                                         <label class="form-check-label" for="select option">SELECT OPTION:</label>
                                     </div>
                                     <div class="col fs-6 mx-3">
-                                        <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
-                                            id="addCategory" value="add" checked="true"
+                                        <input class="form-check-input cursor-pointer" type="radio"
+                                            name="categoryoption" id="addCategory" value="add" checked="true"
                                             onclick="toggleCategoryOptionForms(this.value);">
                                         <label class="form-check-label" for="addCategory">Add</label>
                                     </div>
                                     <div class="col fs-6 ml-3">
-                                        <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
-                                            id="deleteCategory" value="delete"
+                                        <input class="form-check-input cursor-pointer" type="radio"
+                                            name="categoryoption" id="deleteCategory" value="delete"
                                             onclick="toggleCategoryOptionForms(this.value);">
                                         <label class="form-check-label" for="deleteCategory">Delete</label>
                                     </div>
@@ -265,7 +273,8 @@
                                 </div>
 
                                 <div class="my-2">
-                                    <label id="category-label" for="category" class="form-label fs-6">Category Name:</label>
+                                    <label id="category-label" for="category" class="form-label fs-6">Category
+                                        Name:</label>
                                     <input name="category" type="text" class="form-control" id="category"
                                         placeholder="Enter Category (unique)" autocomplete="off" required="true"
                                         onchange="categoryUsed();">
@@ -279,8 +288,8 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                     onclick="mapScrollDragEnable();">Close</button>
-                                <button id="category-options-submit-button" type="submit"
-                                    class="btn btn-dark" onclick="return categoryOptionsSubmitVerification();">Submit</button>
+                                <button id="category-options-submit-button" type="submit" class="btn btn-dark"
+                                    onclick="return categoryOptionsSubmitVerification();">Submit</button>
                             </div>
 
                         </form>

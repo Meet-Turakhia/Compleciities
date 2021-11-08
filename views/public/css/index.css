@@ -131,3 +131,7 @@ body {
 #footer-description{
   height: 100px;
 }
+
+#category-dropdown{
+  height: 70px;
+}

@@ -369,6 +369,7 @@ $("#paste-set-location").change(function () {
 
 // marker options, category options and marker brief desired settings
 function markerOptionsModalOptions() {
+    setCategoryDropdown();
     document.getElementById("add").click();
     mapScrollDragDisable();
 }
@@ -1012,8 +1013,23 @@ function categoryOptionsSubmitVerification() {
         if (selectCategoryValue == "Select Category") {
             alert("Select a valid category to delete!");
             return false;
-        }else{
+        } else {
             return confirm("Are you sure you want to permanently delete '" + selectCategoryValue + "' category?");
         }
     }
+}
+
+
+// set category dropdown function
+function setCategoryDropdown() {
+    var categoryDropdown = document.getElementById("category-dropdown");
+    var categoryData = document.getElementById("categoryData").value;
+    categoryData = JSON.parse(categoryData);
+
+    categoryData.forEach(category => {
+        var option = document.createElement("option");
+        option.text = category.category;
+        option.value = category._id;
+        categoryDropdown.appendChild(option);
+    });
 }
