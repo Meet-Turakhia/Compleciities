@@ -6,7 +6,7 @@ const Double = require('@mongoosejs/double');
 
 // category schema
 var categoryrelationsSchema = new mongoose.Schema({
-    marker_id: {
+    marker_title: {
         type: String,
         required: "This field is required"
     },
