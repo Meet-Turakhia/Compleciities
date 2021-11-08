@@ -7,6 +7,7 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const Marker = mongoose.model("markers");
 const Category = mongoose.model("categories");
+const CategoryRelation = mongoose.model("categoryrelations");
 const Brief = mongoose.model("briefs");
 const User = mongoose.model("user");
 const multer = require('multer');
@@ -185,6 +186,7 @@ router.post("/delete-category", (req, res) => {
 
 function addMarker(req, res) {
     var marker = new Marker();
+    var categoryrelation = new CategoryRelation();
     marker.latitude = req.body.latitude;
     marker.longitude = req.body.longitude;
     marker.zoom_level = req.body.zoom_level;
@@ -192,7 +194,32 @@ function addMarker(req, res) {
     marker.description = req.body.description;
     marker.save((err, doc) => {
         if (!err) {
-            res.redirect("/admin/" + globalPassword);
+            if (typeof (req.body.categoryDropdown) == "object") {
+                var allRelations = [];
+                req.body.categoryDropdown.forEach(category => {
+                    var relation = new Object();
+                    relation.marker_title = req.body.title;
+                    relation.category_id = category;
+                    allRelations.push(relation);
+                });
+                categoryrelation.collection.insertMany(allRelations, (err, docs) => {
+                    if (!err) {
+                        res.redirect("/admin/" + globalPassword);
+                    } else {
+                        console.log("Following error occured while adding relation in database: " + err);
+                    }
+                });
+            } else {
+                categoryrelation.marker_title = req.body.title;
+                categoryrelation.category_id = req.body.categoryDropdown;
+                categoryrelation.save((err, doc) => {
+                    if (!err) {
+                        res.redirect("/admin/" + globalPassword);
+                    } else {
+                        console.log("Following error occured while adding relation in database: " + err);
+                    }
+                });
+            }
         }
         else {
             console.log("Following error occured while adding new marker in database: " + err);
