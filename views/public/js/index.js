@@ -181,6 +181,7 @@ function markerTitleUsed() {
 function toggleMarkerOptionForms(option) {
     var title = document.getElementById("title");
     var titleLabel = document.getElementById("title-label");
+    var categoryDropdown = document.getElementById("category-dropdown");
     var selectTitle = document.getElementById("select-title");
     var selectTitleLabel = document.getElementById("select-title-label");
     var latlabel = document.getElementById("latlabel");
@@ -207,6 +208,7 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = false;
         title.hidden = false;
         title.disabled = false;
+        categoryDropdown.disabled = false;
         markerTitleUsedLabel.innerHTML = "";
         markerTitleUsedLabel.style.color = "black";
         markerTitleUsedLabel.hidden = true;
@@ -236,6 +238,7 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = true;
         title.hidden = true;
         title.disabled = true;
+        categoryDropdown.disabled = false;
         markerTitleUsedLabel.innerHTML = "";
         markerTitleUsedLabel.style.color = "black";
         markerTitleUsedLabel.hidden = true;
@@ -269,6 +272,7 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = true;
         title.hidden = true;
         title.disabled = true;
+        categoryDropdown.disabled = true;
         markerTitleUsedLabel.innerHTML = "";
         markerTitleUsedLabel.style.color = "black";
         markerTitleUsedLabel.hidden = true;
