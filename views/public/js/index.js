@@ -208,6 +208,7 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = false;
         title.hidden = false;
         title.disabled = false;
+        categoryDropdown.value = "";
         categoryDropdown.disabled = false;
         markerTitleUsedLabel.innerHTML = "";
         markerTitleUsedLabel.style.color = "black";
@@ -238,6 +239,7 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = true;
         title.hidden = true;
         title.disabled = true;
+        categoryDropdown.value = "";
         categoryDropdown.disabled = false;
         markerTitleUsedLabel.innerHTML = "";
         markerTitleUsedLabel.style.color = "black";
@@ -272,6 +274,7 @@ function toggleMarkerOptionForms(option) {
         titleLabel.hidden = true;
         title.hidden = true;
         title.disabled = true;
+        categoryDropdown.value = "";
         categoryDropdown.disabled = true;
         markerTitleUsedLabel.innerHTML = "";
         markerTitleUsedLabel.style.color = "black";
