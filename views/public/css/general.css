@@ -22,6 +22,7 @@
 .setting-buttons{
   position: relative; 
   z-index: 1000;
+  width: 0px;
 }
 
 /* cursors */
