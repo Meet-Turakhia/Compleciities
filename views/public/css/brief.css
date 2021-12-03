@@ -150,26 +150,18 @@ body{
 
 #icon-linkedin :hover{
   color: #0077b5;
-  font-size: 30px;
-  transition: 0.3s;
 }
 
 #icon-twitter :hover{
   color: #1DA1F2;
-  font-size: 30px;
-  transition: 0.3s;
 }
 
 #icon-facebook :hover{
   color: #4267B2;
-  font-size: 30px;
-  transition: 0.3s;
 }
 
 #icon-copy-link :hover{
   color: #8a3ab9;
-  font-size: 30px;
-  transition: 0.3s;
 }
 
 #icon-mindmap :hover{
