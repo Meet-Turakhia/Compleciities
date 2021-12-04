@@ -245,15 +245,49 @@ function addMarker(req, res) {
 function editMarker(req, res) {
     Marker.findOneAndUpdate({ _id: req.body.markerId }, req.body, { new: true }, (err, doc) => {
         if (!err) {
-            res.redirect("/admin/" + globalPassword);
+            CategoryRelation.deleteMany({ marker_title: req.body.title }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
+                if (!categoryrelationDeleteErr) {
+                    var categoryrelation = new CategoryRelation();
+                    if (typeof (req.body.categoryDropdown) == "object") {
+                        var allRelations = [];
+                        req.body.categoryDropdown.forEach(category => {
+                            var relation = new Object();
+                            relation.marker_title = req.body.title;
+                            relation.category_id = category;
+                            allRelations.push(relation);
+                        });
+                        categoryrelation.collection.insertMany(allRelations, (err, docs) => {
+                            if (!err) {
+                                res.redirect("/admin/" + globalPassword);
+                            } else {
+                                console.log("Following error occured while adding relation in database: " + err);
+                            }
+                        });
+                    } else {
+                        categoryrelation.marker_title = req.body.title;
+                        categoryrelation.category_id = req.body.categoryDropdown;
+                        categoryrelation.save((err, doc) => {
+                            if (!err) {
+                                res.redirect("/admin/" + globalPassword);
+                            } else {
+                                console.log("Following error occured while adding relation in database: " + err);
+                            }
+                        });
+                    }
+                } else {
+                    console.log("Following error occured while deleting the categoryrelation data before updating: " + categoryrelationDeleteErr);
+                }
+            });
         } else {
             console.log("Following error occured while updating the marker data: " + err);
         }
     });
     Brief.findOne({ marker_id: req.body.markerId }, (err, doc) => {
         if (!err) {
-            doc.marker_title = req.body.title;
-            doc.save();
+            if (doc != null) {
+                doc.marker_title = req.body.title;
+                doc.save();
+            }
         } else {
             console.log("Following error occured while updating the marker data in Brief Collection: " + err);
         }
