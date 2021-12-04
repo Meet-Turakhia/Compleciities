@@ -433,7 +433,13 @@ function addCategory(req, res) {
 function deleteCategory(req, res) {
     Category.findByIdAndRemove(req.body.categoryId, (err, doc) => {
         if (!err) {
-            res.redirect("/admin/" + globalPassword);
+            CategoryRelation.deleteMany({ category_id: req.body.categoryId }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
+                if (!categoryrelationDeleteErr) {
+                    res.redirect("/admin/" + globalPassword);
+                }else{
+                    console.log("Following error occured while deleting the categoryrelation(s): " + categoryrelationDeleteErr);
+                }
+            });
         } else {
             console.log("Following error occured while deleting the category: " + err);
         }
