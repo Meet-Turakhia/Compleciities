@@ -45,11 +45,20 @@
 
         <div id="map">
 
-            {{#if showSettings}}
-
             <!-- setting buttons -->
             <div class="setting-buttons">
-                <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
+                <span data-bs-toggle="modal" data-bs-target="#filterOptionsModal">
+                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Filter Options">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+
+            {{#if showSettings}}
+
+            <div class="setting-buttons">
+                <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                     data-bs-toggle="tooltip" data-bs-placement="right" title="Set Location" onclick="setLocation();">
                     <i class="fa fa-map-pin" aria-hidden="true"></i>
                 </button>
@@ -543,8 +552,8 @@
     <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">
     <input type="password" class="form-control" id="categoryData" value="{{categoryData}}" readonly="true"
         hidden="true">
-    <input type="password" class="form-control" id="categoryrelationData" value="{{categoryrelationData}}" readonly="true"
-        hidden="true">
+    <input type="password" class="form-control" id="categoryrelationData" value="{{categoryrelationData}}"
+        readonly="true" hidden="true">
     <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
     <input type="password" class="form-control" id="userData" value="{{userData}}" readonly="true" hidden="true">
 
