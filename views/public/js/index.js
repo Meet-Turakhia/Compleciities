@@ -375,10 +375,15 @@ $("#paste-set-location").change(function () {
 
 
 // marker options, category options and marker brief desired settings
+var markerOptionsModalOptionsCalledOnce = false;
 function markerOptionsModalOptions() {
-    setCategoryDropdown();
+    if (markerOptionsModalOptionsCalledOnce == false) {
+        setCategoryDropdown();
+    }
+
     document.getElementById("add").click();
     mapScrollDragDisable();
+    markerOptionsModalOptionsCalledOnce = true;
 }
 
 function categoryOptionsModalOptions() {
