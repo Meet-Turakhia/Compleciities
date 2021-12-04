@@ -334,6 +334,10 @@ function setMarkerOptionsFormData() {
     $("#paste-set-location").prop('checked', false);
     latlabel.style.color = "black";
     langlabel.style.color = "black";
+    var categoryDropdownOptions = categoryDropdown.options;
+    Array.from(categoryDropdownOptions).forEach(option => {
+        option.selected = null;
+    });
 
     markerData.forEach(marker => {
         if (marker.title == selectedTitle) {
