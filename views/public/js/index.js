@@ -319,6 +319,9 @@ function setSelectTitleData() {
 function setMarkerOptionsFormData() {
     var markerData = document.getElementById("markerData").value;
     markerData = JSON.parse(markerData);
+    var categoryrelationData = document.getElementById("categoryrelationData").value;
+    categoryrelationData = JSON.parse(categoryrelationData);
+    var categoryDropdown = document.getElementById("category-dropdown");
     var selectedTitle = document.getElementById("select-title").value;
     var zoom = document.getElementById("zoom");
     var description = document.getElementById("description");
@@ -339,6 +342,17 @@ function setMarkerOptionsFormData() {
             markerId.value = marker._id;
             latitude.value = marker.latitude;
             longitude.value = marker.longitude;
+        }
+    });
+
+    categoryrelationData.forEach(categoryrelation => {
+        if(categoryrelation.marker_title == selectedTitle){
+            var categoryDropdownOptions = categoryDropdown.options;
+            Array.from(categoryDropdownOptions).forEach(option => {
+                if(option.value == categoryrelation.category_id){
+                    option.selected = "selected";
+                }
+            });
         }
     });
 }
