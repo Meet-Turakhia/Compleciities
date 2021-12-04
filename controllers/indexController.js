@@ -312,7 +312,13 @@ function deleteMarker(req, res) {
             });
             Brief.findOneAndRemove({ marker_id: req.body.markerId }, (briefErr, briefDoc) => {
                 if (!briefErr) {
-                    res.redirect("/admin/" + globalPassword);
+                    CategoryRelation.deleteMany({ marker_title: req.body.title }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
+                        if (!categoryrelationDeleteErr) {
+                            res.redirect("/admin/" + globalPassword);
+                        } else {
+                            console.log("Following error occured while deleting the categoryrelation data: " + categoryrelationDeleteErr);
+                        }
+                    });
                 } else {
                     console.log("Following error occured while deleting the brief data of this respective marker: " + briefErr);
                 }
