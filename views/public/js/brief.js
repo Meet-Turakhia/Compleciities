@@ -18,7 +18,7 @@ function pauseAllVideos() {
     let allVids = $("#brief-flexslider").find('.flexslider-item');
     allVids.each(function (index, el) {
         if (index !== 0) {
-            vid = $(allVids).find('video')[0];
+            vid = $(allVids).find('video')[index];
             if(vid != undefined){
                 vid.pause();
             }
