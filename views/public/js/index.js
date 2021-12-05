@@ -81,7 +81,8 @@ const markerLayer = L.geoJSON(marker, {
         return L.marker(latlng, { icon: myIcon });
     }
 });
-markerLayer.addTo(map)
+markerLayer.addTo(map);
+var filterMarkerLayer = markerLayer;
 
 
 function flyToMarker() {
@@ -1084,4 +1085,74 @@ function executeAll(option) {
 // when selecting custom category
 function customCategorySelect() {
     $("input[name = showRemoveAll]").prop('checked', false);
+}
+
+
+// filter function
+function filter() {
+    var markerData = document.getElementById("markerData").value;
+    markerData = JSON.parse(markerData);
+    var categoryrelationData = document.getElementById("categoryrelationData").value;
+    categoryrelationData = JSON.parse(categoryrelationData);
+    var checkedCategoryCheckboxes = $('input[name=filterOptionsCategoryCheckboxes]:checked');
+
+    var checkedCategoryIdList = [];
+    checkedCategoryCheckboxes.each(i => {
+        checkedCategoryIdList.push(checkedCategoryCheckboxes[i].value);
+    });
+
+    var filteredMarkersList = [];
+    categoryrelationData.forEach(categoryrelation => {
+        if (checkedCategoryIdList.includes(categoryrelation.category_id)) {
+            filteredMarkersList.push(categoryrelation.marker_title);
+        }
+    });
+
+    var filteredMarkerData = [];
+    markerData.forEach(marker => {
+        if (filteredMarkersList.includes(marker.title)) {
+            filteredMarkerData.push(marker);
+        }
+    });
+
+    // assigning the markers data for rendering
+    var marker = [];
+    filteredMarkerData.forEach(element => {
+        var categoryList = [];
+        categoryrelationData.forEach(categoryrelation => {
+            if (categoryrelation.marker_title == element.title) {
+                categoryList.push(categoryDict[categoryrelation.category_id]);
+            }
+        });
+        categoryString = categoryList.toString();
+        categoryString = categoryString.replace(",", ", ");
+
+        marker.push({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [element.longitude, element.latitude],
+                "zoom": element.zoom_level,
+            },
+            "properties": {
+                "title": element.title,
+                "description": element.description,
+                "category": "Category(s): " + categoryString,
+                "link": "/brief/" + element.title.replace(/\s/g, "-"),
+            }
+        });
+    });
+
+    map.removeLayer(filterMarkerLayer);
+    const markerLayer = L.geoJSON(marker, {
+        onEachFeature: onEachFeature,
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, { icon: myIcon });
+        }
+    });
+    markerLayer.addTo(map);
+    filterMarkerLayer = markerLayer;
+
+    mapScrollDragEnable();
+    $('#filterOptionsModal').modal('hide');
 }
