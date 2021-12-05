@@ -265,8 +265,13 @@
 
 
     {{!-- using hidden input to pass all markers data and brief data to markers.js file and index.js file --}}
-    <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">
-    <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
+    <form>
+
+        <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true"
+            hidden="true">
+        <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
+        
+    </form>
 
 
     <!-- javascript -->

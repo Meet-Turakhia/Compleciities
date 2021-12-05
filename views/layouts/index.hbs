@@ -615,13 +615,18 @@
     {{!-- using hidden input to pass all markers data, category data and brief data to markers.js file and index.js file
     and user data
     for the same --}}
-    <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true" hidden="true">
-    <input type="password" class="form-control" id="categoryData" value="{{categoryData}}" readonly="true"
-        hidden="true">
-    <input type="password" class="form-control" id="categoryrelationData" value="{{categoryrelationData}}"
-        readonly="true" hidden="true">
-    <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
-    <input type="password" class="form-control" id="userData" value="{{userData}}" readonly="true" hidden="true">
+    <form>
+
+        <input type="password" class="form-control" id="markerData" value="{{markerData}}" readonly="true"
+            hidden="true">
+        <input type="password" class="form-control" id="categoryData" value="{{categoryData}}" readonly="true"
+            hidden="true">
+        <input type="password" class="form-control" id="categoryrelationData" value="{{categoryrelationData}}"
+            readonly="true" hidden="true">
+        <input type="password" class="form-control" id="briefData" value="{{briefData}}" readonly="true" hidden="true">
+        <input type="password" class="form-control" id="userData" value="{{userData}}" readonly="true" hidden="true">
+        
+    </form>
 
     <!-- leaflet js -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
