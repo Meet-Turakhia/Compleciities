@@ -19,7 +19,12 @@ function pauseAllVideos() {
     allVids.each(function (index, el) {
         if (index !== 0) {
             vid = $(allVids).find('video')[index];
-            if(vid != undefined){
+            if (vid != undefined) {
+                vid.pause();
+            }
+        } else {
+            vid = $(allVids).find('video')[0];
+            if (vid != undefined) {
                 vid.pause();
             }
         }
