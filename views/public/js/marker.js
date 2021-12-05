@@ -23,7 +23,7 @@ markerData.forEach(element => {
         }
     });
     categoryString = categoryList.toString();
-    categoryString = categoryString.replace(",", ", ");
+    categoryString = categoryString.replaceAll(",", ", ");
 
     marker.push({
         "type": "Feature",
