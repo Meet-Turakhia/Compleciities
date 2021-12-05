@@ -48,7 +48,7 @@
             <!-- setting buttons -->
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#filterOptionsModal">
-                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
+                    <button name="filterButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Filter Options"
                         onclick="filterOptionModalOptions();">
                         <i class="fa fa-filter" aria-hidden="true"></i>
@@ -59,7 +59,7 @@
             {{#if showSettings}}
 
             <div class="setting-buttons">
-                <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                <button name="locationButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                     data-bs-toggle="tooltip" data-bs-placement="right" title="Set Location" onclick="setLocation();">
                     <i class="fa fa-map-pin" aria-hidden="true"></i>
                 </button>
@@ -67,7 +67,7 @@
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
-                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="markerButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Options"
                         onclick="markerOptionsModalOptions();">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -77,7 +77,7 @@
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#categoryOptionsModal">
-                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="categoryButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Category Options"
                         onclick="categoryOptionsModalOptions();">
                         <i class="fa fa-list" aria-hidden="true"></i>
@@ -87,7 +87,7 @@
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerBriefModal">
-                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="briefButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Brief"
                         onclick="markerBriefModalOptions();">
                         <i class="fa fa-file-text" aria-hidden="true"></i>
@@ -97,7 +97,7 @@
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerBriefUserModal">
-                    <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="userButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="User Options"
                         onclick="markerBriefUserOptions();">
                         <i class="fa fa-user" aria-hidden="true"></i>
