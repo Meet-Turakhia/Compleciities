@@ -116,6 +116,7 @@ router.get("/admin/:password", (req, res) => {
                                             res.render("layouts/index", {
                                                 markerData: JSON.stringify(markerDocs),
                                                 categoryData: JSON.stringify(categoryDocs),
+                                                categoryJsonData: categoryDocs,
                                                 categoryrelationData: JSON.stringify(categoryrelationDocs),
                                                 briefData: JSON.stringify(briefDocs),
                                                 userData: JSON.stringify(userDocs),
@@ -437,7 +438,7 @@ function deleteCategory(req, res) {
             CategoryRelation.deleteMany({ category_id: req.body.categoryId }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
                 if (!categoryrelationDeleteErr) {
                     res.redirect("/admin/" + globalPassword);
-                }else{
+                } else {
                     console.log("Following error occured while deleting the categoryrelation(s): " + categoryrelationDeleteErr);
                 }
             });
