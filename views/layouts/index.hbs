@@ -557,7 +557,7 @@
 
                         <div class="modal-body para-font">
 
-                            <div class="row row-cols-2 fs-6">
+                            <div class="row row-cols-2 mb-2 fs-6">
 
                                 <div class="form-check d-flex justify-content-center">
                                     <input class="form-check-input form-options-checkbox" name="showRemoveAll"
@@ -575,6 +575,21 @@
                                     </label>
                                 </div>
 
+                            </div>
+
+                            <div class="row row-cols-3 px-3 fs-6">
+
+                                {{#each categoryJsonData}}
+                            
+                                <div class="form-check">
+                                    <input class="form-check-input" name="showRemoveAll" type="checkbox" value="{{this._id}}" id="{{this.category}}">
+                                    <label class="form-check-label" for="{{this.category}}">
+                                        {{this.category}}
+                                    </label>
+                                </div>
+
+                                {{/each}}
+                            
                             </div>
 
                         </div>
