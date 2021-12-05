@@ -146,11 +146,10 @@ body {
   display: block;
   display: -webkit-box;
   max-width: 400px;
-  height: 30px;
+  height: auto;
   margin: 0 auto;
   line-height: 1.2;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  word-wrap: break-word;
 }
