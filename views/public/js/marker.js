@@ -35,7 +35,7 @@ markerData.forEach(element => {
         "properties": {
             "title": element.title,
             "description": element.description,
-            "category": "Category: " + categoryString,
+            "category": "Category(s): " + categoryString,
             "link": "/brief/" + element.title.replace(/\s/g, "-"),
         }
     });
