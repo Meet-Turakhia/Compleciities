@@ -1072,6 +1072,16 @@ function setCategoryDropdown() {
 
 
 // execute all function
-function executeAll(option){
-    $("input[name = filterOptionsCategoryCheckboxes]").prop('checked', false);
+function executeAll(option) {
+    if (option == "showall") {
+        $("input[name = filterOptionsCategoryCheckboxes]").prop('checked', true);
+    } else {
+        $("input[name = filterOptionsCategoryCheckboxes]").prop('checked', false);
+    }
+}
+
+
+// when selecting custom category
+function customCategorySelect() {
+    $("input[name = showRemoveAll]").prop('checked', false);
 }

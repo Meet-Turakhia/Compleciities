@@ -580,16 +580,18 @@
                             <div class="row row-cols-3 px-3 fs-6">
 
                                 {{#each categoryJsonData}}
-                            
+
                                 <div class="form-check">
-                                    <input class="form-check-input" name="filterOptionsCategoryCheckboxes" type="checkbox" value="{{this._id}}" id="{{this.category}}">
+                                    <input class="form-check-input" name="filterOptionsCategoryCheckboxes"
+                                        type="checkbox" value="{{this._id}}" id="{{this.category}}"
+                                        onclick="customCategorySelect();">
                                     <label class="form-check-label" for="{{this.category}}">
                                         {{this.category}}
                                     </label>
                                 </div>
 
                                 {{/each}}
-                            
+
                             </div>
 
                         </div>
