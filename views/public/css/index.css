@@ -151,6 +151,6 @@ body {
   line-height: 1.2;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: scroll;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
