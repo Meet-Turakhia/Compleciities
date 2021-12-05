@@ -54,6 +54,7 @@ function makePopupContent(marker) {
 
         <h4 class = 'head-font marker-popup'>${marker.properties.title}</h4>
         <p class = 'para-font marker-popup'>${marker.properties.description}</p>
+        <p class = 'para-font marker-popup'>${marker.properties.category}</p>
         <div class = "learn-more">
             <a href = "${marker.properties.link}">Learn More</a>
         </div>
