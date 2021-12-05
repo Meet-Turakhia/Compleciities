@@ -561,7 +561,7 @@
 
                                 <div class="form-check d-flex justify-content-center">
                                     <input class="form-check-input form-options-checkbox" name="showRemoveAll"
-                                        type="radio" value="" id="showAll">
+                                        type="radio" value="showall" id="showAll" onclick="executeAll(this.value);">
                                     <label class="form-check-label" for="showAll">
                                         Show All
                                     </label>
@@ -569,7 +569,7 @@
 
                                 <div class="form-check d-flex justify-content-center">
                                     <input class="form-check-input form-options-checkbox" name="showRemoveAll"
-                                        type="radio" value="" id="removeAll">
+                                        type="radio" value="removeall" id="removeAll" onclick="executeAll(this.value);">
                                     <label class="form-check-label" for="removeAll">
                                         Remove All
                                     </label>
@@ -582,7 +582,7 @@
                                 {{#each categoryJsonData}}
                             
                                 <div class="form-check">
-                                    <input class="form-check-input" name="showRemoveAll" type="checkbox" value="{{this._id}}" id="{{this.category}}">
+                                    <input class="form-check-input" name="filterOptionsCategoryCheckboxes" type="checkbox" value="{{this._id}}" id="{{this.category}}">
                                     <label class="form-check-label" for="{{this.category}}">
                                         {{this.category}}
                                     </label>

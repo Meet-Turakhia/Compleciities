@@ -1069,3 +1069,9 @@ function setCategoryDropdown() {
         categoryDropdown.appendChild(option);
     });
 }
+
+
+// execute all function
+function executeAll(option){
+    $("input[name = filterOptionsCategoryCheckboxes]").prop('checked', false);
+}
