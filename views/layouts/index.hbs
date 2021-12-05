@@ -49,7 +49,8 @@
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#filterOptionsModal">
                     <button type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
-                        data-bs-toggle="tooltip" data-bs-placement="right" title="Filter Options">
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Filter Options"
+                        onclick="filterOptionModalOptions();">
                         <i class="fa fa-filter" aria-hidden="true"></i>
                     </button>
                 </span>
@@ -550,7 +551,8 @@
 
                         <div class="modal-header">
                             <h5 class="modal-title head-font" id="filterOptionsModalLabel">Filter Options</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onclick="mapScrollDragEnable();"></button>
                         </div>
 
                         <div class="modal-body para-font">
@@ -559,7 +561,7 @@
                                 <div class="form-check d-flex justify-content-center">
                                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                     <label class="form-check-label" for="defaultCheck1">
-                                         Default checkbox
+                                        Default checkbox
                                     </label>
                                 </div>
 
@@ -574,7 +576,8 @@
                         </div>
 
                         <div class="modal-footer para-font">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                onclick="mapScrollDragEnable();">Close</button>
                             <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
 

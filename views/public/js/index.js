@@ -351,10 +351,10 @@ function setMarkerOptionsFormData() {
     });
 
     categoryrelationData.forEach(categoryrelation => {
-        if(categoryrelation.marker_title == selectedTitle){
+        if (categoryrelation.marker_title == selectedTitle) {
             var categoryDropdownOptions = categoryDropdown.options;
             Array.from(categoryDropdownOptions).forEach(option => {
-                if(option.value == categoryrelation.category_id){
+                if (option.value == categoryrelation.category_id) {
                     option.selected = "selected";
                 }
             });
@@ -413,6 +413,11 @@ function categoryOptionsModalOptions() {
 
 function markerBriefModalOptions() {
     document.getElementById("brief-add").click();
+    mapScrollDragDisable();
+}
+
+
+function filterOptionModalOptions() {
     mapScrollDragDisable();
 }
 
