@@ -287,7 +287,7 @@
                                         Name:</label>
                                     <input name="category" type="text" class="form-control" id="category"
                                         placeholder="Enter Category (unique)" autocomplete="off" required="true"
-                                        onchange="categoryUsed();" maxlength="18">
+                                        onchange="categoryUsed();">
                                     <label id="category-used-label" class="form-check-label" style="font-size: 13px;"
                                         for="category-used-label" hidden="true">Category already in use, try something
                                         else!</label>
@@ -579,11 +579,11 @@
 
                             <hr>
 
-                            <div class="row row-cols-3 px-3 fs-6">
+                            <div class="row row-cols-2 px-3 fs-6">
 
                                 {{#each categoryJsonData}}
 
-                                <div class="form-check">
+                                <div class="form-check d-flex justify-content-center">
                                     <input class="form-check-input" name="filterOptionsCategoryCheckboxes"
                                         type="checkbox" value="{{this._id}}" id="{{this.category}}"
                                         onclick="customCategorySelect();">
