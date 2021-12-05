@@ -66,6 +66,7 @@ router.get("/", (req, res) => {
                                             res.render("layouts/index", {
                                                 markerData: JSON.stringify(markerDocs),
                                                 categoryData: JSON.stringify(categoryDocs),
+                                                categoryJsonData: categoryDocs,
                                                 categoryrelationData: JSON.stringify(categoryrelationDocs),
                                                 briefData: JSON.stringify(briefDocs),
                                                 userData: JSON.stringify(userDocs),
