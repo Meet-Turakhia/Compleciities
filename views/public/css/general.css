@@ -21,7 +21,7 @@
 /* setting buttons style */
 .setting-buttons{
   position: relative; 
-  z-index: 1000000 !important;
+  z-index: 1000 !important;
   width: 0px;
 }
 
