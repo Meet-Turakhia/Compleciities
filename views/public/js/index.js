@@ -1156,3 +1156,13 @@ function filter() {
     mapScrollDragEnable();
     $('#filterOptionsModal').modal('hide');
 }
+
+
+// auto hide bootstrap tooltip after 1 second
+$(function () {
+    $(document).on('shown.bs.tooltip', function (e) {
+        setTimeout(function () {
+            $(e.target).tooltip('hide');
+        }, 100);
+    });
+});
