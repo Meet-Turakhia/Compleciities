@@ -255,56 +255,56 @@
 
                         <div class="modal-body">
 
-                            <form id="categoryOptionsForm" class="para-font" action="/" method="POST"></form>
+                            <form id="categoryOptionsForm" class="para-font" action="/" method="POST">
 
-                            <div class="row">
+                                <div class="row">
 
-                                <div class="col-3 fs-6 mb-3">
-                                    <label class="form-check-label" for="select option">SELECT OPTION:</label>
+                                    <div class="col-3 fs-6 mb-3">
+                                        <label class="form-check-label" for="select option">SELECT OPTION:</label>
+                                    </div>
+                                    <div class="col fs-6 mx-3">
+                                        <input class="form-check-input cursor-pointer" type="radio"
+                                            name="categoryoption" id="addCategory" value="add" checked="true"
+                                            onclick="toggleCategoryOptionForms(this.value);">
+                                        <label class="form-check-label" for="addCategory">Add</label>
+                                    </div>
+                                    <div class="col fs-6 ml-3">
+                                        <input class="form-check-input cursor-pointer" type="radio"
+                                            name="categoryoption" id="deleteCategory" value="delete"
+                                            onclick="toggleCategoryOptionForms(this.value);">
+                                        <label class="form-check-label" for="deleteCategory">Delete</label>
+                                    </div>
+
                                 </div>
-                                <div class="col fs-6 mx-3">
-                                    <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
-                                        id="addCategory" value="add" checked="true"
-                                        onclick="toggleCategoryOptionForms(this.value);">
-                                    <label class="form-check-label" for="addCategory">Add</label>
+
+                                <div class="my-2">
+                                    <label id="select-category-label" for="select-category" class="form-label fs-6"
+                                        hidden="true">Select
+                                        Category:</label>
+                                    <select id="select-category" class="form-select" name="selectCategory"
+                                        aria-label="select-category" onchange="setSelectCategoryId();"
+                                        autocomplete="off" required="true" hidden="true">
+                                        <option selected>Select Category</option>
+                                    </select>
                                 </div>
-                                <div class="col fs-6 ml-3">
-                                    <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
-                                        id="deleteCategory" value="delete"
-                                        onclick="toggleCategoryOptionForms(this.value);">
-                                    <label class="form-check-label" for="deleteCategory">Delete</label>
+
+                                <div class="my-2">
+                                    <label id="category-label" for="category" class="form-label fs-6">Category
+                                        Name:</label>
+                                    <input name="category" type="text" class="form-control" id="category"
+                                        placeholder="Enter Category (unique)" autocomplete="off" required="true"
+                                        onchange="categoryUsed();">
+                                    <label id="category-used-label" class="form-check-label" style="font-size: 13px;"
+                                        for="category-used-label" hidden="true">Category already in use, try something
+                                        else!</label>
                                 </div>
 
-                            </div>
-
-                            <div class="my-2">
-                                <label id="select-category-label" for="select-category" class="form-label fs-6"
-                                    hidden="true">Select
-                                    Category:</label>
-                                <select id="select-category" class="form-select" name="selectCategory"
-                                    aria-label="select-category" onchange="setSelectCategoryId();" autocomplete="off"
-                                    required="true" hidden="true">
-                                    <option selected>Select Category</option>
-                                </select>
-                            </div>
-
-                            <div class="my-2">
-                                <label id="category-label" for="category" class="form-label fs-6">Category
-                                    Name:</label>
-                                <input name="category" type="text" class="form-control" id="category"
-                                    placeholder="Enter Category (unique)" autocomplete="off" required="true"
-                                    onchange="categoryUsed();">
-                                <label id="category-used-label" class="form-check-label" style="font-size: 13px;"
-                                    for="category-used-label" hidden="true">Category already in use, try something
-                                    else!</label>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    onclick="mapScrollDragEnable();">Close</button>
-                                <button id="category-options-submit-button" type="submit" class="btn btn-dark"
-                                    onclick="return categoryOptionsSubmitVerification();">Submit</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        onclick="mapScrollDragEnable();">Close</button>
+                                    <button id="category-options-submit-button" type="submit" class="btn btn-dark"
+                                        onclick="return categoryOptionsSubmitVerification();">Submit</button>
+                                </div>
 
                             </form>
 
