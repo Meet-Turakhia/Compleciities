@@ -48,7 +48,8 @@
             <!-- setting buttons -->
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#filterOptionsModal">
-                    <button name="filterButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
+                    <button name="filterButton" type="button"
+                        class="btn btn-outline-dark btn-circle btn-lg mt-4 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Filter Options"
                         onclick="filterOptionModalOptions();">
                         <i class="fa fa-filter" aria-hidden="true"></i>
@@ -59,15 +60,17 @@
             {{#if showSettings}}
 
             <div class="setting-buttons">
-                <button name="locationButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
-                    data-bs-toggle="tooltip" data-bs-placement="right" title="Set Location" onclick="setLocation();">
+                <button name="locationButton" type="button"
+                    class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Set Location" onclick="setLocation();">
                     <i class="fa fa-map-pin" aria-hidden="true"></i>
                 </button>
             </div>
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerOptionsModal">
-                    <button name="markerButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="markerButton" type="button"
+                        class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Options"
                         onclick="markerOptionsModalOptions();">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -77,7 +80,8 @@
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#categoryOptionsModal">
-                    <button name="categoryButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="categoryButton" type="button"
+                        class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Category Options"
                         onclick="categoryOptionsModalOptions();">
                         <i class="fa fa-list" aria-hidden="true"></i>
@@ -87,7 +91,8 @@
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerBriefModal">
-                    <button name="briefButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="briefButton" type="button"
+                        class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="Marker Brief"
                         onclick="markerBriefModalOptions();">
                         <i class="fa fa-file-text" aria-hidden="true"></i>
@@ -97,7 +102,8 @@
 
             <div class="setting-buttons">
                 <span data-bs-toggle="modal" data-bs-target="#markerBriefUserModal">
-                    <button name="userButton" type="button" class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
+                    <button name="userButton" type="button"
+                        class="btn btn-outline-dark btn-circle btn-lg mt-3 mb-1 mx-3 custom-shadow"
                         data-bs-toggle="tooltip" data-bs-placement="right" title="User Options"
                         onclick="markerBriefUserOptions();">
                         <i class="fa fa-user" aria-hidden="true"></i>
@@ -119,13 +125,13 @@
                                 onclick="mapScrollDragEnable();"></button>
                         </div>
 
-                        <form id="markerOptionsForm" class="para-font" action="/" method="POST">
+                        {{!-- using hidden input to store id of markers for edit and delete --}}
+                        <input type="password" class="form-control" name="markerId" id="marker-id" readonly="true"
+                            hidden="true">
 
-                            {{!-- using hidden input to store id of markers for edit and delete --}}
-                            <input type="password" class="form-control" name="markerId" id="marker-id" readonly="true"
-                                hidden="true">
+                        <div class="modal-body">
 
-                            <div class="modal-body">
+                            <form id="markerOptionsForm" class="para-font" action="/" method="POST">
 
                                 <div class="row">
 
@@ -216,16 +222,16 @@
                                         placeholder="Enter Description" autocomplete="off" required="true"></textarea>
                                 </div>
 
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        onclick="mapScrollDragEnable();">Close</button>
+                                    <button id="marker-options-submit-button" type="submit"
+                                        class="btn btn-dark">Submit</button>
+                                </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    onclick="mapScrollDragEnable();">Close</button>
-                                <button id="marker-options-submit-button" type="submit"
-                                    class="btn btn-dark">Submit</button>
-                            </div>
+                            </form>
 
-                        </form>
+                        </div>
 
                     </div>
                 </div>
@@ -243,56 +249,54 @@
                                 onclick="mapScrollDragEnable();"></button>
                         </div>
 
-                        <form id="categoryOptionsForm" class="para-font" action="/" method="POST">
+                        {{!-- using hidden input to store id of markers for edit and delete --}}
+                        <input type="password" class="form-control" name="categoryId" id="category-id" readonly="true"
+                            hidden="true">
 
-                            {{!-- using hidden input to store id of markers for edit and delete --}}
-                            <input type="password" class="form-control" name="categoryId" id="category-id"
-                                readonly="true" hidden="true">
+                        <div class="modal-body">
 
-                            <div class="modal-body">
+                            <form id="categoryOptionsForm" class="para-font" action="/" method="POST"></form>
 
-                                <div class="row">
+                            <div class="row">
 
-                                    <div class="col-3 fs-6 mb-3">
-                                        <label class="form-check-label" for="select option">SELECT OPTION:</label>
-                                    </div>
-                                    <div class="col fs-6 mx-3">
-                                        <input class="form-check-input cursor-pointer" type="radio"
-                                            name="categoryoption" id="addCategory" value="add" checked="true"
-                                            onclick="toggleCategoryOptionForms(this.value);">
-                                        <label class="form-check-label" for="addCategory">Add</label>
-                                    </div>
-                                    <div class="col fs-6 ml-3">
-                                        <input class="form-check-input cursor-pointer" type="radio"
-                                            name="categoryoption" id="deleteCategory" value="delete"
-                                            onclick="toggleCategoryOptionForms(this.value);">
-                                        <label class="form-check-label" for="deleteCategory">Delete</label>
-                                    </div>
-
+                                <div class="col-3 fs-6 mb-3">
+                                    <label class="form-check-label" for="select option">SELECT OPTION:</label>
+                                </div>
+                                <div class="col fs-6 mx-3">
+                                    <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
+                                        id="addCategory" value="add" checked="true"
+                                        onclick="toggleCategoryOptionForms(this.value);">
+                                    <label class="form-check-label" for="addCategory">Add</label>
+                                </div>
+                                <div class="col fs-6 ml-3">
+                                    <input class="form-check-input cursor-pointer" type="radio" name="categoryoption"
+                                        id="deleteCategory" value="delete"
+                                        onclick="toggleCategoryOptionForms(this.value);">
+                                    <label class="form-check-label" for="deleteCategory">Delete</label>
                                 </div>
 
-                                <div class="my-2">
-                                    <label id="select-category-label" for="select-category" class="form-label fs-6"
-                                        hidden="true">Select
-                                        Category:</label>
-                                    <select id="select-category" class="form-select" name="selectCategory"
-                                        aria-label="select-category" onchange="setSelectCategoryId();"
-                                        autocomplete="off" required="true" hidden="true">
-                                        <option selected>Select Category</option>
-                                    </select>
-                                </div>
+                            </div>
 
-                                <div class="my-2">
-                                    <label id="category-label" for="category" class="form-label fs-6">Category
-                                        Name:</label>
-                                    <input name="category" type="text" class="form-control" id="category"
-                                        placeholder="Enter Category (unique)" autocomplete="off" required="true"
-                                        onchange="categoryUsed();">
-                                    <label id="category-used-label" class="form-check-label" style="font-size: 13px;"
-                                        for="category-used-label" hidden="true">Category already in use, try something
-                                        else!</label>
-                                </div>
+                            <div class="my-2">
+                                <label id="select-category-label" for="select-category" class="form-label fs-6"
+                                    hidden="true">Select
+                                    Category:</label>
+                                <select id="select-category" class="form-select" name="selectCategory"
+                                    aria-label="select-category" onchange="setSelectCategoryId();" autocomplete="off"
+                                    required="true" hidden="true">
+                                    <option selected>Select Category</option>
+                                </select>
+                            </div>
 
+                            <div class="my-2">
+                                <label id="category-label" for="category" class="form-label fs-6">Category
+                                    Name:</label>
+                                <input name="category" type="text" class="form-control" id="category"
+                                    placeholder="Enter Category (unique)" autocomplete="off" required="true"
+                                    onchange="categoryUsed();">
+                                <label id="category-used-label" class="form-check-label" style="font-size: 13px;"
+                                    for="category-used-label" hidden="true">Category already in use, try something
+                                    else!</label>
                             </div>
 
                             <div class="modal-footer">
@@ -302,7 +306,9 @@
                                     onclick="return categoryOptionsSubmitVerification();">Submit</button>
                             </div>
 
-                        </form>
+                            </form>
+
+                        </div>
 
                     </div>
                 </div>
