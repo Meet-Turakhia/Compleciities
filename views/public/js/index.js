@@ -1158,11 +1158,13 @@ function filter() {
 }
 
 
-// auto hide bootstrap tooltip after 1 second
-$(function () {
-    $(document).on('shown.bs.tooltip', function (e) {
-        setTimeout(function () {
-            $(e.target).tooltip('hide');
-        }, 100);
+// auto hide bootstrap tooltip after 1 second for non pc devices
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    $(function () {
+        $(document).on('shown.bs.tooltip', function (e) {
+            setTimeout(function () {
+                $(e.target).tooltip('hide');
+            }, 100);
+        });
     });
-});
+}
