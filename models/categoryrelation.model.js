@@ -10,6 +10,10 @@ var categoryrelationsSchema = new mongoose.Schema({
         type: String,
         required: "This field is required"
     },
+    marker_id: {
+        type: String,
+        required: "This field is required"
+    },
     category_id: {
         type: String,
         required: "This field is required"
