@@ -210,51 +210,16 @@ function addMarker(req, res) {
     marker.description = req.body.description;
     marker.save((err, doc) => {
         if (!err) {
-            if (typeof (req.body.categoryDropdown) == "object") {
-                var allRelations = [];
-                req.body.categoryDropdown.forEach(category => {
-                    var relation = new Object();
-                    relation.marker_title = req.body.title;
-                    relation.category_id = category;
-                    allRelations.push(relation);
-                });
-                categoryrelation.collection.insertMany(allRelations, (err, docs) => {
-                    if (!err) {
-                        res.redirect("/admin/" + globalPassword);
-                    } else {
-                        console.log("Following error occured while adding relation in database: " + err);
-                    }
-                });
-            } else {
-                categoryrelation.marker_title = req.body.title;
-                categoryrelation.category_id = req.body.categoryDropdown;
-                categoryrelation.save((err, doc) => {
-                    if (!err) {
-                        res.redirect("/admin/" + globalPassword);
-                    } else {
-                        console.log("Following error occured while adding relation in database: " + err);
-                    }
-                });
-            }
-        }
-        else {
-            console.log("Following error occured while adding new marker in database: " + err);
-        }
-    });
-}
+            Marker.findOne({ title: req.body.title }, (markerFindErr, markerFindDoc) => {
+                if (!markerFindErr) {
+                    var markerId = markerFindDoc._id.toString();
 
-
-function editMarker(req, res) {
-    Marker.findOneAndUpdate({ _id: req.body.markerId }, req.body, { new: true }, (err, doc) => {
-        if (!err) {
-            CategoryRelation.deleteMany({ marker_title: req.body.title }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
-                if (!categoryrelationDeleteErr) {
-                    var categoryrelation = new CategoryRelation();
                     if (typeof (req.body.categoryDropdown) == "object") {
                         var allRelations = [];
                         req.body.categoryDropdown.forEach(category => {
                             var relation = new Object();
                             relation.marker_title = req.body.title;
+                            relation.marker_id = markerId;
                             relation.category_id = category;
                             allRelations.push(relation);
                         });
@@ -267,6 +232,53 @@ function editMarker(req, res) {
                         });
                     } else {
                         categoryrelation.marker_title = req.body.title;
+                        categoryrelation.marker_id = markerId;
+                        categoryrelation.category_id = req.body.categoryDropdown;
+                        categoryrelation.save((err, doc) => {
+                            if (!err) {
+                                res.redirect("/admin/" + globalPassword);
+                            } else {
+                                console.log("Following error occured while adding relation in database: " + err);
+                            }
+                        });
+                    }
+                }else{
+                    console.log("Following error occured while finding the marker: " + markerFindErr);
+                }
+            });
+        }
+        else {
+            console.log("Following error occured while adding new marker in database: " + err);
+        }
+    });
+}
+
+
+function editMarker(req, res) {
+    Marker.findOneAndUpdate({ _id: req.body.markerId }, req.body, { new: true }, (err, doc) => {
+        if (!err) {
+            CategoryRelation.deleteMany({ marker_id: req.body.markerId }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
+                if (!categoryrelationDeleteErr) {
+                    var categoryrelation = new CategoryRelation();
+                    if (typeof (req.body.categoryDropdown) == "object") {
+                        var allRelations = [];
+                        req.body.categoryDropdown.forEach(category => {
+                            var relation = new Object();
+                            relation.marker_title = req.body.title;
+                            relation.marker_id = req.body.markerId;
+                            relation.category_id = category;
+                            allRelations.push(relation);
+                        });
+                        categoryrelation.collection.insertMany(allRelations, (err, docs) => {
+                            if (!err) {
+                                res.redirect("/admin/" + globalPassword);
+                            } else {
+                                console.log("Following error occured while adding relation in database: " + err);
+                            }
+                        });
+                    } else {
+                        categoryrelation.marker_title = req.body.title;
+                        categoryrelation.marker_id = req.body.markerId;
                         categoryrelation.category_id = req.body.categoryDropdown;
                         categoryrelation.save((err, doc) => {
                             if (!err) {
@@ -314,7 +326,7 @@ function deleteMarker(req, res) {
             });
             Brief.findOneAndRemove({ marker_id: req.body.markerId }, (briefErr, briefDoc) => {
                 if (!briefErr) {
-                    CategoryRelation.deleteMany({ marker_title: req.body.title }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
+                    CategoryRelation.deleteMany({ marker_id: req.body.markerId }, (categoryrelationDeleteErr, categoryrelationDeleteDoc) => {
                         if (!categoryrelationDeleteErr) {
                             res.redirect("/admin/" + globalPassword);
                         } else {
