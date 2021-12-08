@@ -337,9 +337,7 @@ function setMarkerOptionsFormData() {
     latlabel.style.color = "black";
     langlabel.style.color = "black";
     var categoryDropdownOptions = categoryDropdown.options;
-    Array.from(categoryDropdownOptions).forEach(option => {
-        option.selected = null;
-    });
+
 
     markerData.forEach(marker => {
         if (marker.title == selectedTitle) {
@@ -348,12 +346,15 @@ function setMarkerOptionsFormData() {
             markerId.value = marker._id;
             latitude.value = marker.latitude;
             longitude.value = marker.longitude;
+
+            Array.from(categoryDropdownOptions).forEach(option => {
+                option.selected = null;
+            });
         }
     });
 
     categoryrelationData.forEach(categoryrelation => {
         if (categoryrelation.marker_title == selectedTitle) {
-            var categoryDropdownOptions = categoryDropdown.options;
             Array.from(categoryDropdownOptions).forEach(option => {
                 if (option.value == categoryrelation.category_id) {
                     option.selected = "selected";
