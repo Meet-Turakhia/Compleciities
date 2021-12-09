@@ -71,7 +71,10 @@ function onEachFeature(feature, layer) {
 
 var myIcon = L.icon({
     iconUrl: "/images/marker2.svg",
+    shadowUrl: '/images/marker-shadow.png',
     iconSize: [41, 41],
+    shadowSize: [41, 41],
+    shadowAnchor: [12, 23],
 });
 
 
