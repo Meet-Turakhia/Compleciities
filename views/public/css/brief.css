@@ -15,7 +15,7 @@ body{
 #navbar-container{
   width: 100%;
   min-width: 280px;
-  border-bottom: 1px solid gray;
+  background-color: #FFD600 !important;
 }
 
 .navbar-brand{
