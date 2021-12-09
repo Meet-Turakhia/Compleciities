@@ -3,10 +3,17 @@
 
 
 $(window).on("load", function () {
+    var swipe = true;
+
+    if ($('.flexslider li').length <= 1) {
+        swipe = false;
+    }
+    
     $('.flexslider').flexslider({
         animation: "slide",
         smoothHeight: true,
         slideshow: false,
+        touch: swipe,
         before: function (slider) {
             pauseAllVideos();
         }
