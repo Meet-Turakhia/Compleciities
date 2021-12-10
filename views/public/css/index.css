@@ -80,10 +80,15 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+  .leaflet-left {
+    left: calc(50% - 32px);
+    transform: translate(-50%, 0%);
+}
+
   .leaflet-bottom .leaflet-control {
     margin-bottom: 35%;
     /* verycool */
-    margin-left: calc(50% - 20px);
+    /* margin-left: calc(50% - 20px); */
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 0 8px rgb(0 0 0 / 40%);
