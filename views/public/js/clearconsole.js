@@ -1,7 +1,7 @@
 // clear console to avoid meaningless 404 errors by leaflet.js
-var clearconsole = window.setInterval(function () {
-    console.clear();
-}, 5000);
+// var clearconsole = window.setInterval(function () {
+//     console.clear();
+// }, 5000);
 
 
 // prevent user from accessing the code on the client side
