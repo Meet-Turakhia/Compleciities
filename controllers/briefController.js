@@ -40,7 +40,7 @@ router.get("/:markerTitle", (req, res) => {
                         console.log("Following error occured while retrieving the user data: " + userErr);
                     }
                 } else {
-                    res.send("The brief of this marker is not written yet, visit sometimes later, till then keep exploring other markers, thank you!");
+                    res.render("layouts/comingsoon");
                 }
             });
         } else {
